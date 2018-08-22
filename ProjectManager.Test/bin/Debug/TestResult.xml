@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<!--This file represents the results of running a test suite-->
-<test-results name="C:\Users\Admin\ProjectManager\ProjectManager.Test\bin\Debug\ProjectManager.Test.dll" total="0" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2018-08-21" time="07:39:41">
-  <environment nunit-version="2.6.1.12217" clr-version="2.0.50727.8833" os-version="Microsoft Windows NT 6.2.9200.0" platform="Win32NT" cwd="C:\Program Files (x86)\NUnit 2.6.1\bin" machine-name="DOTNET" user="Admin" user-domain="DOTNET" />
-  <culture-info current-culture="en-IN" current-uiculture="en-US" />
-  <test-suite type="Assembly" name="C:\Users\Admin\ProjectManager\ProjectManager.Test\bin\Debug\ProjectManager.Test.dll" executed="True" result="Inconclusive" success="False" time="0.031" asserts="0" />
-</test-results>
