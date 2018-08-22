@@ -31,7 +31,8 @@ namespace ProjectManager.WebApi.Controllers
         [GcTotalAssertion(GcMetric.TotalCollections, GcGeneration.Gen2, MustBe.ExactlyEqualTo, 0.0d)]
         public HttpResponseMessage Get()
         {
-            _counter.Increment();
+            if (_counter != null)
+                _counter.Increment();
             return ToJson(ProjectManagerDB.Users.AsEnumerable());
         }
 
@@ -59,8 +60,8 @@ namespace ProjectManager.WebApi.Controllers
         [SwaggerResponse(HttpStatusCode.NotFound)]
         public HttpResponseMessage Put(int id, [FromBody]User value)
         {
-            if(ProjectManagerDB.Entry(value).State == EntityState.Added)
-            ProjectManagerDB.Entry(value).State = EntityState.Modified;
+            if (ProjectManagerDB.Entry(value).State == EntityState.Added)
+                ProjectManagerDB.Entry(value).State = EntityState.Modified;
             return ToJson(ProjectManagerDB.SaveChanges());
         }
 
