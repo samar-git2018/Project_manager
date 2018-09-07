@@ -13,7 +13,7 @@ export class ProjectListComponent implements OnInit {
 
     constructor(private projectService: ProjectService, private userSerVice: UserService, private datePipe: DatePipe) { }
 
-    column: string = 'Start_Date';
+    column: string = 'Start_Date'; 
     isDesc: boolean = false;
 
     ngOnInit() {
