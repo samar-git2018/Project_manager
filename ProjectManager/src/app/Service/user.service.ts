@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, Subject, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from 'app/Model/user';
+import { AppConstants } from 'app/Errorlogging/appconstants';
 
 const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
 
@@ -16,21 +17,22 @@ export class UserService {
     constructor(private http: HttpClient) { }
 
     postUser(User: User) {
+        //debugger;
         var body = JSON.stringify(User);
-        return this.http.post('http://localhost:51052/api/User', body, { headers: headers }).subscribe();
+        return this.http.post(AppConstants.baseURL + 'User/', body, { headers: headers });
     }
 
     putUser(id: string, User: string) {
         var body = JSON.stringify(User);
-        return this.http.put('http://localhost:51052/api/User/' + id,
-            body, { headers: headers }).subscribe();
+        return this.http.put(AppConstants.baseURL + 'User/' + id,
+            body, { headers: headers });
     }
 
     getUserList() {
-        this.http.request("GET", "http://localhost:51052/api/User/", { responseType: "json" }).subscribe(x=> this.UserList = x as User[]);
+        return this.http.request("GET", AppConstants.baseURL + 'User/', { responseType: "json" });
     }
 
     deleteUser(id: number) {
-        return this.http.delete('http://localhost:51052/api/User/' + id).subscribe();
+        return this.http.delete(AppConstants.baseURL + 'User/' + id);
     }
 }

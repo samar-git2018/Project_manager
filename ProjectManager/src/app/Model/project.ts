@@ -1,11 +1,14 @@
 ﻿export class Project {
     constructor(
-        public ProjectId: number,
+        public Project_ID: number,
         public ProjectName: string,
-        public Start_Date: String,
-        public End_Date: String,
+        public Start_Date: string,
+        public End_Date: string,
         public Priority: number,
-        public ManagerId: number,
-        public SetDate: Boolean
+        public Manager_Id: number,
+        public ManagerName: string,
+        public SetDate: Boolean,
+        public TaskCount: number,
+        public CompletedTaskCount: number,
     ) { }
 }

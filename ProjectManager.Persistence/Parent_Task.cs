@@ -15,6 +15,6 @@ namespace ProjectManager.Persistence
     public partial class Parent_Task
     {
         public int Parent_ID { get; set; }
-        public string Parent_Task1 { get; set; }
+        public string ParentTaskName { get; set; }
     }
 }

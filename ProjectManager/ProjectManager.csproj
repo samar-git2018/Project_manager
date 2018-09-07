@@ -6,15 +6,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="src\app\projects\project\filter.pipe.ts" />
     <None Remove="src\app\Service\filter.pipe.ts" />
+    <None Remove="src\app\task-list\project-filter-pipe.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="src\app\Errorlogging\appconstants.ts" />
+    <None Include="src\app\task-list\task-filter-pipe.ts" />
+    <None Include="src\app\task-list\user-filter-pipe.ts" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
+    <PackageReference Include="Moq" Version="4.9.0" />
+    <PackageReference Include="nbench" Version="1.2.2" />
     <PackageReference Include="newtonsoft.json" Version="11.0.2" />
     <PackageReference Include="NUnit.Runners" Version="3.8.0" />
     <PackageReference Include="OpenCover" Version="4.6.519" />

@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace ContactsNUnitTests.ServiceHttpResponse
+namespace ProjectManager.WebApi.Tests.ServiceHttpResponse
 {
     using NUnit.Framework;
     using System;

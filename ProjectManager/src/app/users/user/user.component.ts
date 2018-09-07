@@ -17,34 +17,45 @@ export class UserComponent implements OnInit {
 
     resetForm(form?: NgForm) {
         if (form != null)
-            form.reset();
+            form.resetForm();
         this.userService.selectedUser = {
-            User_ID: 0,
+            User_ID: null,
             First_Name: '',
             Last_Name: '',
             Employee_ID: '',
             Project_ID: 0,
             Task_ID: 0
         }
-    }    
+    }
 
     onSubmit(form: NgForm) {
-        if (form.value.User_ID == 0) {
+        //debugger;
+        if (form.value.User_ID == null) {
             console.log(form.value);
-            this.userService.postUser(form.value)
-                .add(data => {
-                    this.resetForm(form);
-                    this.userService.getUserList();
-                    alert('New User added Succcessfully');
-                })
+            var isErrorOccurred: Boolean = false;
+            if (!this.userService.UserList.find(dr => dr.Employee_ID == form.value.Employee_ID && dr.User_ID != form.value.User_ID)) {
+                this.userService.postUser(form.value)
+                    .subscribe(data => {
+                        this.resetForm(form);
+                        this.userService.getUserList().subscribe(x => { this.userService.UserList = x as User[] });
+                        alert('New User added Succcessfully');
+
+                    });
+            }
+            else
+            { alert('This Employee ID already exists for another user'); }
         }
         else {
-            this.userService.putUser(form.value.User_ID, form.value)
-                .add(data => {
-                    this.resetForm(form);
-                    this.userService.getUserList();
-                    alert('New User updated Succcessfully');
-                });
+            if (!this.userService.UserList.find(dr => dr.Employee_ID == form.value.Employee_ID && dr.User_ID != form.value.User_ID)) {
+                this.userService.putUser(form.value.User_ID, form.value)
+                    .subscribe(data => {
+                        this.resetForm(form);
+                        this.userService.getUserList().subscribe(x => { this.userService.UserList = x as User[] });
+                        alert('User updated Succcessfully');
+                    });
+            }
+            else
+            { alert('This Employee ID already exists for another user'); }
         }
     }
 }

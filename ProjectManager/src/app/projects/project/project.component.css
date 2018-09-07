@@ -15,6 +15,10 @@ input [type=text] {
 input [type=date] {
   width: 50px;
 }
+input[type=checkbox] {
+  margin-top: 2px;
+}
+
   .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
@@ -46,4 +50,9 @@ div.validation-error {
 
 button:hover, a.btn:hover {
   cursor: pointer;
+}
+
+.padding-0 {
+  padding-right:0;
+  padding-left:0;
 }

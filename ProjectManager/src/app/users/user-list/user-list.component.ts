@@ -15,7 +15,7 @@ export class UserListComponent implements OnInit {
     isDesc: boolean = false;
 
     ngOnInit() {
-        this.userService.getUserList();
+        this.userService.getUserList().subscribe(x => { this.userService.UserList = x as User[] });
     }
 
     showForEdit(user: User) {
@@ -27,8 +27,8 @@ export class UserListComponent implements OnInit {
     onDelete(id: number) {
         if (confirm('Are you sure to delete this record ?') == true) {
             this.userService.deleteUser(id)
-                .add(x => {
-                    this.userService.getUserList();
+                .subscribe(x => {
+                    this.userService.getUserList().subscribe(x => { this.userService.UserList = x as User[] });
                 })
         }
     }

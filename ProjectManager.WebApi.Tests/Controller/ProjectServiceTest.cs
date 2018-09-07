@@ -1,14 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Moq;
+using NBench;
+using Newtonsoft.Json;
 using NUnit.Framework;
-using ProjectManager.WebApi.Controllers;
 using ProjectManager.Persistence;
+using ProjectManager.WebApi.Controllers;
+using ProjectManager.WebApi.Repository;
+using ProjectManager.WebApi.Tests.TestsHelper;
+using System.Linq;
+using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Newtonsoft.Json;
-using System.Web.Http.Routing;
-using System.Net;
-using System.Data.Entity;
+using System.Web.Http.Hosting;
 
 namespace ProjectManager.WebApi.Tests.Controller
 {
@@ -18,138 +21,142 @@ namespace ProjectManager.WebApi.Tests.Controller
     [TestFixture]
     public class ProjectServiceTest
     {
+        // private Counter _counter;
         ProjectController ProjectController;
-        ProjectManagerEntities ProjectManagerDB;
-        List<Project> allProjects;
-        List<Project> Projects;
+        List<Project> expectedProjects;
         int count = 0;
+        Mock<IProjectRepository> mockRepository;
+        bool isCreateOrUpdateInvokedInRepository = false;
 
         [SetUp]
+        //[PerfSetup]
         public void Setup()
         {
-            //create an instance of contactRepository
-            ProjectManagerDB = new ProjectManagerEntities();
-
-            //Create an instance of controller
-            ProjectController = new ProjectController
-            {
-                Request = new System.Net.Http.HttpRequestMessage(),
-                Configuration = new HttpConfiguration()
-            };
+            expectedProjects = DataInitializer.GetAllProjects();
+            mockRepository = new Mock<IProjectRepository>();
         }
 
         [Test, Order(1)]
-        public void PostProject()
-        {
-            // Arrange
-            ProjectController controller = new ProjectController();
-
-            controller.Request = new HttpRequestMessage
-            {
-                RequestUri = new Uri("http://localhost:51052/api/Project")
-            };
-            controller.Configuration = new HttpConfiguration();
-            controller.Configuration.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional });
-
-            controller.RequestContext.RouteData = new HttpRouteData(
-                route: new HttpRoute(),
-                values: new HttpRouteValueDictionary { { "controller", "Projects" } });
-            ///
-            var response = ProjectController.Get();
-            Assert.IsNotNull(response);
-            var jsonString = response.Content.ReadAsStringAsync();
-            jsonString.Wait();
-            Projects = JsonConvert.DeserializeObject<List<Project>>(jsonString.Result);
-            // Act
-            Project Project = new Project() { ProjectName = "Project MIS", Start_Date = DateTime.Now, End_Date = DateTime.Now };
-            response = controller.Post(Project);
-            jsonString = response.Content.ReadAsStringAsync();
-            jsonString.Wait();
-            int isSaved = Convert.ToInt16(jsonString.Result);
-            Assert.IsTrue(isSaved > 0);
-            Assert.IsTrue(response.IsSuccessStatusCode);
-
-            response = ProjectController.Get(Projects[Projects.Count - 1].Project_ID);
-            Assert.IsNotNull(response);
-            // Assert the result  
-            List<Project> ProjectData;
-            //Assert.IsTrue(response.TryGetContentValue<Project>(out ProjectData));
-            jsonString = response.Content.ReadAsStringAsync();
-            jsonString.Wait();
-            ProjectData = JsonConvert.DeserializeObject<List<Project>>(jsonString.Result);
-            // Assert
-            Assert.IsNotNull(ProjectData[0].ProjectName);
-            Assert.IsNotNull(ProjectData[0].Start_Date);
-        }
-
-        [Test, Order(2)]
+        // [PerfBenchmark(
+        //NumberOfIterations = 3, RunMode = RunMode.Throughput,
+        //RunTimeMilliseconds = 1000, TestMode = TestMode.Measurement)]
+        // //[CounterThroughputAssertion("TestCounter", MustBe.GreaterThan, 10000000.0d)]
+        // //[MemoryAssertion(MemoryMetric.TotalBytesAllocated, MustBe.LessThanOrEqualTo, ByteConstants.ThirtyTwoKb)]
+        // [GcTotalAssertion(GcMetric.TotalCollections, GcGeneration.Gen2, MustBe.ExactlyEqualTo, 0.0d)]
         public void GetAllProject()
         {
-            // Act on Test  
-            var response = ProjectController.Get();
-            // Assert the result  
 
-            //Assert.IsTrue(response.TryGetContentValue<List<Project>>(out Projects));
+            mockRepository.Setup(x => x.Get()).Returns(() => expectedProjects);
+            ProjectController = new ProjectController(mockRepository.Object);
+            ProjectController.Request = new HttpRequestMessage()
+            {
+                Properties = { { HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration() } }
+            };
+            //ACT
+            var response = ProjectController.Get();
+
+            //ASSERT
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             var jsonString = response.Content.ReadAsStringAsync();
-            jsonString.Wait();
-            allProjects = JsonConvert.DeserializeObject<List<Project>>(jsonString.Result);
-            count = allProjects.Count;
-            Assert.True(count > 0);
+            var actual = JsonConvert.DeserializeObject<List<Project>>(jsonString.Result);
+            Assert.AreEqual(expectedProjects.Count, actual.Count);
+        }
+        [PerfCleanup]
+        public void Cleanup()
+        {
+            // does nothing
+        }
+        [Test, Order(2)]
+        public void PostProject()
+        {
+            //ARRANGE
+            var project = expectedProjects.First();
+
+            mockRepository.Setup(x => x.Post(It.IsAny<Project>())).
+                Callback(() => isCreateOrUpdateInvokedInRepository = true);
+            var controller = new ProjectController(
+                mockRepository.Object);
+            controller.Request = new HttpRequestMessage()
+            {
+                Properties = { { HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration() } }
+            };
+
+            //ACT
+            var response = controller.Post(project);
+
+            //ASSERT
+            Assert.IsTrue(isCreateOrUpdateInvokedInRepository,
+                "Post method in Repository not invoked");
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
         [Test, Order(3)]
         public void GetProjectByProjectId()
         {
-            // Act on Test 
-            // Act on Test  
-           var response = ProjectController.Get(allProjects[count - 1].Project_ID);
-            Assert.IsNotNull(response);
-            // Assert the result  
-            //Assert.IsTrue(response.TryGetContentValue<Project>(out Project));
+            var expectedProject = expectedProjects.First();
+            mockRepository.Setup(x => x.GetByID(1)).Returns(() => expectedProject);
+            ProjectController = new ProjectController(mockRepository.Object);
+            ProjectController.Request = new HttpRequestMessage()
+            {
+                Properties = { { HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration() } }
+            };
+            //ACT
+            var response = ProjectController.Get(1);
+
+            //ASSERT
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             var jsonString = response.Content.ReadAsStringAsync();
-            jsonString.Wait();
-            Projects = JsonConvert.DeserializeObject<List<Project>>(jsonString.Result);
-            Assert.IsNotNull(Projects[0].ProjectName);
-            Assert.IsNotNull(Projects[0].End_Date);
+            var actual = JsonConvert.DeserializeObject<Project>(jsonString.Result);
+            Assert.AreEqual(1, actual.Project_ID, "Wrong project id");
+        }
+        [Test, Order(3)]
+        public void GetProjectByProjectIdNotFound()
+        {
+            mockRepository.Setup(x => x.GetByID(6)).Returns(() => null);
+            ProjectController = new ProjectController(mockRepository.Object);
+            ProjectController.Request = new HttpRequestMessage()
+            {
+                Properties = { { HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration() } }
+            };
+            //ACT
+            var response = ProjectController.Get(6);
+
+            //ASSERT
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
 
         [Test, Order(4)]
         public void PutProject()
         {
-            
-            var response = ProjectController.Get(allProjects[count - 1].Project_ID);
-            Assert.IsNotNull(response);
-            // Assert the result  
-            //Assert.IsTrue(response.TryGetContentValue<Project>(out Project));
-            var jsonString = response.Content.ReadAsStringAsync();
-            jsonString.Wait();
-            Projects = JsonConvert.DeserializeObject<List<Project>>(jsonString.Result);
-            Projects[0].ProjectName = "Project test";
-            // Act  
-            response = ProjectController.Put(count -1, Projects[0]);            
+            // Arrange   
+            mockRepository.Setup(x => x.Post(It.IsAny<Project>())).
+                Callback(() => isCreateOrUpdateInvokedInRepository = true);
+            ProjectController.Request = new HttpRequestMessage()
+            {
+                Properties = { { HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration() } }
+            };
+            // Act
+            Project updatedProject = expectedProjects[0];
+            updatedProject.ProjectName = "NY PEIC";
+            var response = ProjectController.Put(updatedProject.Project_ID, updatedProject);
+            // Assert
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-            Assert.IsNotNull(response.Content);
         }
 
         [Test, Order(5)]
         public void DeleteProject()
         {
-            var response = ProjectController.Get();
-            Assert.IsNotNull(response);
-            var jsonString = response.Content.ReadAsStringAsync();
-            jsonString.Wait();
-            Projects = JsonConvert.DeserializeObject<List<Project>>(jsonString.Result);
-            response = ProjectController.Delete(allProjects[count - 1].Project_ID);
-            jsonString = response.Content.ReadAsStringAsync();
-            jsonString.Wait();
-            int isDeleted = Convert.ToInt16(jsonString.Result);
-            Assert.IsTrue(isDeleted > 0 );
+            mockRepository.Setup(x => x.Delete(1)).
+              Callback(() => isCreateOrUpdateInvokedInRepository = true);
+            ProjectController = new ProjectController(
+               mockRepository.Object);
+            ProjectController.Request = new HttpRequestMessage()
+            {
+                Properties = { { HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration() } }
+            };
+            // Remove last Product
+            var actualResult = ProjectController.Delete(1);
+            Assert.AreEqual(actualResult.StatusCode, HttpStatusCode.OK);
         }
-
-
-        
     }
 }

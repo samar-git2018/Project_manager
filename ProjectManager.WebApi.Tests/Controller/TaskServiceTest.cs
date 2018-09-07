@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Moq;
+using NBench;
+using Newtonsoft.Json;
 using NUnit.Framework;
-using ProjectManager.WebApi.Controllers;
 using ProjectManager.Persistence;
+using ProjectManager.WebApi.Controllers;
+using ProjectManager.WebApi.Repository;
+using ProjectManager.WebApi.Tests.TestsHelper;
+using System.Linq;
+using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Newtonsoft.Json;
-using System.Web.Http.Routing;
-using System.Net;
-using System.Data.Entity;
+using System.Web.Http.Hosting;
+using System.Data.Entity.Core.Objects;
 
 namespace ProjectManager.WebApi.Tests.Controller
 {
@@ -18,138 +22,143 @@ namespace ProjectManager.WebApi.Tests.Controller
     [TestFixture]
     public class TaskServiceTest
     {
+        // private Counter _counter;
         TaskController TaskController;
-        ProjectManagerEntities ProjectManagerDB;
-        List<Task> allTasks;
-        List<Task> Tasks;
-        int count = 0;
+        List<Task> expectedTasks;
+        Mock<ITaskRepository> mockRepository;
+        bool isCreateOrUpdateInvokedInRepository = false;
 
         [SetUp]
+        //[PerfSetup]
         public void Setup()
         {
-            //create an instance of contactRepository
-            ProjectManagerDB = new ProjectManagerEntities();
-
-            //Create an instance of controller
-            TaskController = new TaskController
-            {
-                Request = new System.Net.Http.HttpRequestMessage(),
-                Configuration = new HttpConfiguration()
-            };
+            expectedTasks = DataInitializer.GetAllTasks();
+            
+            mockRepository = new Mock<ITaskRepository>();
         }
 
         [Test, Order(1)]
-        public void PostTask()
-        {
-            // Arrange
-            TaskController controller = new TaskController();
-
-            controller.Request = new HttpRequestMessage
-            {
-                RequestUri = new Uri("http://localhost:51052/api/Task")
-            };
-            controller.Configuration = new HttpConfiguration();
-            controller.Configuration.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional });
-
-            controller.RequestContext.RouteData = new HttpRouteData(
-                route: new HttpRoute(),
-                values: new HttpRouteValueDictionary { { "controller", "Tasks" } });
-            ///
-            var response = TaskController.Get();
-            Assert.IsNotNull(response);
-            var jsonString = response.Content.ReadAsStringAsync();
-            jsonString.Wait();
-            Tasks = JsonConvert.DeserializeObject<List<Task>>(jsonString.Result);
-            // Act
-            Task Task = new Task() { TaskName = "Developement", Project_ID = 1, Parent_ID = 1, Status = "C" ,  Start_Date = DateTime.Now, End_Date = DateTime.Now.AddDays(1) };
-            response = controller.Post(Task); 
-            jsonString = response.Content.ReadAsStringAsync();
-            jsonString.Wait();
-            int isSaved = Convert.ToInt16(jsonString.Result);
-            Assert.IsTrue(isSaved > 0);
-            Assert.IsTrue(response.IsSuccessStatusCode);
-
-            response = TaskController.Get(Tasks[Tasks.Count - 1].Task_ID);
-            Assert.IsNotNull(response);
-            // Assert the result  
-            List<Task> TaskData;
-            //Assert.IsTrue(response.TryGetContentValue<Task>(out TaskData));
-            jsonString = response.Content.ReadAsStringAsync();
-            jsonString.Wait();
-            TaskData = JsonConvert.DeserializeObject<List<Task>>(jsonString.Result);
-            // Assert
-            Assert.IsNotNull(TaskData[0].TaskName);
-            Assert.IsNotNull(TaskData[0].Start_Date);
-        }
-
-        [Test, Order(2)]
+        // [PerfBenchmark(
+        //NumberOfIterations = 3, RunMode = RunMode.Throughput,
+        //RunTimeMilliseconds = 1000, TestMode = TestMode.Measurement)]
+        // //[CounterThroughputAssertion("TestCounter", MustBe.GreaterThan, 10000000.0d)]
+        // //[MemoryAssertion(MemoryMetric.TotalBytesAllocated, MustBe.LessThanOrEqualTo, ByteConstants.ThirtyTwoKb)]
+        // [GcTotalAssertion(GcMetric.TotalCollections, GcGeneration.Gen2, MustBe.ExactlyEqualTo, 0.0d)]
         public void GetAllTask()
         {
-            // Act on Test  
-            var response = TaskController.Get();
-            // Assert the result  
 
-            //Assert.IsTrue(response.TryGetContentValue<List<Task>>(out Tasks));
+            mockRepository.Setup(x => x.Get()).Returns(() => expectedTasks);
+            TaskController = new TaskController(mockRepository.Object);
+            TaskController.Request = new HttpRequestMessage()
+            {
+                Properties = { { HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration() } }
+            };
+            //ACT
+            var response = TaskController.Get();
+
+            //ASSERT
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             var jsonString = response.Content.ReadAsStringAsync();
-            jsonString.Wait();
-            allTasks = JsonConvert.DeserializeObject<List<Task>>(jsonString.Result);
-            count = allTasks.Count;
-            Assert.True(count > 0);
+            var actual = JsonConvert.DeserializeObject<List<Task>>(jsonString.Result);
+            Assert.AreEqual(expectedTasks.Count, actual.Count);
+        }
+        [PerfCleanup]
+        public void Cleanup()
+        {
+            // does nothing
+        }
+        [Test, Order(2)]
+        public void PostTask()
+        {
+            //ARRANGE
+            var Task = expectedTasks.First();
+
+            mockRepository.Setup(x => x.Post(It.IsAny<Task>())).
+                Callback(() => isCreateOrUpdateInvokedInRepository = true);
+            TaskController = new TaskController(
+                mockRepository.Object);
+            TaskController.Request = new HttpRequestMessage()
+            {
+                Properties = { { HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration() } }
+            };
+
+            //ACT
+            var response = TaskController.Post(Task);
+
+            //ASSERT
+            Assert.IsTrue(isCreateOrUpdateInvokedInRepository,
+                "Post method in Repository not invoked");
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
         [Test, Order(3)]
         public void GetTaskByTaskId()
         {
-            // Act on Test 
-            // Act on Test  
-           var response = TaskController.Get(allTasks[count - 1].Task_ID);
-            Assert.IsNotNull(response);
-            // Assert the result  
-            //Assert.IsTrue(response.TryGetContentValue<Task>(out Task));
-            var jsonString = response.Content.ReadAsStringAsync();
-            jsonString.Wait();
-            Tasks = JsonConvert.DeserializeObject<List<Task>>(jsonString.Result);
-            Assert.IsNotNull(Tasks[0].TaskName);
-            Assert.IsNotNull(Tasks[0].Start_Date);
-        }
+            var expectedTask = expectedTasks.First();
+            mockRepository.Setup(x => x.GetByID(1)).Returns(() => expectedTask);
+            TaskController = new TaskController(mockRepository.Object);
+            TaskController.Request = new HttpRequestMessage()
+            {
+                Properties = { { HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration() } }
+            };
+            //ACT
+            var response = TaskController.Get(1);
 
-        [Test, Order(4)]
-        public void PutTask()
-        {
-            
-            var response = TaskController.Get(allTasks[count - 1].Task_ID);
-            Assert.IsNotNull(response);
-            // Assert the result  
-            //Assert.IsTrue(response.TryGetContentValue<Task>(out Task));
-            var jsonString = response.Content.ReadAsStringAsync();
-            jsonString.Wait();
-            Tasks = JsonConvert.DeserializeObject<List<Task>>(jsonString.Result);
-            Tasks[0].TaskName = "Testing";
-            // Act  
-            response = TaskController.Put(count -1, Tasks[0]);            
+            //ASSERT
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-            Assert.IsNotNull(response.Content);
+            var jsonString = response.Content.ReadAsStringAsync();
+            var actual = JsonConvert.DeserializeObject<Task>(jsonString.Result);
+            Assert.AreEqual(1, actual.Task_ID, "Wrong Task id");
+        }
+        [Test, Order(4)]
+        public void GetTaskByTaskIdNotFound()
+        {
+            mockRepository.Setup(x => x.GetByID(6)).Returns(() => null);
+            TaskController = new TaskController(mockRepository.Object);
+            TaskController.Request = new HttpRequestMessage()
+            {
+                Properties = { { HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration() } }
+            };
+            //ACT
+            var response = TaskController.Get(6);
+
+            //ASSERT
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
 
         [Test, Order(5)]
-        public void DeleteTask()
+        public void PutTask()
         {
-            var response = TaskController.Get();
-            Assert.IsNotNull(response);
-            var jsonString = response.Content.ReadAsStringAsync();
-            jsonString.Wait();
-            Tasks = JsonConvert.DeserializeObject<List<Task>>(jsonString.Result);
-            response = TaskController.Delete(allTasks[count - 1].Task_ID);
-            jsonString = response.Content.ReadAsStringAsync();
-            jsonString.Wait();
-            int isDeleted = Convert.ToInt16(jsonString.Result);
-            Assert.IsTrue(isDeleted > 0 );
+            // Arrange   
+            mockRepository.Setup(x => x.Post(It.IsAny<Task>())).
+                Callback(() => isCreateOrUpdateInvokedInRepository = true);
+            TaskController = new TaskController(mockRepository.Object);
+            TaskController.Request = new HttpRequestMessage()
+            {
+                Properties = { { HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration() } }
+            };
+            // Act
+            Task updatedTask = expectedTasks[0];
+            updatedTask.TaskName = "NY PEIC";
+            var response = TaskController.Put(updatedTask.Task_ID, updatedTask);
+            // Assert
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
-
-        
+        [Test, Order(6)]
+        public void DeleteTask()
+        {
+            mockRepository.Setup(x => x.Delete(1)).
+              Callback(() => isCreateOrUpdateInvokedInRepository = true);
+            TaskController = new TaskController(
+               mockRepository.Object);
+            TaskController.Request = new HttpRequestMessage()
+            {
+                Properties = { { HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration() } }
+            };
+            // Remove last Product
+            var actualResult = TaskController.Delete(1);
+            Assert.AreEqual(actualResult.StatusCode, HttpStatusCode.OK);
+        }
     }
 }

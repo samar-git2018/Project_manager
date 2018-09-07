@@ -322,6 +322,21 @@ window.matchMedia || (window.matchMedia = function() {
 
 
 var assemblies = [
+  {
+    "name": "ProjectManager.WebApi",
+    "classes": [
+      { "name": "ProjectManager.WebApi.Controllers.ParentTaskController", "reportPath": "ProjectManager.WebApi_ParentTaskController.htm", "coveredLines": 31, "uncoveredLines": 3, "coverableLines": 34, "totalLines": 91, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 2, "totalBranches": 2, "lineCoverageHistory": [], "branchCoverageHistory": [] },
+      { "name": "ProjectManager.WebApi.Controllers.ProjectController", "reportPath": "ProjectManager.WebApi_ProjectController.htm", "coveredLines": 31, "uncoveredLines": 3, "coverableLines": 34, "totalLines": 92, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 2, "totalBranches": 2, "lineCoverageHistory": [], "branchCoverageHistory": [] },
+      { "name": "ProjectManager.WebApi.Controllers.TaskController", "reportPath": "ProjectManager.WebApi_TaskController.htm", "coveredLines": 30, "uncoveredLines": 3, "coverableLines": 33, "totalLines": 93, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 2, "totalBranches": 2, "lineCoverageHistory": [], "branchCoverageHistory": [] },
+      { "name": "ProjectManager.WebApi.Controllers.UserController", "reportPath": "ProjectManager.WebApi_UserController.htm", "coveredLines": 31, "uncoveredLines": 5, "coverableLines": 36, "totalLines": 118, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 2, "totalBranches": 2, "lineCoverageHistory": [], "branchCoverageHistory": [] },
+      { "name": "ProjectManager.WebApi.Repository.ParentTaskRepository", "reportPath": "ProjectManager.WebApi_ParentTaskRepository.htm", "coveredLines": 0, "uncoveredLines": 23, "coverableLines": 23, "totalLines": 97, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 0, "lineCoverageHistory": [], "branchCoverageHistory": [] },
+      { "name": "ProjectManager.WebApi.Repository.ProjectRepository", "reportPath": "ProjectManager.WebApi_ProjectRepository.htm", "coveredLines": 0, "uncoveredLines": 30, "coverableLines": 30, "totalLines": 103, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 2, "lineCoverageHistory": [], "branchCoverageHistory": [] },
+      { "name": "ProjectManager.WebApi.Repository.TaskRepository", "reportPath": "ProjectManager.WebApi_TaskRepository.htm", "coveredLines": 0, "uncoveredLines": 24, "coverableLines": 24, "totalLines": 115, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 0, "lineCoverageHistory": [], "branchCoverageHistory": [] },
+      { "name": "ProjectManager.WebApi.Repository.UserRepository", "reportPath": "ProjectManager.WebApi_UserRepository.htm", "coveredLines": 0, "uncoveredLines": 23, "coverableLines": 23, "totalLines": 95, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 0, "lineCoverageHistory": [], "branchCoverageHistory": [] },
+      { "name": "ProjectManager.WebApi.SwaggerConfig", "reportPath": "ProjectManager.WebApi_SwaggerConfig.htm", "coveredLines": 0, "uncoveredLines": 132, "coverableLines": 132, "totalLines": 271, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 0, "lineCoverageHistory": [], "branchCoverageHistory": [] },
+      { "name": "ProjectManager.WebApi.WebApiApplication", "reportPath": "ProjectManager.WebApi_WebApiApplication.htm", "coveredLines": 0, "uncoveredLines": 3, "coverableLines": 3, "totalLines": 17, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 0, "lineCoverageHistory": [], "branchCoverageHistory": [] },
+      { "name": "ProjectManager.WebApi.WebApiConfig", "reportPath": "ProjectManager.WebApi_WebApiConfig.htm", "coveredLines": 0, "uncoveredLines": 9, "coverableLines": 9, "totalLines": 25, "coverageType": "LineCoverage", "methodCoverage": "-", "coveredBranches": 0, "totalBranches": 0, "lineCoverageHistory": [], "branchCoverageHistory": [] },
+    ]},
 ];
 
 var riskHotspotMetrics = [

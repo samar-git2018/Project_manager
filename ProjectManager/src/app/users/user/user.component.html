@@ -1,34 +1,40 @@
-﻿<form class="user-form form-horizontal" #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" name="userForm" novalidate>
+﻿<form class="user-form form-horizontal" #userForm="ngForm" (ngSubmit)="userForm.form.valid && onSubmit(userForm)" name="userForm" novalidate>
   <input type="hidden" name="User_ID" #User_ID="ngModel" [(ngModel)]="userService.selectedUser.User_ID">
   <div class="form-group">
     <label for="First_Name" class="col-md-2">First Name:</label>
-    <div class="form-group col-md-7">
-      <input class="form-control" name="First_Name" #First_Name="ngModel" [(ngModel)]="userService.selectedUser.First_Name" required>
-      <div class="validation-error" *ngIf="First_Name.invalid && First_Name.touched">This Field is Required.</div>
+    <div class="form-group col-md-5">
+      <input class="form-control" name="First_Name" #First_Name="ngModel" [(ngModel)]="userService.selectedUser.First_Name" [ngClass]="{ 'is-invalid': userForm.submitted && First_Name.invalid }" required>
+    </div>
+    <div *ngIf="userForm.submitted && First_Name.invalid" class="col-md-2 invalid-feedback d-block">
+      <div *ngIf="First_Name.errors.required">First Name is required</div>
     </div>
   </div>
   <div class="form-group">
     <label for="Last_Name" class="col-md-2">Last Name:</label>
-    <div class="form-group col-md-7">
-      <input class="form-control" name="Last_Name" #Last_Name="ngModel" [(ngModel)]="userService.selectedUser.Last_Name" required>
-      <div class="validation-error" *ngIf="Last_Name.invalid && Last_Name.touched">This Field is Required.</div>
+    <div class="form-group col-md-5">
+      <input class="form-control" name="Last_Name" #Last_Name="ngModel" [(ngModel)]="userService.selectedUser.Last_Name" [ngClass]="{ 'is-invalid': userForm.submitted && Last_Name.invalid }" required>
+    </div>
+    <div *ngIf="userForm.submitted && Last_Name.invalid" class="col-md-2 invalid-feedback d-block">
+      <div *ngIf="Last_Name.errors.required">Last Name is required</div>
     </div>
   </div>
   <div class="form-group">
     <label for="Employee_ID" class="col-md-2">Epolyee ID:</label>
     <div class="form-group col-xs-4">
-      <input class="form-control" name="Employee_ID" #Employee_ID="ngModel" [(ngModel)]="userService.selectedUser.Employee_ID" required>
-      <div class="validation-error" *ngIf="Employee_ID.invalid && Employee_ID.touched">This Field is Required.</div>
+      <input class="form-control" name="Employee_ID" #Employee_ID="ngModel" [(ngModel)]="userService.selectedUser.Employee_ID" [ngClass]="{ 'is-invalid': userForm.submitted && Employee_ID.invalid }" required>
+    </div>
+    <div *ngIf="userForm.submitted && Employee_ID.invalid" class="col-md-2 invalid-feedback d-block">
+      <div *ngIf="Employee_ID.errors.required">Employee ID is required</div>
     </div>
   </div>
   <div class="form-row">
-    <label for="Submit" class="col-md-7"></label>
-    <div class="col-md-1">
-      <button [disabled]="!userForm.valid" type="submit" class="btn btn-lg btn-block btn-info">
-        <i class="fa fa-floppy-o"></i> {{userService.selectedUser.User_ID === 0? 'Add':'Update'}}
+    <label for="Submit" class="col-md-5"></label>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-lg btn-block btn-info">
+        <i class="fa fa-floppy-o"></i> {{userService.selectedUser.User_ID === null? 'Add':'Update'}}
       </button>
     </div>
-    <div class="col-md-1">
+    <div class="col-md-2">
       <button type="button" class="btn btn-lg btn-block btn-secondary" (click)="resetForm(userForm)">
         <i class="fa fa-repeat"></i> Reset
       </button>

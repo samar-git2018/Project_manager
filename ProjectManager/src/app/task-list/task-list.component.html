@@ -1,0 +1,207 @@
+﻿<div class="row">
+  <input type="hidden" name="searchText" [(ngModel)]="searchText">
+  <div class="col-md-1 font-weight-bold">
+    Project:
+  </div>
+  <div class="col-md-4">
+    <input class="form-control" readonly="readonly" name="ProjectSearch" [(ngModel)]="projectService.selectedProject.ProjectName" />
+  </div>
+  <div class="col-md-1">
+    <button type="button" class="btn" value="Search" data-toggle="modal" data-target="#searchProject" (click)="showProjectData()">
+      Search
+    </button>
+  </div>
+  <div class="col-md-1 padding-0 text-right font-weight-bold">
+    Sort Task By:
+  </div>
+  <div class="col-md-1 pr-0">
+    <button type="button" class="btn btn-sm btn-block btn-secondary" (click)="SortTask('Start_Date')">Start Date</button>
+  </div>
+  <div class="col-md-1 pr-0">
+    <button type="button" class="btn btn-sm btn-block btn-secondary" (click)="SortTask('End_Date')">End Date</button>
+  </div>
+  <div class="col-md-1 pr-0">
+    <button type="button" class="btn btn-sm btn-block btn-secondary" (click)="SortTask('Priority')">Priority</button>
+  </div>
+  <div class="col-md-1 pr-0">
+    <button type="button" class="btn btn-sm btn-block btn-secondary" (click)="SortTask('Status')">Completed</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <hr />
+  </div>
+</div>
+<div class="modal" id="searchProject">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Search Project</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-7">
+            <input class="form-control" name="searchText" [(ngModel)]="searchText" placeholder="Search..." />
+          </div>
+        </div>
+        <div class="row top-buffer" *ngFor="let project of projectService.ProjectList | filter : searchText">
+          <div class="col-md-7">
+            <div class="list-group">
+              <button type="button" class="list-group-item" data-dismiss="modal" (click)="setProject(project)">{{project.ProjectName}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngFor="let task of taskService.TaskList | filter : searchText | orderBy: {property: column, direction: direction}">
+
+  <div class="row top-buffer">
+    <div class="col-md-2 text-center text-center font-weight-bold">Task</div>
+    <div class="col-md-2 text-center font-weight-bold">Parent</div>
+    <div class="col-md-2 text-center font-weight-bold">Priority</div>
+    <div class="col-md-1 text-center font-weight-bold">Start</div>
+    <div class="col-md-1 text-center font-weight-bold">End</div>
+    <div class="col-md-4"></div>
+  </div>
+  <div class="row row top-buffer row-height">
+    <div class="col-md-2 mr-1 colColour text-center">{{task.TaskName}}</div>
+    <div class="col-md-2 mr-1 colColour text-center">{{task.ParentTaskName}}</div>
+    <div class="col-md-2 text-center text-center">{{task.Priority}}</div>
+    <div class="col-md-1 text-center">{{task.Start_Date | date: 'dd/MM/yyyy'}}</div>
+    <div class="col-md-1 text-center">{{task.End_Date | date: 'dd/MM/yyyy'}}</div>
+    <div class="col-md-1">
+      <button type="button" class="btn btn-sm btn-block btn-secondary" data-toggle="modal" data-target="#editTask" (click)="showForEdit(task)">Edit</button>
+    </div>
+    <div class="col-md-1" [hidden]="task.Status == 'C'">
+      <button type="button" class="btn btn-sm btn-block btn-secondary" (click)="endTask(task, task.Task_ID)">End Task</button>
+    </div>
+  </div>
+</div>
+<div class="modal" id="editTask">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Task</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body modal-lg">
+        <form class="task-form form-horizontal" #taskForm="ngForm" (ngSubmit)="taskForm.form.valid && onSubmit(taskForm)" name="form" novalidate>
+          <input type="hidden" name="Task_ID" #Task_ID="ngModel" [(ngModel)]="taskService.selectedTask.Task_ID">
+          <input type="hidden" name="Parent_ID" #User_ID="ngModel" [(ngModel)]="taskService.selectedTask.Parent_ID">
+          <input type="hidden" name="Status" #Status="ngModel" [(ngModel)]="taskService.selectedTask.Status">
+          <div class="form-group">
+            <label for="TaskName" class="col-md-2 col-form-label">Task:</label>
+            <div class=" form-group col-md-5 d-block padding-l-0">
+              <input class="form-control" name="TaskName" #TaskName="ngModel" [(ngModel)]="taskService.selectedTask.TaskName" [ngClass]="{ 'is-invalid': taskForm.submitted && TaskName.invalid }" required>
+            </div>
+            <div *ngIf="taskForm.submitted && TaskName.invalid" class="col-md-3 invalid-feedback d-block">
+              <div *ngIf="TaskName.errors.required">Task Name is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-2"></div>
+            <div class="form-group col-md-5 padding-l-0">
+              0
+            </div>
+            <div class="form-group col-md-3 padding-0">
+              30
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="Priority" class="col-md-2">Priority:</label>
+            <div class="form-group col-md-5 padding-l-0">
+              <input class="form-control slider" name="Priority" type="range" value="0" #Priority="ngModel" [(ngModel)]="taskService.selectedTask.Priority" min="0" max="30">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="Parent Task" class="col-md-2">Parent Task:</label>
+            <div class="form-group col-md-2 padding-l-0">
+              <input name="ParentTask" disabled="disabled" #ParentTask="ngModel" [(ngModel)]="taskService.selectedTask.ParentTaskName" />
+            </div>
+            <div class="col-md-2" [hidden]="taskService.selectedTask.Parent_ID == 0">
+              <button type="button" class="glyphicon glyphicon-trash btn padding-r-1" (click)="removeParentTask(task)"></button>
+              <button type="button" class="btn" value="Search" data-toggle="modal" data-target="#searchParentTask" (click)="showParentTaskData()">
+                Search
+              </button>
+            </div>
+           
+          </div>
+          <div class="form-group">
+            <div class="col-md-2">
+              <label for="Start Date">Start Date:</label>
+            </div>
+            <div class="col-md-2 padding-l-0">
+              <input class="form-group datepicker" type="date" name="Start_Date" #Start_Date="ngModel" [(ngModel)]="taskService.selectedTask.Start_Date" [disabled]="taskService.selectedTask.SetParentTask">
+            </div>
+            <div class="col-md-1 padding-0">
+              <label for="End Date">End Date:</label>
+            </div>
+            <div class="form-group col-md-2 padding-0">
+              <input class="datepicker" type="date" name="End_Date" #End_Date="ngModel" [(ngModel)]="taskService.selectedTask.End_Date" [disabled]="taskService.selectedTask.SetParentTask">
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="submit" class="col-md-5"></label>
+            <div class="col-md-2">
+              <button type="submit" class="btn btn-lg btn-block btn-info">
+                <i class="fa fa-floppy-o"></i>Update Task
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="modal" id="searchParentTask">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Search Parent Task</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-7">
+            <input class="form-control" name="searchText" [(ngModel)]="searchText" placeholder="Search..." />
+          </div>
+        </div>
+        <div class="row top-buffer" *ngFor="let task of taskService.ParentTaskList | filter : searchText">
+          <div class="col-md-7">
+            <div class="list-group">
+              <button type="button" class="list-group-item" data-dismiss="modal" (click)="setParentTask(task)">{{task.ParentTaskName}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>

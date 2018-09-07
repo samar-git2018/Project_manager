@@ -5,18 +5,53 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Swashbuckle.Swagger.Annotations;
+using ProjectManager.WebApi.Repository;
 using ProjectManager.Persistence;
 using System.Data.Entity;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace ProjectManager.WebApi.Controllers
 {
-    public class ProjectController : BaseAPIController
+    public class ProjectController : ApiController
     {
+        private readonly IProjectRepository _projectRepository;
+        public ProjectController()
+        : this(new ProjectRepository(new ProjectManagerEntities()))
+        {
+            //Empty constructor.
+        }
+        //For Testability
+        public ProjectController(IProjectRepository repository)
+        {
+            _projectRepository = repository;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        protected HttpResponseMessage ToJson(dynamic obj)
+        {
+            var response = Request.CreateResponse();
+            if (obj == null)
+            {
+                response.StatusCode = HttpStatusCode.NotFound;
+                response.Content = new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json");
+                return response;
+            }
+            else
+            {
+                response.StatusCode = HttpStatusCode.OK;
+                response.Content = new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json");
+                return response;
+            }
+        }
         // GET api/values
         [SwaggerOperation("GetAll")]
         public HttpResponseMessage Get()
         {
-            return ToJson(ProjectManagerDB.Projects.AsEnumerable());
+            return ToJson(_projectRepository.Get());
         }
 
         // GET api/values/5
@@ -25,7 +60,7 @@ namespace ProjectManager.WebApi.Controllers
         [SwaggerResponse(HttpStatusCode.NotFound)]
         public HttpResponseMessage Get(int id)
         {
-            return ToJson(ProjectManagerDB.Projects.Where(dr=> dr.Project_ID == id));
+            return ToJson(_projectRepository.GetByID(id));
         }
 
         // POST api/values
@@ -33,8 +68,7 @@ namespace ProjectManager.WebApi.Controllers
         [SwaggerResponse(HttpStatusCode.Created)]
         public HttpResponseMessage Post([FromBody]Project value)
         {
-            ProjectManagerDB.Projects.Add(value);
-            return ToJson(ProjectManagerDB.SaveChanges());
+            return ToJson(_projectRepository.Post(value));
         }
 
         // PUT api/values/5
@@ -43,11 +77,7 @@ namespace ProjectManager.WebApi.Controllers
         [SwaggerResponse(HttpStatusCode.NotFound)]
         public HttpResponseMessage Put(int id, [FromBody]Project value)
         {
-            if(ProjectManagerDB.Entry(value).State == EntityState.Added)
-            { 
-            ProjectManagerDB.Entry(value).State = EntityState.Modified;
-            }
-            return ToJson(ProjectManagerDB.SaveChanges());
+            return ToJson(_projectRepository.Put(id, value));
         }
 
         // DELETE api/values/5
@@ -56,8 +86,7 @@ namespace ProjectManager.WebApi.Controllers
         [SwaggerResponse(HttpStatusCode.NotFound)]
         public HttpResponseMessage Delete(int id)
         {
-            ProjectManagerDB.Projects.Remove(ProjectManagerDB.Projects.FirstOrDefault(x => x.Project_ID == id));
-            return ToJson(ProjectManagerDB.SaveChanges());
+            return ToJson(_projectRepository.Delete(id));
         }
     }
 }

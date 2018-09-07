@@ -5,7 +5,7 @@
       <PropertyRef Name="Parent_ID" />
     </Key>
     <Property Name="Parent_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Parent_Task" Type="nvarchar" MaxLength="100" />
+    <Property Name="ParentTaskName" Type="nvarchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Project">
     <Key>
@@ -42,6 +42,18 @@
     <Property Name="Project_ID" Type="int" Nullable="false" />
     <Property Name="Task_ID" Type="int" Nullable="false" />
   </EntityType>
+  <Function Name="sp_GetProjectData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_GetTaskData" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_InsertTaskUpdateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Parent_ID" Type="int" Mode="In" />
+    <Parameter Name="TaskName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Start_Date" Type="datetime" Mode="In" />
+    <Parameter Name="End_Date" Type="datetime" Mode="In" />
+    <Parameter Name="Priority" Type="int" Mode="In" />
+    <Parameter Name="Status" Type="char" Mode="In" />
+    <Parameter Name="User_ID" Type="int" Mode="In" />
+    <Parameter Name="Project_ID" Type="int" Mode="In" />
+  </Function>
   <EntityContainer Name="ProjectManagerModelStoreContainer">
     <EntitySet Name="Parent_Task" EntityType="Self.Parent_Task" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />

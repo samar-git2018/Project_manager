@@ -1,58 +1,81 @@
 ﻿<div class="row">
-  <div class="col-md-5">
-    <ul class="list-group">
-      <li class="list-group-item">
-        <div class="row">
-          <div class="col-md-12">
-            Project
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            No. of tasks:
-          </div>
-          <div class="col-md-6">
-            Completed:
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            Start Date:
-          </div>
-          <div class="col-md-6">
-            End Date:
-          </div>
-        </div>
-      </li>
-    </ul>
+  <div class="col-md-3">
+    <input class="form-control" name="searchText" [(ngModel)]="searchText" placeholder="Search..." />
+  </div>
+  <div class="col-md-1 padding-0 text-right">
+    Sort:
   </div>
   <div class="col-md-2">
-    <ul class="list-group">
-      <li class="list-group-item">
-        <div class="row">
-          <div class="col-md-6">
-            Priority:
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            ABC
-          </div>
-        </div>
-
-      </li>
-    </ul>
+    <button type="button" class="btn btn-sm btn-block btn-secondary" (click)="SortProject('Start_Date')">Start Date</button>
   </div>
   <div class="col-md-2">
-    <ul class="list-group">
-      <li class="list-group-item">
-        <button type="button" class="btn btn-lg btn-block btn-secondary">Update</button>
-      </li>
-    </ul>
-    <ul class="list-group">
-      <li class="list-group-item">
-        <button type="button" class="btn btn-lg btn-block btn-secondary">Suspend</button>
-      </li>
-    </ul>
+    <button type="button" class="btn btn-sm btn-block btn-secondary" (click)="SortProject('End_Date')">End Date</button>
   </div>
-</div>
+  <div class="col-md-2">
+    <button type="button" class="btn btn-sm btn-block btn-secondary" (click)="SortProject('Priority')">Priority</button>
+  </div>
+  <div class="col-md-2">
+    <button type="button" class="btn btn-sm btn-block btn-secondary" (click)="SortProject('CompletedTaskCount')">Completed</button>
+  </div>
+  </div>
+  <div class="row row top-buffer" *ngFor="let project of projectService.ProjectList | filter : searchText | orderBy: {property: column, direction: direction}">
+    <div class="col-md-8">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-md-9">
+              Project: {{project.ProjectName}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-5">
+              No. of tasks: {{project.TaskCount}}
+            </div>
+            <div class="col-md-4">
+              Completed: {{project.CompletedTaskCount}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-5">
+              Start Date: {{project.Start_Date | date: 'dd/MM/yyyy'}}
+            </div>
+            <div class="col-md-4">
+              End Date: {{project.End_Date| date: 'dd/MM/yyyy'}}
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-2">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-md-5">
+              Priority:
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-5">
+              {{project.Priority}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-5">
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-2">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <button type="button" class="btn btn-lg btn-block btn-secondary" (click)="showForEdit(project)">Edit</button>
+        </li>
+      </ul>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <button type="button" class="btn btn-lg btn-block btn-secondary" (click)="onDelete(project.Project_ID)">Suspend</button>
+        </li>
+      </ul>
+    </div>
+  </div>

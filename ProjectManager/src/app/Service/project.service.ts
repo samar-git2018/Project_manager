@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, Subject, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Project } from '../Model/project';
+import { AppConstants } from 'app/Errorlogging/appconstants';
 
 const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
 
@@ -17,28 +18,21 @@ export class ProjectService {
 
     postProject(project: Project) {
         var body = JSON.stringify(project);
-        console.log(body);
-        var headerOptions = new HttpHeaders({ 'Content-Type': 'application/json' });
-       // var requestOptions = new RequestOptions({ method: RequestMethod.Post, headers: headerOptions });
-        return this.http.post('http://localhost:51052/api/Project', body, { headers: headers }).subscribe();
+        return this.http.post(AppConstants.baseURL + 'Project', body, { headers: headers });
     }
 
     putProject(id: string, project: string) {
+        debugger;
         var body = JSON.stringify(project);
-       // var headerOptions = new Headers({ 'Content-Type': 'application/json' });
-        //var requestOptions = new RequestOptions({ method: RequestMethod.Put: headerOptions });
-        return this.http.put('http://localhost:51052/api/Project/' + id,
-            body).subscribe();
+        return this.http.put(AppConstants.baseURL + 'Project/' + id,
+            body, { headers: headers });
     }
 
-    getProjectList() {       
-        //this.http.get('http://localhost:51052/api/Project')
-        //    .toPromise().then(res => {
-        //        this.ProjectList = res.json().results;
-        //    })
+    getProjectList() {
+        return this.http.request("GET", AppConstants.baseURL + 'Project/', { responseType: "json" });
     }
 
     deleteProject(id: number) {
-        return this.http.delete('http://localhost:51052/api/Project/' + id).subscribe();
+        return this.http.delete(AppConstants.baseURL + 'Project/' + id);
     }
 }

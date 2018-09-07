@@ -12,6 +12,8 @@ namespace ProjectManager.Persistence
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class ProjectManagerEntities : DbContext
     {
@@ -25,9 +27,56 @@ namespace ProjectManager.Persistence
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Parent_Task> Parent_Task { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Task> Tasks { get; set; }
+        public virtual DbSet<Parent_Task> Parent_Task { get; set; }
+    
+        public virtual int sp_InsertTaskUpdateUser(Nullable<int> parent_ID, string taskName, Nullable<System.DateTime> start_Date, Nullable<System.DateTime> end_Date, Nullable<int> priority, string status, Nullable<int> user_ID, Nullable<int> project_ID)
+        {
+            var parent_IDParameter = parent_ID.HasValue ?
+                new ObjectParameter("Parent_ID", parent_ID) :
+                new ObjectParameter("Parent_ID", typeof(int));
+    
+            var taskNameParameter = taskName != null ?
+                new ObjectParameter("TaskName", taskName) :
+                new ObjectParameter("TaskName", typeof(string));
+    
+            var start_DateParameter = start_Date.HasValue ?
+                new ObjectParameter("Start_Date", start_Date) :
+                new ObjectParameter("Start_Date", typeof(System.DateTime));
+    
+            var end_DateParameter = end_Date.HasValue ?
+                new ObjectParameter("End_Date", end_Date) :
+                new ObjectParameter("End_Date", typeof(System.DateTime));
+    
+            var priorityParameter = priority.HasValue ?
+                new ObjectParameter("Priority", priority) :
+                new ObjectParameter("Priority", typeof(int));
+    
+            var statusParameter = status != null ?
+                new ObjectParameter("Status", status) :
+                new ObjectParameter("Status", typeof(string));
+    
+            var user_IDParameter = user_ID.HasValue ?
+                new ObjectParameter("User_ID", user_ID) :
+                new ObjectParameter("User_ID", typeof(int));
+    
+            var project_IDParameter = project_ID.HasValue ?
+                new ObjectParameter("Project_ID", project_ID) :
+                new ObjectParameter("Project_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_InsertTaskUpdateUser", parent_IDParameter, taskNameParameter, start_DateParameter, end_DateParameter, priorityParameter, statusParameter, user_IDParameter, project_IDParameter);
+        }
+    
+        public virtual ObjectResult<sp_GetTaskData_Result> sp_GetTaskData()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetTaskData_Result>("sp_GetTaskData");
+        }
+    
+        public virtual ObjectResult<sp_GetProjectData_Result> sp_GetProjectData()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetProjectData_Result>("sp_GetProjectData");
+        }
     }
 }

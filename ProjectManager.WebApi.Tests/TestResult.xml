@@ -1,12 +1,163 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<test-run id="2" testcasecount="0" result="Failed" label="Invalid" total="0" passed="0" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.8.0.0" clr-version="4.0.30319.42000" start-time="2018-08-22 07:01:42Z" end-time="2018-08-22 07:01:47Z" duration="4.885689">
-  <command-line><![CDATA[C:\Users\Admin\ProjectManager\packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe  ProjectManager.WebApi.Tests.dll]]></command-line>
-  <test-suite type="Assembly" id="0-1" name="ProjectManager.WebApi.Tests.dll" fullname="C:\Users\Admin\ProjectManager\ProjectManager.WebApi.Tests\ProjectManager.WebApi.Tests.dll" testcasecount="0" runstate="NotRunnable" result="Failed" label="Invalid">
+<test-run id="2" testcasecount="27" result="Passed" total="27" passed="27" failed="0" inconclusive="0" skipped="0" asserts="39" engine-version="3.8.0.0" clr-version="4.0.30319.42000" start-time="2018-09-06 16:42:36Z" end-time="2018-09-06 16:42:51Z" duration="14.762793">
+  <command-line><![CDATA[C:\Users\Admin\ProjectManager\packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe  C:\Users\Admin\ProjectManager\ProjectManager.WebApi.Tests\bin\Debug\ProjectManager.WebApi.Tests.dll]]></command-line>
+  <test-suite type="Assembly" id="0-1032" name="ProjectManager.WebApi.Tests.dll" fullname="C:\Users\Admin\ProjectManager\ProjectManager.WebApi.Tests\bin\Debug\ProjectManager.WebApi.Tests.dll" runstate="Runnable" testcasecount="27" result="Passed" start-time="2018-09-06 16:42:42Z" end-time="2018-09-06 16:42:50Z" duration="7.939525" total="27" passed="27" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="39">
+    <environment framework-version="3.10.1.0" clr-version="4.0.30319.42000" os-version="Microsoft Windows NT 10.0.17134.0" platform="Win32NT" cwd="C:\Users\Admin\ProjectManager\ProjectManager.WebApi.Tests" machine-name="DOTNET" user="Admin" user-domain="DOTNET" culture="en-IN" uiculture="en-US" os-architecture="x64" />
+    <settings>
+      <setting name="DisposeRunners" value="True" />
+      <setting name="WorkDirectory" value="C:\Users\Admin\ProjectManager\ProjectManager.WebApi.Tests" />
+      <setting name="ImageRuntimeVersion" value="4.0.30319" />
+      <setting name="ImageTargetFrameworkName" value=".NETFramework,Version=v4.5.2" />
+      <setting name="ImageRequiresX86" value="False" />
+      <setting name="ImageRequiresDefaultAppDomainAssemblyResolver" value="False" />
+      <setting name="NumberOfTestWorkers" value="3" />
+    </settings>
     <properties>
-      <property name="_SKIPREASON" value="File not found: C:\Users\Admin\ProjectManager\ProjectManager.WebApi.Tests\ProjectManager.WebApi.Tests.dll" />
+      <property name="_PID" value="16096" />
+      <property name="_APPDOMAIN" value="domain-" />
     </properties>
-    <reason>
-      <message>File not found: C:\Users\Admin\ProjectManager\ProjectManager.WebApi.Tests\ProjectManager.WebApi.Tests.dll</message>
-    </reason>
+    <test-suite type="TestSuite" id="0-1033" name="ProjectManager" fullname="ProjectManager" runstate="Runnable" testcasecount="27" result="Passed" start-time="2018-09-06 16:42:43Z" end-time="2018-09-06 16:42:50Z" duration="7.867960" total="27" passed="27" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="39">
+      <test-suite type="TestSuite" id="0-1034" name="WebApi" fullname="ProjectManager.WebApi" runstate="Runnable" testcasecount="27" result="Passed" start-time="2018-09-06 16:42:43Z" end-time="2018-09-06 16:42:50Z" duration="7.866111" total="27" passed="27" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="39">
+        <test-suite type="TestSuite" id="0-1035" name="Tests" fullname="ProjectManager.WebApi.Tests" runstate="Runnable" testcasecount="27" result="Passed" start-time="2018-09-06 16:42:43Z" end-time="2018-09-06 16:42:50Z" duration="7.861179" total="27" passed="27" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="39">
+          <test-suite type="TestSuite" id="0-1037" name="Controller" fullname="ProjectManager.WebApi.Tests.Controller" runstate="Runnable" testcasecount="24" result="Passed" start-time="2018-09-06 16:42:43Z" end-time="2018-09-06 16:42:49Z" duration="6.709470" total="24" passed="24" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="36">
+            <test-suite type="TestFixture" id="0-1018" name="ParentTaskServiceTest" fullname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" classname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" runstate="Runnable" testcasecount="6" result="Passed" start-time="2018-09-06 16:42:43Z" end-time="2018-09-06 16:42:49Z" duration="6.172606" total="6" passed="6" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="9">
+              <test-case id="0-1019" name="GetAllParentTask" fullname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.GetAllParentTask" methodname="GetAllParentTask" classname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" runstate="Runnable" seed="536265283" result="Passed" start-time="2018-09-06 16:42:43Z" end-time="2018-09-06 16:42:48Z" duration="5.926892" asserts="2">
+                <properties>
+                  <property name="Order" value="1" />
+                </properties>
+              </test-case>
+              <test-case id="0-1020" name="PostParentTask" fullname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.PostParentTask" methodname="PostParentTask" classname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" runstate="Runnable" seed="167504098" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.143946" asserts="2">
+                <properties>
+                  <property name="Order" value="2" />
+                </properties>
+              </test-case>
+              <test-case id="0-1022" name="GetParentTaskByParentTaskIdNotFound" fullname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.GetParentTaskByParentTaskIdNotFound" methodname="GetParentTaskByParentTaskIdNotFound" classname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" runstate="Runnable" seed="1006180860" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.026246" asserts="1">
+                <properties>
+                  <property name="Order" value="3" />
+                </properties>
+              </test-case>
+              <test-case id="0-1021" name="GetParentTaskByParentTaskId" fullname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.GetParentTaskByParentTaskId" methodname="GetParentTaskByParentTaskId" classname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" runstate="Runnable" seed="1909704305" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.009515" asserts="2">
+                <properties>
+                  <property name="Order" value="3" />
+                </properties>
+              </test-case>
+              <test-case id="0-1023" name="PutParentTask" fullname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.PutParentTask" methodname="PutParentTask" classname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" runstate="Runnable" seed="2019489420" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.014692" asserts="1">
+                <properties>
+                  <property name="Order" value="4" />
+                </properties>
+              </test-case>
+              <test-case id="0-1024" name="DeleteParentTask" fullname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.DeleteParentTask" methodname="DeleteParentTask" classname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" runstate="Runnable" seed="164631367" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.005186" asserts="1">
+                <properties>
+                  <property name="Order" value="5" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="0-1004" name="ProjectServiceTest" fullname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" classname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" runstate="Runnable" testcasecount="6" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.227008" total="6" passed="6" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="9">
+              <test-case id="0-1005" name="GetAllProject" fullname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.GetAllProject" methodname="GetAllProject" classname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" runstate="Runnable" seed="1778274745" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.180928" asserts="2">
+                <properties>
+                  <property name="Order" value="1" />
+                </properties>
+              </test-case>
+              <test-case id="0-1006" name="PostProject" fullname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.PostProject" methodname="PostProject" classname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" runstate="Runnable" seed="423804217" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.011957" asserts="2">
+                <properties>
+                  <property name="Order" value="2" />
+                </properties>
+              </test-case>
+              <test-case id="0-1008" name="GetProjectByProjectIdNotFound" fullname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.GetProjectByProjectIdNotFound" methodname="GetProjectByProjectIdNotFound" classname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" runstate="Runnable" seed="2000041194" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.013003" asserts="1">
+                <properties>
+                  <property name="Order" value="3" />
+                </properties>
+              </test-case>
+              <test-case id="0-1007" name="GetProjectByProjectId" fullname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.GetProjectByProjectId" methodname="GetProjectByProjectId" classname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" runstate="Runnable" seed="1981737210" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.008522" asserts="2">
+                <properties>
+                  <property name="Order" value="3" />
+                </properties>
+              </test-case>
+              <test-case id="0-1009" name="PutProject" fullname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.PutProject" methodname="PutProject" classname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" runstate="Runnable" seed="1519804257" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.005243" asserts="1">
+                <properties>
+                  <property name="Order" value="4" />
+                </properties>
+              </test-case>
+              <test-case id="0-1010" name="DeleteProject" fullname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.DeleteProject" methodname="DeleteProject" classname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" runstate="Runnable" seed="835940326" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.004898" asserts="1">
+                <properties>
+                  <property name="Order" value="5" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="0-1011" name="TaskServiceTest" fullname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" classname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" runstate="Runnable" testcasecount="6" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.154455" total="6" passed="6" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="9">
+              <test-case id="0-1012" name="GetAllTask" fullname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest.GetAllTask" methodname="GetAllTask" classname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" runstate="Runnable" seed="1193137221" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.056622" asserts="2">
+                <properties>
+                  <property name="Order" value="1" />
+                </properties>
+              </test-case>
+              <test-case id="0-1013" name="PostTask" fullname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest.PostTask" methodname="PostTask" classname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" runstate="Runnable" seed="854180875" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.011785" asserts="2">
+                <properties>
+                  <property name="Order" value="2" />
+                </properties>
+              </test-case>
+              <test-case id="0-1014" name="GetTaskByTaskId" fullname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest.GetTaskByTaskId" methodname="GetTaskByTaskId" classname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" runstate="Runnable" seed="1273281051" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.045043" asserts="2">
+                <properties>
+                  <property name="Order" value="3" />
+                </properties>
+              </test-case>
+              <test-case id="0-1015" name="GetTaskByTaskIdNotFound" fullname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest.GetTaskByTaskIdNotFound" methodname="GetTaskByTaskIdNotFound" classname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" runstate="Runnable" seed="2057657872" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.008750" asserts="1">
+                <properties>
+                  <property name="Order" value="4" />
+                </properties>
+              </test-case>
+              <test-case id="0-1016" name="PutTask" fullname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest.PutTask" methodname="PutTask" classname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" runstate="Runnable" seed="812023039" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.008569" asserts="1">
+                <properties>
+                  <property name="Order" value="5" />
+                </properties>
+              </test-case>
+              <test-case id="0-1017" name="DeleteTask" fullname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest.DeleteTask" methodname="DeleteTask" classname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" runstate="Runnable" seed="339342270" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.005941" asserts="1">
+                <properties>
+                  <property name="Order" value="6" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="0-1025" name="UserServiceTest" fullname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" classname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" runstate="Runnable" testcasecount="6" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.132281" total="6" passed="6" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="9">
+              <test-case id="0-1026" name="GetAllUser" fullname="ProjectManager.WebApi.Tests.Controller.UserServiceTest.GetAllUser" methodname="GetAllUser" classname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" runstate="Runnable" seed="250436631" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.065432" asserts="2">
+                <properties>
+                  <property name="Order" value="1" />
+                </properties>
+              </test-case>
+              <test-case id="0-1027" name="PostUser" fullname="ProjectManager.WebApi.Tests.Controller.UserServiceTest.PostUser" methodname="PostUser" classname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" runstate="Runnable" seed="1840734010" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.012275" asserts="2">
+                <properties>
+                  <property name="Order" value="2" />
+                </properties>
+              </test-case>
+              <test-case id="0-1029" name="GetUserByUserIdNotFound" fullname="ProjectManager.WebApi.Tests.Controller.UserServiceTest.GetUserByUserIdNotFound" methodname="GetUserByUserIdNotFound" classname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" runstate="Runnable" seed="201022473" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.013020" asserts="1">
+                <properties>
+                  <property name="Order" value="3" />
+                </properties>
+              </test-case>
+              <test-case id="0-1028" name="GetUserByUserId" fullname="ProjectManager.WebApi.Tests.Controller.UserServiceTest.GetUserByUserId" methodname="GetUserByUserId" classname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" runstate="Runnable" seed="2016709225" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.009866" asserts="2">
+                <properties>
+                  <property name="Order" value="3" />
+                </properties>
+              </test-case>
+              <test-case id="0-1030" name="PutUser" fullname="ProjectManager.WebApi.Tests.Controller.UserServiceTest.PutUser" methodname="PutUser" classname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" runstate="Runnable" seed="1838995410" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.006344" asserts="1">
+                <properties>
+                  <property name="Order" value="4" />
+                </properties>
+              </test-case>
+              <test-case id="0-1031" name="DeleteUser" fullname="ProjectManager.WebApi.Tests.Controller.UserServiceTest.DeleteUser" methodname="DeleteUser" classname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" runstate="Runnable" seed="456552829" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:49Z" duration="0.005602" asserts="1">
+                <properties>
+                  <property name="Order" value="5" />
+                </properties>
+              </test-case>
+            </test-suite>
+          </test-suite>
+          <test-suite type="TestSuite" id="0-1036" name="ServiceHttpResponse" fullname="ProjectManager.WebApi.Tests.ServiceHttpResponse" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-09-06 16:42:43Z" end-time="2018-09-06 16:42:50Z" duration="7.854229" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="3">
+            <test-suite type="TestFixture" id="0-1000" name="HttpResponseTests" fullname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests" classname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:50Z" duration="1.147356" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="3">
+              <test-case id="0-1003" name="GetAuthenticationStatus" fullname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests.GetAuthenticationStatus" methodname="GetAuthenticationStatus" classname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests" runstate="Runnable" seed="486695766" result="Passed" start-time="2018-09-06 16:42:49Z" end-time="2018-09-06 16:42:50Z" duration="0.996458" asserts="1" />
+              <test-case id="0-1002" name="GetResponseIsJson" fullname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests.GetResponseIsJson" methodname="GetResponseIsJson" classname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests" runstate="Runnable" seed="960949494" result="Passed" start-time="2018-09-06 16:42:50Z" end-time="2018-09-06 16:42:50Z" duration="0.078480" asserts="1" />
+              <test-case id="0-1001" name="GetResponseIsSuccess" fullname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests.GetResponseIsSuccess" methodname="GetResponseIsSuccess" classname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests" runstate="Runnable" seed="1476434915" result="Passed" start-time="2018-09-06 16:42:50Z" end-time="2018-09-06 16:42:50Z" duration="0.056105" asserts="1" />
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
   </test-suite>
 </test-run>

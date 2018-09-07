@@ -1,33 +1,39 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { ProjectService } from 'app/Service/project.service';
+import { UserService } from 'app/Service/user.service';
 import { Project } from 'app/Model/project';
+import { User } from 'app/model/user';
 import { NgForm } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-project',
     templateUrl: './project.component.html',
-    styleUrls: ['./project.component.css'],
-    providers: [ProjectService]
+    styleUrls: ['./project.component.css']
 })
 export class ProjectComponent implements OnInit {
-    constructor(private projectService: ProjectService, private datePipe: DatePipe) { }
+    constructor(private projectService: ProjectService, private datePipe: DatePipe, private userService: UserService) { }
 
     ngOnInit() {
         this.resetForm();
     }
 
     resetForm(form?: NgForm) {
-        if (form != null)
-            form.reset();
+        if (form != null) {
+            form.resetForm();
+            form.controls["Priority"].setValue(0);
+        }
         this.projectService.selectedProject = {
-            ProjectId: 0,
+            Project_ID: null,
             ProjectName: '',
             Start_Date: null,
             End_Date: null,
             Priority: 0,
-            ManagerId: 0,
-            SetDate: false
+            Manager_Id: 0,
+            ManagerName: "",
+            SetDate: false,
+            TaskCount: 0,
+            CompletedTaskCount: 0
         }
     }
     SetDateRange(e) {
@@ -42,22 +48,60 @@ export class ProjectComponent implements OnInit {
     }
 
     onSubmit(form: NgForm) {
-        if (form.value.ProjectID == null) {
+        if (form.value.Project_ID == null) {
             console.log(form.value);
-            this.projectService.postProject(form.value)
-                .add(data => {
-                    this.resetForm(form);
-                    this.projectService.getProjectList();
-                    alert('New Project added Succcessfully');
-                })
+            if (typeof form.value.Start_Date != undefined && form.value.Start_Date
+                && typeof form.value.End_Date != undefined && form.value.End_Date) {
+                if (form.value.Start_Date > form.value.End_Date)
+                    alert('Project end date should be greater than Project start date');
+                else
+                    this.projectService.postProject(form.value)
+                        .subscribe(data => {
+                            this.resetForm(form);
+                            this.projectService.getProjectList().subscribe(x => this.projectService.ProjectList = x as Project[]);
+                            alert('New Project added Succcessfully');
+                        })
+            }
+            else {
+                this.projectService.postProject(form.value)
+                    .subscribe(data => {
+                        this.resetForm(form);
+                        this.projectService.getProjectList().subscribe(x => this.projectService.ProjectList = x as Project[]);
+                        alert('New Project added Succcessfully');
+                    })
+            }
         }
         else {
-            this.projectService.putProject(form.value.ProjectID, form.value)
-                .add(data => {
-                    this.resetForm(form);
-                    this.projectService.getProjectList();
-                    alert('New Project updated Succcessfully');
-                });
+            if (typeof form.value.Start_Date != undefined && form.value.Start_Date
+                && typeof form.value.End_Date != undefined && form.value.End_Date) {
+                if (form.value.Start_Date > form.value.End_Date)
+                    alert('Project end date should be greater than Project start date');
+                else
+                    this.projectService.putProject(form.value.Project_ID, form.value)
+                        .subscribe(data => {
+                            this.resetForm(form);
+                            this.projectService.getProjectList().subscribe(x => this.projectService.ProjectList = x as Project[]);;
+                            alert('Project updated Succcessfully');
+                        });
+            }
+            else {
+                this.projectService.putProject(form.value.Project_ID, form.value)
+                    .subscribe(data => {
+                        this.resetForm(form);
+                        this.projectService.getProjectList();
+                        alert('Project updated Succcessfully');
+                    });
+            }
         }
+    }
+
+    showUserData() {
+        return this.userService.getUserList().subscribe(x => { this.userService.UserList = x as User[] });
+    }
+    setUser(user: User) {
+        this.userService.selectedUser = Object.assign({}, user);
+        this.projectService.selectedProject.ManagerName = this.userService.selectedUser.First_Name + " " + this.userService.selectedUser.Last_Name;
+        this.projectService.selectedProject.Manager_Id = user.User_ID;
+        return this.projectService.selectedProject.ManagerName;
     }
 }

@@ -1,39 +1,77 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using NBench;
+using ProjectManager.Persistence;
+using ProjectManager.WebApi.Repository;
+using Swashbuckle.Swagger.Annotations;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Swashbuckle.Swagger.Annotations;
-using ProjectManager.Persistence;
-using System.Data.Entity;
-using NBench;
-using NBench.Util;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace ProjectManager.WebApi.Controllers
 {
-    public class UserController : BaseAPIController
+    public class UserController : ApiController
     {
-        private Counter _counter;
-
-        [PerfSetup]
-        public void Setup(BenchmarkContext context)
+        private readonly IUserRepository _userRepository;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        protected HttpResponseMessage ToJson(dynamic obj)
         {
-            _counter = context.GetCounter("TestCounter");
+            var response = Request.CreateResponse();
+            if (obj == null)
+            {
+                response.StatusCode = HttpStatusCode.NotFound;
+                response.Content = new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json");
+                return response;
+            }
+            else
+            {
+                response.StatusCode = HttpStatusCode.OK;
+                response.Content = new StringContent(JsonConvert.SerializeObject(obj), Encoding.UTF8, "application/json");
+                return response;
+            }
         }
+        public UserController()
+        : this(new UserRepository(new ProjectManagerEntities()))
+        {
+            //Empty constructor.
+        }
+        //For Testability
+        public UserController(IUserRepository repository)
+        {
+            _userRepository = repository;
+        }
+        //private Counter _counter;
+
+        //[PerfSetup]
+        //public void Setup(BenchmarkContext context)
+        //{
+        //    _counter = context.GetCounter("TestCounter");
+        //}
+
+        //[PerfBenchmark(
+        //NumberOfIterations = 3, RunMode = RunMode.Throughput,
+        //RunTimeMilliseconds = 1000, TestMode = TestMode.Test)]
+        //[CounterThroughputAssertion("TestCounter", MustBe.GreaterThan, 10000000.0d)]
+        //[MemoryAssertion(MemoryMetric.TotalBytesAllocated, MustBe.LessThanOrEqualTo, ByteConstants.ThirtyTwoKb)]
+        //[GcTotalAssertion(GcMetric.TotalCollections, GcGeneration.Gen2, MustBe.ExactlyEqualTo, 0.0d)]
+        //public void PerfGet(BenchmarkContext context)
+        //{
+        //    Get();
+        //    if (_counter != null)
+        //        _counter.Increment();
+        //}
+
         // GET api/values
         [SwaggerOperation("GetAllUser")]
-        [PerfBenchmark(
-        NumberOfIterations = 3, RunMode = RunMode.Throughput,
-        RunTimeMilliseconds = 1000, TestMode = TestMode.Test)]
-        [CounterThroughputAssertion("TestCounter", MustBe.GreaterThan, 10000000.0d)]
-        [MemoryAssertion(MemoryMetric.TotalBytesAllocated, MustBe.LessThanOrEqualTo, ByteConstants.ThirtyTwoKb)]
-        [GcTotalAssertion(GcMetric.TotalCollections, GcGeneration.Gen2, MustBe.ExactlyEqualTo, 0.0d)]
         public HttpResponseMessage Get()
         {
-            if (_counter != null)
-                _counter.Increment();
-            return ToJson(ProjectManagerDB.Users.AsEnumerable());
+            return ToJson(_userRepository.Get());
         }
 
         // GET api/values/5
@@ -42,7 +80,7 @@ namespace ProjectManager.WebApi.Controllers
         [SwaggerResponse(HttpStatusCode.NotFound)]
         public HttpResponseMessage Get(int id)
         {
-            return ToJson(ProjectManagerDB.Users.Where(dr => dr.User_ID == id));
+            return ToJson(_userRepository.GetByID(id));
         }
 
         // POST api/values
@@ -50,8 +88,7 @@ namespace ProjectManager.WebApi.Controllers
         [SwaggerResponse(HttpStatusCode.Created)]
         public HttpResponseMessage Post([FromBody]User value)
         {
-            ProjectManagerDB.Users.Add(value);
-            return ToJson(ProjectManagerDB.SaveChanges());
+            return ToJson(_userRepository.Post(value));
         }
 
         // PUT api/values/5
@@ -60,9 +97,7 @@ namespace ProjectManager.WebApi.Controllers
         [SwaggerResponse(HttpStatusCode.NotFound)]
         public HttpResponseMessage Put(int id, [FromBody]User value)
         {
-            if (ProjectManagerDB.Entry(value).State == EntityState.Added)
-                ProjectManagerDB.Entry(value).State = EntityState.Modified;
-            return ToJson(ProjectManagerDB.SaveChanges());
+            return ToJson(_userRepository.Put(id, value));
         }
 
         // DELETE api/values/5
@@ -72,13 +107,12 @@ namespace ProjectManager.WebApi.Controllers
         public HttpResponseMessage Delete(int id)
         {
 
-            ProjectManagerDB.Users.Remove(ProjectManagerDB.Users.FirstOrDefault(x => x.User_ID == id));
-            return ToJson(ProjectManagerDB.SaveChanges());
+            return ToJson(_userRepository.Delete(id));
         }
-        [PerfCleanup]
-        public void Cleanup()
-        {
-            // does nothing
-        }
+        //[PerfCleanup]
+        //public void Cleanup()
+        //{
+        //    // does nothing
+        //}
     }
 }

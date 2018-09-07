@@ -1,12 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="ProjectManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="Parent_Task">
-    <Key>
-      <PropertyRef Name="Parent_ID" />
-    </Key>
-    <Property Name="Parent_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Parent_Task1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-  </EntityType>
   <EntityType Name="Project">
     <Key>
       <PropertyRef Name="Project_ID" />
@@ -30,10 +23,22 @@
     <Property Name="Task_ID" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityContainer Name="ProjectManagerEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Parent_Task" EntityType="Self.Parent_Task" />
     <EntitySet Name="Projects" EntityType="Self.Project" />
     <EntitySet Name="Users" EntityType="Self.User" />
     <EntitySet Name="Tasks" EntityType="ProjectManagerModel.Task" />
+    <FunctionImport Name="sp_InsertTaskUpdateUser">
+      <Parameter Name="Parent_ID" Mode="In" Type="Int32" />
+      <Parameter Name="TaskName" Mode="In" Type="String" />
+      <Parameter Name="Start_Date" Mode="In" Type="DateTime" />
+      <Parameter Name="End_Date" Mode="In" Type="DateTime" />
+      <Parameter Name="Priority" Mode="In" Type="Int32" />
+      <Parameter Name="Status" Mode="In" Type="String" />
+      <Parameter Name="User_ID" Mode="In" Type="Int32" />
+      <Parameter Name="Project_ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="Parent_Task" EntityType="ProjectManagerModel.Parent_Task" />
+    <FunctionImport Name="sp_GetTaskData" ReturnType="Collection(ProjectManagerModel.sp_GetTaskData_Result)" />
+    <FunctionImport Name="sp_GetProjectData" ReturnType="Collection(ProjectManagerModel.sp_GetProjectData_Result)" />
   </EntityContainer>
   <EntityType Name="Task">
     <Key>
@@ -48,4 +53,33 @@
     <Property Name="Priority" Type="Int32" />
     <Property Name="Status" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
   </EntityType>
+  <EntityType Name="Parent_Task">
+    <Key>
+      <PropertyRef Name="Parent_ID" />
+    </Key>
+    <Property Name="Parent_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ParentTaskName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <ComplexType Name="sp_GetTaskData_Result">
+    <Property Type="Int32" Name="Task_ID" Nullable="false" />
+    <Property Type="String" Name="TaskName" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="Project_ID" Nullable="false" />
+    <Property Type="String" Name="ProjectName" Nullable="true" MaxLength="100" />
+    <Property Type="DateTime" Name="Start_Date" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="End_Date" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="Priority" Nullable="true" />
+    <Property Type="String" Name="Status" Nullable="false" MaxLength="1" />
+    <Property Type="Int32" Name="Parent_ID" Nullable="false" />
+    <Property Type="String" Name="ParentTaskName" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="sp_GetProjectData_Result">
+    <Property Type="Int32" Name="Project_ID" Nullable="false" />
+    <Property Type="String" Name="ProjectName" Nullable="false" MaxLength="100" />
+    <Property Type="DateTime" Name="Start_Date" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="End_Date" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="Priority" Nullable="false" />
+    <Property Type="Int32" Name="Manager_Id" Nullable="true" />
+    <Property Type="Int32" Name="TaskCount" Nullable="true" />
+    <Property Type="Int32" Name="CompletedTaskCount" Nullable="true" />
+  </ComplexType>
 </Schema>

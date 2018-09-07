@@ -1,89 +1,113 @@
-﻿<form class="project-form form-horizontal" #projectForm="ngForm" (ngSubmit)="onSubmit(projectForm)" name="projectForm" novalidate>
-  <input type="hidden" name="ProjectID" #ProjectID="ngModel" [(ngModel)]="projectService.selectedProject.ProjectID">
+﻿<form class="project-form form-horizontal" #projectForm="ngForm" (ngSubmit)="projectForm.form.valid && onSubmit(projectForm)" name="projectForm" novalidate>
+  <input type="hidden" name="Project_ID" #Project_ID="ngModel" [(ngModel)]="projectService.selectedProject.Project_ID">
+  <input type="hidden" name="Manager_Id" #Manager_Id="ngModel" [(ngModel)]="projectService.selectedProject.Manager_Id">
   <div class="form-group">
-    <label for="ProjectName" class="col-md-2">Project:</label>
+    <label for="ProjectName" class="col-md-1">Project:</label>
     <div class="form-group col-md-7">
-
-      <input class="form-control" name="ProjectName" #ProjectName="ngModel" [(ngModel)]="projectService.selectedProject.ProjectName" required>
-      <div class="validation-error" *ngIf="ProjectName.invalid && ProjectName.touched">This Field is Required.</div>
+      <input class="form-control " name="ProjectName" #ProjectName="ngModel" [(ngModel)]="projectService.selectedProject.ProjectName" [ngClass]="{ 'is-invalid': projectForm.submitted && ProjectName.invalid }" required>
+    </div>
+    <div *ngIf="projectForm.submitted && ProjectName.invalid" class="col-md-4 invalid-feedback d-block">
+      <div *ngIf="ProjectName.errors.required">Project Name is required</div>
     </div>
   </div>
   <div class="form-group">
-    <label for="SetDate" class="col-md-2"></label>
-    <div class="col-md-3">
-      <div class="checkbox">
-        <label>
-          <input type="checkbox" name="SetDate" #SetDate="ngModel" [(ngModel)]="projectService.selectedProject.SetDate" placeholder="SetDate" (change)="SetDateRange($event)">
-          Set Start Date and End Date
-        </label>
-      </div>
+    <label for="SetDate" class="col-md-1"></label>
+    <div class=" form-group col-md-3 checkbox">
+      <label>
+        <input type="checkbox" name="SetDate" #SetDate="ngModel" [(ngModel)]="projectService.selectedProject.SetDate" placeholder="SetDate" (change)="SetDateRange($event)">
+        Set Start Date and End Date
+      </label>
+    </div>
+    <div class="col-md-2 padding-0">
+      <input class="datepicker" [disabled]="!projectService.selectedProject.SetDate" type="text" onfocus="this.type='date'" name="Start_Date" #Start_Date="ngModel" [(ngModel)]="projectService.selectedProject.Start_Date" placeholder="Start Date">
     </div>
     <div class="col-md-2">
-      <input class="datepicker" [disabled]="!projectService.selectedProject.SetDate" type="date" name="Start_Date" #Start_Date="ngModel" [(ngModel)]="projectService.selectedProject.Start_Date" placeholder="Start Date">
+      <input class="datepicker" [disabled]="!projectService.selectedProject.SetDate" type="text" onfocus="this.type='date'" name="End_Date" #End_Date="ngModel" [(ngModel)]="projectService.selectedProject.End_Date" placeholder="End Date">
     </div>
-    <div class="col-md-2">
-      <input class="datepicker" [disabled]="!projectService.selectedProject.SetDate" type="date" name="End_Date" #End_Date="ngModel" [(ngModel)]="projectService.selectedProject.End_Date" placeholder="End Date">
-    </div>
-
   </div>
   <div class="form-group">
-    <label for="Range" class="col-md-2">Priority:</label>
-    <div class="form-group col-md-7">
+    <div class="col-md-1"></div>
+    <div class="form-group col-md-8">
+      0
+    </div>
+    <div class="form-group col-md-2 padding-0">
+      30
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="Range" class="col-md-1">Priority:</label>
+    <div class="form-group col-md-8">
       <input class="form-control slider" name="Priority" type="range" data-slider-ticks="[0,30]" data-slider-ticks-labels="[0,30]" value="0" #Priority="ngModel" [(ngModel)]="projectService.selectedProject.Priority">
     </div>
+    <div class="col-md-2">
+    </div>
   </div>
   <div class="form-group">
-    <label for="Range" class="col-md-2">Manager:</label>
-    <div class="col-md-2">
-      <input type="text" name="Manager" disabled="disabled" #ManagerId="ngModel" [(ngModel)]="projectService.selectedProject.ManagerId" />
+    <label for="Range" class="col-md-1">Manager:</label>
+    <div class="form-group col-md-3">
+      <input name="Manager" disabled="disabled" #ManagerId="ngModel" [(ngModel)]="projectService.selectedProject.ManagerName" />
     </div>
-      <div class="col-md-5">
-        <button type="button" class="btn" value="Search" data-toggle="modal" data-target="#searchModal">Search
-        </button>
-      </div>
-    
+    <div class="col-md-8 padding-0">
+      <button type="button" class="btn" value="Search" data-toggle="modal" data-target="#searchModal" (click)="showUserData()">
+        Search
+      </button>
+    </div>
+
   </div>
   <div class="form-row">
     <label for="Range" class="col-md-6"></label>
-    <div class="col-md-1">
-      <button [disabled]="!projectForm.valid" type="submit" class="btn btn-lg btn-block btn-info">
-        <i class="fa fa-floppy-o"></i> Add
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-lg btn-block btn-info">
+        <i class="fa fa-floppy-o"></i> {{projectService.selectedProject.Project_ID === null? 'Add':'Update'}}
       </button>
     </div>
-    <div class="col-md-1">
-      <button type="button" class="btn btn-lg btn-block btn-secondary" (click)="resetForm(ProjectForm)">
+    <div class="col-md-2">
+      <button type="button" class="btn btn-lg btn-block btn-secondary" (click)="resetForm(projectForm)">
         <i class="fa fa-repeat"></i> Reset
       </button>
     </div>
-  </div>
-  <div class="form-row">
-    <div class="col-md-9">
-      <hr />
-      </div>
+    <div class="col-md-2">
     </div>
 
-      <!-- The Modal -->
-      <div class="modal" id="searchModal">
-        <div class="modal-dialog">
-          <div class="modal-content">
+  </div>
+  <div class="form-row">
+    <div class="col-md-12">
+      <hr />
+    </div>
+  </div>
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h4 class="modal-title">Modal Heading</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
+  <!-- The Modal -->
+  <div class="modal" id="searchModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Search Manager</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-7">
+              <input class="form-control" name="searchText" [(ngModel)]="searchText" placeholder="Search..." />
             </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-              Modal body..
+          </div>
+          <div class="row top-buffer" *ngFor="let user of userService.UserList | filter : searchText">
+            <div class="col-md-7">
+              <div class="list-group">
+                <button type="button" class="list-group-item" data-dismiss="modal" (click)="setUser(user)">{{user.First_Name}} {{user.Last_Name}}</button>
+              </div>
             </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-
           </div>
         </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+
       </div>
+    </div>
+  </div>
 </form>

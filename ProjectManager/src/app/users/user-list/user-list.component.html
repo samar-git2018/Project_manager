@@ -18,13 +18,13 @@
 <div class="row top-buffer" *ngFor="let user of userService.UserList | filter : searchText | orderBy: {property: column, direction: direction}">
   <div class="col-md-7">
     <ul class="list-group">
-      <li class="list-group-item">
+      <li class="list-group-item colColour">
         {{user.First_Name}}
       </li>
-      <li class="list-group-item">
+      <li class="list-group-item colColour colColour">
         {{user.Last_Name}}
       </li>
-      <li class="list-group-item">
+      <li class="list-group-item colColour">
         {{user.Employee_ID}}
       </li>
     </ul>
