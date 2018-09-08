@@ -22,7 +22,7 @@ export class ProjectService {
     }
 
     putProject(id: string, project: string) {
-        debugger;
+        debugger; 
         var body = JSON.stringify(project); 
         return this.http.put(AppConstants.baseURL + 'Project/' + id,
             body, { headers: headers });
