@@ -7,4 +7,3 @@ C:\Users\Admin\ProjectManager\ProjectManager.Persistence\bin\Debug\EntityFramewo
 C:\Users\Admin\ProjectManager\ProjectManager.Persistence\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Admin\ProjectManager\ProjectManager.Persistence\obj\Debug\ProjectManager.Persistence.dll
 C:\Users\Admin\ProjectManager\ProjectManager.Persistence\obj\Debug\ProjectManager.Persistence.pdb
-C:\Users\Admin\ProjectManager\ProjectManager.Persistence\obj\Debug\ProjectManager.Persistence.csprojResolveAssemblyReference.cache

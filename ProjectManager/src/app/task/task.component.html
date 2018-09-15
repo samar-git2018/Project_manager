@@ -8,16 +8,19 @@
     <div class="form-group col-md-4 mr-1 padding-l-0">
       <input name="ProjectName" readonly="readonly" class="form-control" #ProjectName="ngModel"
              [(ngModel)]="taskService.selectedTask.ProjectName"
-             [ngClass]="{ 'is-invalid': taskForm.submitted && ProjectName.invalid && !taskService.selectedTask.SetParentTask}"
+             [ngClass]="{ 'is-invalid': taskForm.submitted && ProjectName.invalid 
+             && !taskService.selectedTask.SetParentTask}"
              [requiredIf]="!taskService.selectedTask.SetParentTask" />
     </div>
     <div class="form-group col-md-1 d-block d-block">
-      <button type="button" class="btn" [disabled]="taskService.selectedTask.SetParentTask" value="Search" data-toggle="modal" data-target="#searchProject" (click)="showProjectData()">
+      <button type="button" class="btn" [disabled]="taskService.selectedTask.SetParentTask" 
+              value="Search" data-toggle="modal" data-target="#searchProject" (click)="showProjectData()">
         Search
       </button>
     </div>
-    <div *ngIf="taskForm.submitted && ProjectName.invalid && !taskService.selectedTask.SetParentTask" class="col-md-2 invalid-feedback d-block">
-      <div *ngIf="TaskName.errors.required">Project is required</div>
+    <div *ngIf="taskForm.submitted && ProjectName.invalid" 
+          class="col-md-2 invalid-feedback d-block">
+      <div *ngIf="ProjectName?.errors?.requiredIf">Project is required</div>
     </div>
   </div>
   <div class="form-group">
@@ -26,7 +29,7 @@
       <input class="form-control" name="TaskName" #TaskName="ngModel" [(ngModel)]="taskService.selectedTask.TaskName" [ngClass]="{ 'is-invalid': taskForm.submitted && TaskName.invalid }" required>
     </div>
     <div *ngIf="taskForm.submitted && TaskName.invalid" class="col-md-3 invalid-feedback d-block">
-      <div *ngIf="TaskName.errors.required">Task Name is required</div>
+      <div *ngIf="TaskName.errors?.required">Task Name is required</div>
     </div>
   </div>
   <div class="form-group">
@@ -34,7 +37,7 @@
     <div class="form-group col-md-8 padding-l-0">
       <div class="checkbox">
         <label>
-          <input type="checkbox" name="SetParentTask" #SetParentTask="ngModel" [(ngModel)]="taskService.selectedTask.SetParentTask" />
+          <input type="checkbox" name="SetParentTask" #SetParentTask="ngModel" [(ngModel)]="taskService.selectedTask.SetParentTask" (click)="setParentTask($event)" />
           Parent Task
         </label>
       </div>
@@ -53,7 +56,7 @@
   <div class="form-group">
     <label for="Priority" class="col-md-2">Priority:</label>
     <div class="form-group col-md-5 padding-l-0">
-      <input class="form-control slider" name="Priority" type="range" value="0" #Priority="ngModel" [(ngModel)]="taskService.selectedTask.Priority" min="0" max="30">
+      <input class="form-control slider" name="Priority" [disabled]="taskService.selectedTask.SetParentTask" type="range" value="0" #Priority="ngModel" [(ngModel)]="taskService.selectedTask.Priority" min="0" max="30">
     </div>
   </div>
   <div class="form-group">
@@ -123,7 +126,7 @@
           <div class="row top-buffer" *ngFor="let project of projectService.ProjectList | filter : searchText">
             <div class="col-md-7">
               <div class="list-group">
-                <button type="button" class="list-group-item" data-dismiss="modal" (click)="setProject(project)">{{project.ProjectName}}</button>
+                <button type="button" id="btnProject" class="list-group-item" data-dismiss="modal" (click)="setProject(project)">{{project.ProjectName}}</button>
               </div>
             </div>
           </div>
@@ -155,7 +158,7 @@
           <div class="row top-buffer" *ngFor="let user of userService.UserList | filter : searchText">
             <div class="col-md-7">
               <div class="list-group">
-                <button type="button" class="list-group-item" data-dismiss="modal" (click)="setUser(user)">{{user.First_Name}} {{user.Last_Name}}</button>
+                <button type="button" id="btnUserSearch" class="list-group-item" data-dismiss="modal" (click)="setUser(user)">{{user.First_Name}} {{user.Last_Name}}</button>
               </div>
             </div>
           </div>
@@ -188,7 +191,7 @@
           <div class="row top-buffer" *ngFor="let task of taskService.ParentTaskList | filter : searchText">
             <div class="col-md-7">
               <div class="list-group">
-                <button type="button" class="list-group-item" data-dismiss="modal" (click)="setParentTask(task)">{{task.ParentTaskName}}</button>
+                <button type="button" id="brnParent" class="list-group-item" data-dismiss="modal" (click)="setParentTaskName(task)">{{task.ParentTaskName}}</button>
               </div>
             </div>
           </div>

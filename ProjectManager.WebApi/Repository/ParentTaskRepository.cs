@@ -85,7 +85,7 @@ namespace ProjectManager.WebApi.Repository
         /// Parent_Task update method for the entities
         /// </summary>
         /// <param name="entityToUpdate"></param>
-        public virtual int Put(int id, Task entityToUpdate)
+        public virtual int Put(int id, Parent_Task entityToUpdate)
         {
             Context.Entry(entityToUpdate).State = EntityState.Modified;
             return Context.SaveChanges();

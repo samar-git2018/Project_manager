@@ -1,16 +1,18 @@
 ﻿<div class="top-buffer padding-l">
   <h4>Project  Management</h4>
 </div>
-<nav class="navbar navbar-expand-lg">
-  <div class="container-fluid">     
-    <ul class="nav navbar-nav mr-auto">
-      <li><a [routerLink]="['/users']">Add User</a></li>
-      <li class="nav-item active"><a [routerLink]="['/projects']">Add Project</a></li>
-      <li><a [routerLink]="['/task']">Add Task</a></li>
-      <li><a [routerLink]="['/tasklist']">View Task</a></li>
-    </ul>
-  </div>
-</nav>
+<div>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav mr-auto">
+        <li><a [routerLink]="['/users']">Add User</a></li>
+        <li class="nav-item active"><a [routerLink]="['/projects']">Add Project</a></li>
+        <li><a [routerLink]="['/task']">Add Task</a></li>
+        <li><a [routerLink]="['/tasklist']">View Task</a></li>
+      </ul>
+    </div>
+  </nav>
+</div>
 
 <div class="container">
   <router-outlet></router-outlet>

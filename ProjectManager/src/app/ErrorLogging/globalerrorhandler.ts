@@ -11,7 +11,7 @@ export class GlobalErrorHandler extends ErrorHandler {
     }
 
     handleError(error): void {
-        debugger;
+        //debugger;
         this.errorLogService.logError(error);
         throw error;
     }

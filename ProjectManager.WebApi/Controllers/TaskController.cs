@@ -64,9 +64,6 @@ namespace ProjectManager.WebApi.Controllers
         [SwaggerResponse(HttpStatusCode.Created)]
         public HttpResponseMessage Post([FromBody]Task value)
         {
-            //var data = ProjectManagerDB.sp_InsertTaskUpdateUser(value.Parent_ID, value.TaskName, value.Start_Date, value.End_Date, value.Priority, value.Status, value.User_ID, value.Project_ID);
-            //ProjectManagerDB.Tasks.Add(value);
-            //HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, data);
             return ToJson(_taskRepository.Post(value));
         }
 
@@ -76,7 +73,6 @@ namespace ProjectManager.WebApi.Controllers
         [SwaggerResponse(HttpStatusCode.NotFound)]
         public HttpResponseMessage Put(int id, Task value)
         {
-            //ProjectManagerDB.Entry(value).State = EntityState.Modified;
             return ToJson(_taskRepository.Put(id, value));
         }
 
@@ -86,7 +82,6 @@ namespace ProjectManager.WebApi.Controllers
         [SwaggerResponse(HttpStatusCode.NotFound)]
         public HttpResponseMessage Delete(int id)
         {
-            //ProjectManagerDB.Tasks.Remove(ProjectManagerDB.Tasks.FirstOrDefault(x => x.Task_ID == id));
             return ToJson(_taskRepository.Delete(id));
         }
     }

@@ -24,7 +24,7 @@ export class TaskListComponent implements OnInit {
     project: Project;
 
     ngOnInit() {
-        this.taskService.getTaskList().subscribe(x => { this.taskService.TaskList = x as Task[] });;
+        this.taskService.getTaskList().subscribe(x => { this.taskService.TaskList = x as Task[] });
         this.userSerVice.getUserList().subscribe(x => { this.userSerVice.UserList = x as User[] });
         console.log(this.taskService.TaskList);
         var date = new Date();
@@ -52,7 +52,7 @@ export class TaskListComponent implements OnInit {
     }
 
     showForEdit(task: Task) {
-        console.log(task);
+        //console.log(task);
         //debugger;
         this.taskService.selectedTask = Object.assign({}, task);
         if (typeof task.Start_Date != undefined && task.Start_Date
@@ -63,7 +63,7 @@ export class TaskListComponent implements OnInit {
         return this.taskService.selectedTask;
     }
     removeParentTask(task: Task) {
-        debugger;
+        //debugger;
         console.log(task);
         //debugger;
         this.taskService.selectedTask.Parent_ID = null;
@@ -92,7 +92,7 @@ export class TaskListComponent implements OnInit {
                 closeModal();
                 this.taskService.putTask(form.value.Task_ID, form.value)
                     .subscribe(data => {
-                        this.taskService.getTaskList();
+                        this.taskService.getTaskList().subscribe(x => { this.taskService.TaskList = x as Task[] });
                         alert('Task updated Succcessfully');
                     });
             }

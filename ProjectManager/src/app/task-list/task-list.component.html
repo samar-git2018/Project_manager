@@ -102,6 +102,7 @@
         <form class="task-form form-horizontal" #taskForm="ngForm" (ngSubmit)="taskForm.form.valid && onSubmit(taskForm)" name="form" novalidate>
           <input type="hidden" name="Task_ID" #Task_ID="ngModel" [(ngModel)]="taskService.selectedTask.Task_ID">
           <input type="hidden" name="Parent_ID" #User_ID="ngModel" [(ngModel)]="taskService.selectedTask.Parent_ID">
+          <input type="hidden" name="Project_ID" #Project_ID="ngModel" [(ngModel)]="taskService.selectedTask.Project_ID">
           <input type="hidden" name="Status" #Status="ngModel" [(ngModel)]="taskService.selectedTask.Status">
           <div class="form-group">
             <label for="TaskName" class="col-md-2 col-form-label">Task:</label>
@@ -132,8 +133,8 @@
             <div class="form-group col-md-2 padding-l-0">
               <input name="ParentTask" disabled="disabled" #ParentTask="ngModel" [(ngModel)]="taskService.selectedTask.ParentTaskName" />
             </div>
-            <div class="col-md-2" [hidden]="taskService.selectedTask.Parent_ID == 0">
-              <button type="button" class="glyphicon glyphicon-trash btn padding-r-1" (click)="removeParentTask(task)"></button>
+            <div class="col-md-2">
+              <button type="button" class="glyphicon glyphicon-trash btn padding-r-1" (click)="removeParentTask(task)" [hidden]="taskService.selectedTask.Parent_ID == 0"></button>
               <button type="button" class="btn" value="Search" data-toggle="modal" data-target="#searchParentTask" (click)="showParentTaskData()">
                 Search
               </button>

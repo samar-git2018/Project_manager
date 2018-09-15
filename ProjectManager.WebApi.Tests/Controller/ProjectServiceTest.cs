@@ -24,7 +24,6 @@ namespace ProjectManager.WebApi.Tests.Controller
         // private Counter _counter;
         ProjectController ProjectController;
         List<Project> expectedProjects;
-        int count = 0;
         Mock<IProjectRepository> mockRepository;
         bool isCreateOrUpdateInvokedInRepository = false;
 

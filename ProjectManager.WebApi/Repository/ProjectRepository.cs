@@ -45,9 +45,25 @@ namespace ProjectManager.WebApi.Repository
         /// Project Get method for Entities
         /// </summary>
         /// <returns></returns>
-        public virtual IEnumerable<Project> Get()
+        public virtual List<Project> Get()
         {
-            return DbSet.AsEnumerable();
+            var data = Context.sp_GetProjectData();
+            List<Project> projects = new List<Project>();
+            foreach (sp_GetProjectData_Result item in data)
+            {
+                projects.Add(new Project
+                {
+                    ProjectName = item.ProjectName,
+                    Project_ID = item.Project_ID,
+                    Manager_Id = item.Manager_Id,
+                    Start_Date = item.Start_Date,
+                    Priority = item.Priority,
+                    End_Date = item.End_Date,
+                    TaskCount = item.TaskCount,
+                    CompletedTaskCount = item.CompletedTaskCount
+                });
+            }
+            return projects;
         }
 
         /// <summary>

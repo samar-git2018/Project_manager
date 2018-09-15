@@ -1,5 +1,4 @@
 ﻿using Moq;
-using NBench;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using ProjectManager.Persistence;
@@ -28,7 +27,6 @@ namespace ProjectManager.WebApi.Tests.Controller
         bool isCreateOrUpdateInvokedInRepository = false;
 
         [SetUp]
-        //[PerfSetup]
         public void Setup()
         {
             expectedUsers = DataInitializer.GetAllUsers();
@@ -36,12 +34,6 @@ namespace ProjectManager.WebApi.Tests.Controller
         }
 
          [Test, Order(1)]
-       // [PerfBenchmark(
-       //NumberOfIterations = 3, RunMode = RunMode.Throughput,
-       //RunTimeMilliseconds = 1000, TestMode = TestMode.Measurement)]
-       // //[CounterThroughputAssertion("TestCounter", MustBe.GreaterThan, 10000000.0d)]
-       // //[MemoryAssertion(MemoryMetric.TotalBytesAllocated, MustBe.LessThanOrEqualTo, ByteConstants.ThirtyTwoKb)]
-       // [GcTotalAssertion(GcMetric.TotalCollections, GcGeneration.Gen2, MustBe.ExactlyEqualTo, 0.0d)]
         public void GetAllUser()
         {
             
@@ -59,11 +51,6 @@ namespace ProjectManager.WebApi.Tests.Controller
             var jsonString = response.Content.ReadAsStringAsync();
             var actual = JsonConvert.DeserializeObject<List<User>>(jsonString.Result);
             Assert.AreEqual(expectedUsers.Count, actual.Count);
-        }
-        [PerfCleanup]
-        public void Cleanup()
-        {
-            // does nothing
         }
         [Test, Order(2)]
         public void PostUser()
@@ -108,7 +95,7 @@ namespace ProjectManager.WebApi.Tests.Controller
             var actual = JsonConvert.DeserializeObject<User>(jsonString.Result);
             Assert.AreEqual(1, actual.User_ID, "Wrong user id");
         }
-        [Test, Order(3)]
+        [Test, Order(4)]
         public void GetUserByUserIdNotFound()
         {
             mockRepository.Setup(x => x.GetByID(6)).Returns(() => null);
@@ -124,7 +111,7 @@ namespace ProjectManager.WebApi.Tests.Controller
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
         }
 
-        [Test, Order(4)]
+        [Test, Order(5)]
         public void PutUser()
         {
             // Arrange   
@@ -145,7 +132,7 @@ namespace ProjectManager.WebApi.Tests.Controller
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
-        [Test, Order(5)]
+        [Test, Order(6)]
         public void DeleteUser()
         {
             mockRepository.Setup(x => x.Delete(1)).

@@ -20,5 +20,7 @@ namespace ProjectManager.Persistence
         public Nullable<System.DateTime> End_Date { get; set; }
         public int Priority { get; set; }
         public Nullable<int> Manager_Id { get; set; }
+        public Nullable<int> TaskCount { get; set; }
+        public Nullable<int> CompletedTaskCount { get; set; }
     }
 }

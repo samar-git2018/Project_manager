@@ -17,7 +17,7 @@ namespace ProjectManager.WebApi.Tests.TestsHelper
         {
             var users = new List<User>
                                {
-                                   new User() {User_ID = 1,First_Name = "Sam", Last_Name = "Das", Employee_ID = "EMP001"},
+                                   new User() {User_ID = 1,First_Name = "Sam", Last_Name = "Das", Employee_ID = "EMPL189"},
                                    new User() {User_ID = 2,First_Name = "Ram", Last_Name = "Das", Employee_ID = "EMP002"},
                                    new User() {User_ID = 3,First_Name = "Kuntal", Last_Name = "Das", Employee_ID = "EMP003"},
                                    new User() {User_ID = 4,First_Name = "Jack", Last_Name = "Das", Employee_ID = "EMP00"},
@@ -72,7 +72,8 @@ namespace ProjectManager.WebApi.Tests.TestsHelper
                                            Parent_ID = 1,
                                            Start_Date =  DateTime.Now,
                                            End_Date =  DateTime.Now.AddDays(1),
-                                           User_ID = 1
+                                           User_ID = 1,
+                                           Status = "I"
                                        },
                                    new Task()
                                        {
@@ -83,7 +84,8 @@ namespace ProjectManager.WebApi.Tests.TestsHelper
                                            Parent_ID = 1,
                                            Start_Date =  DateTime.Now,
                                            End_Date =  DateTime.Now.AddDays(1),
-                                           User_ID = 1
+                                           User_ID = 1,
+                                           Status = "I"
                                        },
                                    new Task()
                                        {
@@ -94,7 +96,8 @@ namespace ProjectManager.WebApi.Tests.TestsHelper
                                            Parent_ID = 1,
                                            Start_Date =  DateTime.Now,
                                            End_Date =  DateTime.Now.AddDays(1),
-                                           User_ID = 3
+                                           User_ID = 3,
+                                           Status = "C"
                                        }
                                };
 

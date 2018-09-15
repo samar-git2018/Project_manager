@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<test-run id="2" testcasecount="27" result="Failed" total="27" passed="3" failed="24" inconclusive="0" skipped="0" asserts="3" engine-version="3.8.0.0" clr-version="4.0.30319.42000" start-time="2018-09-07 13:51:08Z" end-time="2018-09-07 13:51:13Z" duration="5.375859">
-  <command-line><![CDATA["C:\Program Files (x86)\Jenkins\workspace\ProjectManager\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe"  "C:\Program Files (x86)\Jenkins\workspace\ProjectManager\ProjectManager.WebApi.Tests\bin\Debug\ProjectManager.WebApi.Tests.dll"]]></command-line>
-  <test-suite type="Assembly" id="0-1032" name="ProjectManager.WebApi.Tests.dll" fullname="C:\Program Files (x86)\Jenkins\workspace\ProjectManager\ProjectManager.WebApi.Tests\bin\Debug\ProjectManager.WebApi.Tests.dll" runstate="Runnable" testcasecount="27" result="Failed" site="Child" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:13Z" duration="3.786606" total="27" passed="3" failed="24" warnings="0" inconclusive="0" skipped="0" asserts="3">
+<test-run id="2" testcasecount="31" result="Failed" total="31" passed="28" failed="3" inconclusive="0" skipped="0" asserts="53" engine-version="3.8.0.0" clr-version="4.0.30319.42000" start-time="2018-09-12 02:04:21Z" end-time="2018-09-12 02:04:48Z" duration="26.427009">
+  <command-line><![CDATA[C:\Users\Admin\ProjectManager\packages\NUnit.ConsoleRunner.3.8.0\tools\nunit3-console.exe  C:\Users\Admin\ProjectManager\ProjectManager.WebApi.Tests\bin\Debug\ProjectManager.WebApi.Tests.dll]]></command-line>
+  <test-suite type="Assembly" id="0-1040" name="ProjectManager.WebApi.Tests.dll" fullname="C:\Users\Admin\ProjectManager\ProjectManager.WebApi.Tests\bin\Debug\ProjectManager.WebApi.Tests.dll" runstate="Runnable" testcasecount="31" result="Failed" site="Child" start-time="2018-09-12 02:04:29Z" end-time="2018-09-12 02:04:48Z" duration="18.848450" total="31" passed="28" failed="3" warnings="0" inconclusive="0" skipped="0" asserts="53">
     <environment framework-version="3.10.1.0" clr-version="4.0.30319.42000" os-version="Microsoft Windows NT 10.0.17134.0" platform="Win32NT" cwd="C:\Users\Admin\ProjectManager\ProjectManager.WebApi.Tests" machine-name="DOTNET" user="Admin" user-domain="DOTNET" culture="en-IN" uiculture="en-US" os-architecture="x64" />
     <settings>
       <setting name="DisposeRunners" value="True" />
@@ -13,270 +13,254 @@
       <setting name="NumberOfTestWorkers" value="3" />
     </settings>
     <properties>
-      <property name="_PID" value="16272" />
+      <property name="_PID" value="15864" />
       <property name="_APPDOMAIN" value="domain-" />
     </properties>
     <failure>
       <message><![CDATA[One or more child tests had errors]]></message>
     </failure>
-    <test-suite type="TestSuite" id="0-1033" name="ProjectManager" fullname="ProjectManager" runstate="Runnable" testcasecount="27" result="Failed" site="Child" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:13Z" duration="3.736409" total="27" passed="3" failed="24" warnings="0" inconclusive="0" skipped="0" asserts="3">
+    <test-suite type="TestSuite" id="0-1041" name="ProjectManager" fullname="ProjectManager" runstate="Runnable" testcasecount="31" result="Failed" site="Child" start-time="2018-09-12 02:04:29Z" end-time="2018-09-12 02:04:48Z" duration="18.783366" total="31" passed="28" failed="3" warnings="0" inconclusive="0" skipped="0" asserts="53">
       <failure>
         <message><![CDATA[One or more child tests had errors]]></message>
       </failure>
-      <test-suite type="TestSuite" id="0-1034" name="WebApi" fullname="ProjectManager.WebApi" runstate="Runnable" testcasecount="27" result="Failed" site="Child" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:13Z" duration="3.735408" total="27" passed="3" failed="24" warnings="0" inconclusive="0" skipped="0" asserts="3">
+      <test-suite type="TestSuite" id="0-1042" name="WebApi" fullname="ProjectManager.WebApi" runstate="Runnable" testcasecount="31" result="Failed" site="Child" start-time="2018-09-12 02:04:29Z" end-time="2018-09-12 02:04:48Z" duration="18.780790" total="31" passed="28" failed="3" warnings="0" inconclusive="0" skipped="0" asserts="53">
         <failure>
           <message><![CDATA[One or more child tests had errors]]></message>
         </failure>
-        <test-suite type="TestSuite" id="0-1035" name="Tests" fullname="ProjectManager.WebApi.Tests" runstate="Runnable" testcasecount="27" result="Failed" site="Child" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:13Z" duration="3.735346" total="27" passed="3" failed="24" warnings="0" inconclusive="0" skipped="0" asserts="3">
+        <test-suite type="TestSuite" id="0-1043" name="Tests" fullname="ProjectManager.WebApi.Tests" runstate="Runnable" testcasecount="31" result="Failed" site="Child" start-time="2018-09-12 02:04:29Z" end-time="2018-09-12 02:04:48Z" duration="18.779575" total="31" passed="28" failed="3" warnings="0" inconclusive="0" skipped="0" asserts="53">
           <failure>
             <message><![CDATA[One or more child tests had errors]]></message>
           </failure>
-          <test-suite type="TestSuite" id="0-1037" name="Controller" fullname="ProjectManager.WebApi.Tests.Controller" runstate="Runnable" testcasecount="24" result="Failed" site="Child" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.255068" total="24" passed="0" failed="24" warnings="0" inconclusive="0" skipped="0" asserts="0">
-            <failure>
-              <message><![CDATA[One or more child tests had errors]]></message>
-            </failure>
-            <test-suite type="TestFixture" id="0-1018" name="ParentTaskServiceTest" fullname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" classname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.212010" total="6" passed="0" failed="6" warnings="0" inconclusive="0" skipped="0" asserts="0">
-              <failure>
-                <message><![CDATA[One or more child tests had errors]]></message>
-              </failure>
-              <test-case id="0-1019" name="GetAllParentTask" fullname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.GetAllParentTask" methodname="GetAllParentTask" classname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" runstate="Runnable" seed="598544973" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.157839" asserts="0">
+          <test-suite type="TestSuite" id="0-1046" name="Controller" fullname="ProjectManager.WebApi.Tests.Controller" runstate="Runnable" testcasecount="24" result="Passed" start-time="2018-09-12 02:04:29Z" end-time="2018-09-12 02:04:34Z" duration="5.211270" total="24" passed="24" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="36">
+            <test-suite type="TestFixture" id="0-1026" name="ParentTaskServiceTest" fullname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" classname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" runstate="Runnable" testcasecount="6" result="Passed" start-time="2018-09-12 02:04:29Z" end-time="2018-09-12 02:04:34Z" duration="4.649032" total="6" passed="6" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="9">
+              <test-case id="0-1027" name="GetAllParentTask" fullname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.GetAllParentTask" methodname="GetAllParentTask" classname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" runstate="Runnable" seed="575849975" result="Passed" start-time="2018-09-12 02:04:29Z" end-time="2018-09-12 02:04:33Z" duration="4.369452" asserts="2">
                 <properties>
                   <property name="Order" value="1" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.Setup()]]></stack-trace>
-                </failure>
               </test-case>
-              <test-case id="0-1020" name="PostParentTask" fullname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.PostParentTask" methodname="PostParentTask" classname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" runstate="Runnable" seed="1439484426" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.001435" asserts="0">
+              <test-case id="0-1028" name="PostParentTask" fullname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.PostParentTask" methodname="PostParentTask" classname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" runstate="Runnable" seed="2077226025" result="Passed" start-time="2018-09-12 02:04:33Z" end-time="2018-09-12 02:04:34Z" duration="0.154560" asserts="2">
                 <properties>
                   <property name="Order" value="2" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.Setup()]]></stack-trace>
-                </failure>
               </test-case>
-              <test-case id="0-1022" name="GetParentTaskByParentTaskIdNotFound" fullname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.GetParentTaskByParentTaskIdNotFound" methodname="GetParentTaskByParentTaskIdNotFound" classname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" runstate="Runnable" seed="1779864308" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.001141" asserts="0">
+              <test-case id="0-1030" name="GetParentTaskByParentTaskIdNotFound" fullname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.GetParentTaskByParentTaskIdNotFound" methodname="GetParentTaskByParentTaskIdNotFound" classname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" runstate="Runnable" seed="543321367" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.024460" asserts="1">
                 <properties>
                   <property name="Order" value="3" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.Setup()]]></stack-trace>
-                </failure>
               </test-case>
-              <test-case id="0-1021" name="GetParentTaskByParentTaskId" fullname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.GetParentTaskByParentTaskId" methodname="GetParentTaskByParentTaskId" classname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" runstate="Runnable" seed="1363098556" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.001058" asserts="0">
+              <test-case id="0-1029" name="GetParentTaskByParentTaskId" fullname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.GetParentTaskByParentTaskId" methodname="GetParentTaskByParentTaskId" classname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" runstate="Runnable" seed="387110675" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.010623" asserts="2">
                 <properties>
                   <property name="Order" value="3" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.Setup()]]></stack-trace>
-                </failure>
               </test-case>
-              <test-case id="0-1023" name="PutParentTask" fullname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.PutParentTask" methodname="PutParentTask" classname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" runstate="Runnable" seed="1082793061" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.001534" asserts="0">
+              <test-case id="0-1031" name="PutParentTask" fullname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.PutParentTask" methodname="PutParentTask" classname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" runstate="Runnable" seed="152846411" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.023006" asserts="1">
                 <properties>
                   <property name="Order" value="4" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.Setup()]]></stack-trace>
-                </failure>
               </test-case>
-              <test-case id="0-1024" name="DeleteParentTask" fullname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.DeleteParentTask" methodname="DeleteParentTask" classname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" runstate="Runnable" seed="1236907173" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.001685" asserts="0">
+              <test-case id="0-1032" name="DeleteParentTask" fullname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.DeleteParentTask" methodname="DeleteParentTask" classname="ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest" runstate="Runnable" seed="1533798974" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.006360" asserts="1">
                 <properties>
                   <property name="Order" value="5" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.ParentTaskServiceTest.Setup()]]></stack-trace>
-                </failure>
               </test-case>
             </test-suite>
-            <test-suite type="TestFixture" id="0-1004" name="ProjectServiceTest" fullname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" classname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.008184" total="6" passed="0" failed="6" warnings="0" inconclusive="0" skipped="0" asserts="0">
-              <failure>
-                <message><![CDATA[One or more child tests had errors]]></message>
-              </failure>
-              <test-case id="0-1005" name="GetAllProject" fullname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.GetAllProject" methodname="GetAllProject" classname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" runstate="Runnable" seed="1319304291" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.001794" asserts="0">
+            <test-suite type="TestFixture" id="0-1012" name="ProjectServiceTest" fullname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" classname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" runstate="Runnable" testcasecount="6" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.270696" total="6" passed="6" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="9">
+              <test-case id="0-1013" name="GetAllProject" fullname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.GetAllProject" methodname="GetAllProject" classname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" runstate="Runnable" seed="1700942216" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.197343" asserts="2">
                 <properties>
                   <property name="Order" value="1" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.Setup()]]></stack-trace>
-                </failure>
               </test-case>
-              <test-case id="0-1006" name="PostProject" fullname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.PostProject" methodname="PostProject" classname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" runstate="Runnable" seed="1604044395" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.001033" asserts="0">
+              <test-case id="0-1014" name="PostProject" fullname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.PostProject" methodname="PostProject" classname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" runstate="Runnable" seed="1167468676" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.012722" asserts="2">
                 <properties>
                   <property name="Order" value="2" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.Setup()]]></stack-trace>
-                </failure>
               </test-case>
-              <test-case id="0-1008" name="GetProjectByProjectIdNotFound" fullname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.GetProjectByProjectIdNotFound" methodname="GetProjectByProjectIdNotFound" classname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" runstate="Runnable" seed="736769927" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.001107" asserts="0">
+              <test-case id="0-1016" name="GetProjectByProjectIdNotFound" fullname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.GetProjectByProjectIdNotFound" methodname="GetProjectByProjectIdNotFound" classname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" runstate="Runnable" seed="1570415691" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.016200" asserts="1">
                 <properties>
                   <property name="Order" value="3" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.Setup()]]></stack-trace>
-                </failure>
               </test-case>
-              <test-case id="0-1007" name="GetProjectByProjectId" fullname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.GetProjectByProjectId" methodname="GetProjectByProjectId" classname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" runstate="Runnable" seed="2030251880" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.001031" asserts="0">
+              <test-case id="0-1015" name="GetProjectByProjectId" fullname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.GetProjectByProjectId" methodname="GetProjectByProjectId" classname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" runstate="Runnable" seed="758379231" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.008735" asserts="2">
                 <properties>
                   <property name="Order" value="3" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.Setup()]]></stack-trace>
-                </failure>
               </test-case>
-              <test-case id="0-1009" name="PutProject" fullname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.PutProject" methodname="PutProject" classname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" runstate="Runnable" seed="1379932629" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.000983" asserts="0">
+              <test-case id="0-1017" name="PutProject" fullname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.PutProject" methodname="PutProject" classname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" runstate="Runnable" seed="839129663" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.011857" asserts="1">
                 <properties>
                   <property name="Order" value="4" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.Setup()]]></stack-trace>
-                </failure>
               </test-case>
-              <test-case id="0-1010" name="DeleteProject" fullname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.DeleteProject" methodname="DeleteProject" classname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" runstate="Runnable" seed="1442750005" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.000985" asserts="0">
+              <test-case id="0-1018" name="DeleteProject" fullname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.DeleteProject" methodname="DeleteProject" classname="ProjectManager.WebApi.Tests.Controller.ProjectServiceTest" runstate="Runnable" seed="1154110052" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.009611" asserts="1">
                 <properties>
                   <property name="Order" value="5" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.ProjectServiceTest.Setup()]]></stack-trace>
-                </failure>
               </test-case>
             </test-suite>
-            <test-suite type="TestFixture" id="0-1011" name="TaskServiceTest" fullname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" classname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.009633" total="6" passed="0" failed="6" warnings="0" inconclusive="0" skipped="0" asserts="0">
-              <failure>
-                <message><![CDATA[One or more child tests had errors]]></message>
-              </failure>
-              <test-case id="0-1012" name="GetAllTask" fullname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest.GetAllTask" methodname="GetAllTask" classname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" runstate="Runnable" seed="60268258" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.002148" asserts="0">
+            <test-suite type="TestFixture" id="0-1019" name="TaskServiceTest" fullname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" classname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" runstate="Runnable" testcasecount="6" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.127998" total="6" passed="6" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="9">
+              <test-case id="0-1020" name="GetAllTask" fullname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest.GetAllTask" methodname="GetAllTask" classname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" runstate="Runnable" seed="1947061718" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.064868" asserts="2">
                 <properties>
                   <property name="Order" value="1" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.TaskServiceTest.Setup()]]></stack-trace>
-                </failure>
               </test-case>
-              <test-case id="0-1013" name="PostTask" fullname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest.PostTask" methodname="PostTask" classname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" runstate="Runnable" seed="1515578543" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.001640" asserts="0">
+              <test-case id="0-1021" name="PostTask" fullname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest.PostTask" methodname="PostTask" classname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" runstate="Runnable" seed="1332040566" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.032210" asserts="2">
                 <properties>
                   <property name="Order" value="2" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.TaskServiceTest.Setup()]]></stack-trace>
-                </failure>
               </test-case>
-              <test-case id="0-1014" name="GetTaskByTaskId" fullname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest.GetTaskByTaskId" methodname="GetTaskByTaskId" classname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" runstate="Runnable" seed="708601108" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.001305" asserts="0">
+              <test-case id="0-1022" name="GetTaskByTaskId" fullname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest.GetTaskByTaskId" methodname="GetTaskByTaskId" classname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" runstate="Runnable" seed="2131729515" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.010818" asserts="2">
                 <properties>
                   <property name="Order" value="3" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.TaskServiceTest.Setup()]]></stack-trace>
-                </failure>
               </test-case>
-              <test-case id="0-1015" name="GetTaskByTaskIdNotFound" fullname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest.GetTaskByTaskIdNotFound" methodname="GetTaskByTaskIdNotFound" classname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" runstate="Runnable" seed="2048005728" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.001445" asserts="0">
+              <test-case id="0-1023" name="GetTaskByTaskIdNotFound" fullname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest.GetTaskByTaskIdNotFound" methodname="GetTaskByTaskIdNotFound" classname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" runstate="Runnable" seed="1234877633" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.007644" asserts="1">
                 <properties>
                   <property name="Order" value="4" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.TaskServiceTest.Setup()]]></stack-trace>
-                </failure>
               </test-case>
-              <test-case id="0-1016" name="PutTask" fullname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest.PutTask" methodname="PutTask" classname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" runstate="Runnable" seed="1664631475" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.001021" asserts="0">
+              <test-case id="0-1024" name="PutTask" fullname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest.PutTask" methodname="PutTask" classname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" runstate="Runnable" seed="1510493292" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.006612" asserts="1">
                 <properties>
                   <property name="Order" value="5" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.TaskServiceTest.Setup()]]></stack-trace>
-                </failure>
               </test-case>
-              <test-case id="0-1017" name="DeleteTask" fullname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest.DeleteTask" methodname="DeleteTask" classname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" runstate="Runnable" seed="434358202" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.001004" asserts="0">
+              <test-case id="0-1025" name="DeleteTask" fullname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest.DeleteTask" methodname="DeleteTask" classname="ProjectManager.WebApi.Tests.Controller.TaskServiceTest" runstate="Runnable" seed="1394866303" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.004673" asserts="1">
                 <properties>
                   <property name="Order" value="6" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.TaskServiceTest.Setup()]]></stack-trace>
-                </failure>
               </test-case>
             </test-suite>
-            <test-suite type="TestFixture" id="0-1025" name="UserServiceTest" fullname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" classname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" runstate="Runnable" testcasecount="6" result="Failed" site="Child" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.008193" total="6" passed="0" failed="6" warnings="0" inconclusive="0" skipped="0" asserts="0">
-              <failure>
-                <message><![CDATA[One or more child tests had errors]]></message>
-              </failure>
-              <test-case id="0-1026" name="GetAllUser" fullname="ProjectManager.WebApi.Tests.Controller.UserServiceTest.GetAllUser" methodname="GetAllUser" classname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" runstate="Runnable" seed="1645533901" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.001329" asserts="0">
+            <test-suite type="TestFixture" id="0-1033" name="UserServiceTest" fullname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" classname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" runstate="Runnable" testcasecount="6" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.127442" total="6" passed="6" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="9">
+              <test-case id="0-1034" name="GetAllUser" fullname="ProjectManager.WebApi.Tests.Controller.UserServiceTest.GetAllUser" methodname="GetAllUser" classname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" runstate="Runnable" seed="1806574282" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.068419" asserts="2">
                 <properties>
                   <property name="Order" value="1" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.UserServiceTest.Setup()]]></stack-trace>
-                </failure>
               </test-case>
-              <test-case id="0-1027" name="PostUser" fullname="ProjectManager.WebApi.Tests.Controller.UserServiceTest.PostUser" methodname="PostUser" classname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" runstate="Runnable" seed="972835143" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.001048" asserts="0">
+              <test-case id="0-1035" name="PostUser" fullname="ProjectManager.WebApi.Tests.Controller.UserServiceTest.PostUser" methodname="PostUser" classname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" runstate="Runnable" seed="499264019" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.020550" asserts="2">
                 <properties>
                   <property name="Order" value="2" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.UserServiceTest.Setup()]]></stack-trace>
-                </failure>
               </test-case>
-              <test-case id="0-1029" name="GetUserByUserIdNotFound" fullname="ProjectManager.WebApi.Tests.Controller.UserServiceTest.GetUserByUserIdNotFound" methodname="GetUserByUserIdNotFound" classname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" runstate="Runnable" seed="1925667127" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.000987" asserts="0">
+              <test-case id="0-1036" name="GetUserByUserId" fullname="ProjectManager.WebApi.Tests.Controller.UserServiceTest.GetUserByUserId" methodname="GetUserByUserId" classname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" runstate="Runnable" seed="1970706528" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.012953" asserts="2">
                 <properties>
                   <property name="Order" value="3" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.UserServiceTest.Setup()]]></stack-trace>
-                </failure>
               </test-case>
-              <test-case id="0-1028" name="GetUserByUserId" fullname="ProjectManager.WebApi.Tests.Controller.UserServiceTest.GetUserByUserId" methodname="GetUserByUserId" classname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" runstate="Runnable" seed="1876542101" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.001591" asserts="0">
-                <properties>
-                  <property name="Order" value="3" />
-                </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.UserServiceTest.Setup()]]></stack-trace>
-                </failure>
-              </test-case>
-              <test-case id="0-1030" name="PutUser" fullname="ProjectManager.WebApi.Tests.Controller.UserServiceTest.PutUser" methodname="PutUser" classname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" runstate="Runnable" seed="1849395446" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.001739" asserts="0">
+              <test-case id="0-1037" name="GetUserByUserIdNotFound" fullname="ProjectManager.WebApi.Tests.Controller.UserServiceTest.GetUserByUserIdNotFound" methodname="GetUserByUserIdNotFound" classname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" runstate="Runnable" seed="392663415" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.010824" asserts="1">
                 <properties>
                   <property name="Order" value="4" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.UserServiceTest.Setup()]]></stack-trace>
-                </failure>
               </test-case>
-              <test-case id="0-1031" name="DeleteUser" fullname="ProjectManager.WebApi.Tests.Controller.UserServiceTest.DeleteUser" methodname="DeleteUser" classname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" runstate="Runnable" seed="1166929783" result="Failed" label="Error" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:10Z" duration="0.001030" asserts="0">
+              <test-case id="0-1038" name="PutUser" fullname="ProjectManager.WebApi.Tests.Controller.UserServiceTest.PutUser" methodname="PutUser" classname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" runstate="Runnable" seed="1785963464" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.006692" asserts="1">
                 <properties>
                   <property name="Order" value="5" />
                 </properties>
-                <failure>
-                  <message><![CDATA[System.IO.FileNotFoundException : Could not load file or assembly 'Moq, Version=4.9.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920' or one of its dependencies. The system cannot find the file specified.]]></message>
-                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Controller.UserServiceTest.Setup()]]></stack-trace>
-                </failure>
+              </test-case>
+              <test-case id="0-1039" name="DeleteUser" fullname="ProjectManager.WebApi.Tests.Controller.UserServiceTest.DeleteUser" methodname="DeleteUser" classname="ProjectManager.WebApi.Tests.Controller.UserServiceTest" runstate="Runnable" seed="1582505533" result="Passed" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:34Z" duration="0.006935" asserts="1">
+                <properties>
+                  <property name="Order" value="6" />
+                </properties>
               </test-case>
             </test-suite>
           </test-suite>
-          <test-suite type="TestSuite" id="0-1036" name="ServiceHttpResponse" fullname="ProjectManager.WebApi.Tests.ServiceHttpResponse" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:13Z" duration="3.735254" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="3">
-            <test-suite type="TestFixture" id="0-1000" name="HttpResponseTests" fullname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests" classname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:13Z" duration="3.480127" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="3">
-              <test-case id="0-1003" name="GetAuthenticationStatus" fullname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests.GetAuthenticationStatus" methodname="GetAuthenticationStatus" classname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests" runstate="Runnable" seed="1503887859" result="Passed" start-time="2018-09-07 13:51:10Z" end-time="2018-09-07 13:51:13Z" duration="3.333534" asserts="1" />
-              <test-case id="0-1002" name="GetResponseIsJson" fullname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests.GetResponseIsJson" methodname="GetResponseIsJson" classname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests" runstate="Runnable" seed="1639787023" result="Passed" start-time="2018-09-07 13:51:13Z" end-time="2018-09-07 13:51:13Z" duration="0.064532" asserts="1" />
-              <test-case id="0-1001" name="GetResponseIsSuccess" fullname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests.GetResponseIsSuccess" methodname="GetResponseIsSuccess" classname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests" runstate="Runnable" seed="1484992382" result="Passed" start-time="2018-09-07 13:51:13Z" end-time="2018-09-07 13:51:13Z" duration="0.081653" asserts="1" />
+          <test-suite type="TestSuite" id="0-1045" name="Repository" fullname="ProjectManager.WebApi.Tests.Repository" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2018-09-12 02:04:29Z" end-time="2018-09-12 02:04:46Z" duration="17.355083" total="4" passed="1" failed="3" warnings="0" inconclusive="0" skipped="0" asserts="14">
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-suite type="TestFixture" id="0-1006" name="ParentTaskRepositoryTests" fullname="ProjectManager.WebApi.Tests.Repository.ParentTaskRepositoryTests" classname="ProjectManager.WebApi.Tests.Repository.ParentTaskRepositoryTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:45Z" duration="10.461053" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="4">
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="0-1007" name="ParentTaskCrud" fullname="ProjectManager.WebApi.Tests.Repository.ParentTaskRepositoryTests.ParentTaskCrud" methodname="ParentTaskCrud" classname="ProjectManager.WebApi.Tests.Repository.ParentTaskRepositoryTests" runstate="Runnable" seed="1487856013" result="Failed" label="Error" start-time="2018-09-12 02:04:34Z" end-time="2018-09-12 02:04:45Z" duration="10.453735" asserts="4">
+                <failure>
+                  <message><![CDATA[System.Data.Entity.Validation.DbEntityValidationException : Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.]]></message>
+                  <stack-trace><![CDATA[   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at ProjectManager.WebApi.Repository.ParentTaskRepository.Put(Int32 id, Task entityToUpdate) in C:\Users\Admin\ProjectManager\ProjectManager.WebApi\Repository\ParentTaskRepository.cs:line 91
+   at ProjectManager.WebApi.Tests.Repository.ParentTaskRepositoryTests.Put(Int32 id) in C:\Users\Admin\ProjectManager\ProjectManager.WebApi.Tests\Repository\ParentTaskRepositoryTest.cs:line 124
+   at ProjectManager.WebApi.Tests.Repository.ParentTaskRepositoryTests.ParentTaskCrud() in C:\Users\Admin\ProjectManager\ProjectManager.WebApi.Tests\Repository\ParentTaskRepositoryTest.cs:line 61]]></stack-trace>
+                </failure>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="0-1008" name="ProjectRepositoryTests" fullname="ProjectManager.WebApi.Tests.Repository.ProjectRepositoryTests" classname="ProjectManager.WebApi.Tests.Repository.ProjectRepositoryTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2018-09-12 02:04:45Z" end-time="2018-09-12 02:04:45Z" duration="0.150638" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="3">
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="0-1009" name="ProjectCrud" fullname="ProjectManager.WebApi.Tests.Repository.ProjectRepositoryTests.ProjectCrud" methodname="ProjectCrud" classname="ProjectManager.WebApi.Tests.Repository.ProjectRepositoryTests" runstate="Runnable" seed="576732272" result="Failed" start-time="2018-09-12 02:04:45Z" end-time="2018-09-12 02:04:45Z" duration="0.148538" asserts="3">
+                <failure>
+                  <message><![CDATA[  Expected: not equal to "UVIS"
+  But was:  "UVIS"
+]]></message>
+                  <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Repository.ProjectRepositoryTests.GetByID(Int32 id) in C:\Users\Admin\ProjectManager\ProjectManager.WebApi.Tests\Repository\ProjectRepositoryTest.cs:line 187
+   at ProjectManager.WebApi.Tests.Repository.ProjectRepositoryTests.ProjectCrud() in C:\Users\Admin\ProjectManager\ProjectManager.WebApi.Tests\Repository\ProjectRepositoryTest.cs:line 56
+]]></stack-trace>
+                </failure>
+                <assertions>
+                  <assertion result="Failed">
+                    <message><![CDATA[  Expected: not equal to "UVIS"
+  But was:  "UVIS"
+]]></message>
+                    <stack-trace><![CDATA[   at ProjectManager.WebApi.Tests.Repository.ProjectRepositoryTests.GetByID(Int32 id) in C:\Users\Admin\ProjectManager\ProjectManager.WebApi.Tests\Repository\ProjectRepositoryTest.cs:line 187
+   at ProjectManager.WebApi.Tests.Repository.ProjectRepositoryTests.ProjectCrud() in C:\Users\Admin\ProjectManager\ProjectManager.WebApi.Tests\Repository\ProjectRepositoryTest.cs:line 56
+]]></stack-trace>
+                  </assertion>
+                </assertions>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="0-1004" name="TaskRepositoryTests" fullname="ProjectManager.WebApi.Tests.Repository.TaskRepositoryTests" classname="ProjectManager.WebApi.Tests.Repository.TaskRepositoryTests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2018-09-12 02:04:45Z" end-time="2018-09-12 02:04:45Z" duration="0.167589" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="0">
+              <failure>
+                <message><![CDATA[One or more child tests had errors]]></message>
+              </failure>
+              <test-case id="0-1005" name="TaskCrud" fullname="ProjectManager.WebApi.Tests.Repository.TaskRepositoryTests.TaskCrud" methodname="TaskCrud" classname="ProjectManager.WebApi.Tests.Repository.TaskRepositoryTests" runstate="Runnable" seed="206567466" result="Failed" label="Error" start-time="2018-09-12 02:04:45Z" end-time="2018-09-12 02:04:45Z" duration="0.166855" asserts="0">
+                <failure>
+                  <message><![CDATA[System.Data.Entity.Core.EntityCommandExecutionException : An error occurred while executing the command definition. See the inner exception for details.
+  ----> System.Data.SqlClient.SqlException : Cannot insert the value NULL into column 'Status', table 'ProjectManager.dbo.Task'; column does not allow nulls. INSERT fails.
+The statement has been terminated.]]></message>
+                  <stack-trace><![CDATA[   at System.Data.Entity.Core.EntityClient.Internal.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Entity.Core.EntityClient.Internal.EntityCommandDefinition.Execute(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Entity.Core.EntityClient.EntityCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Entity.Core.EntityClient.EntityCommand.ExecuteNonQuery()
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunctionCommand(EntityCommand entityCommand)
+   at System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass4b.<ExecuteFunction>b__4a()
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass4b.<ExecuteFunction>b__49()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteFunction(String functionName, ObjectParameter[] parameters)
+   at ProjectManager.Persistence.ProjectManagerEntities.sp_InsertTaskUpdateUser(Nullable`1 parent_ID, String taskName, Nullable`1 start_Date, Nullable`1 end_Date, Nullable`1 priority, String status, Nullable`1 user_ID, Nullable`1 project_ID) in C:\Users\Admin\ProjectManager\ProjectManager.Persistence\ProjectManager.Context.cs:line 69
+   at ProjectManager.WebApi.Repository.TaskRepository.Post(Task entity) in C:\Users\Admin\ProjectManager\ProjectManager.WebApi\Repository\TaskRepository.cs:line 87
+   at ProjectManager.WebApi.Tests.Repository.TaskRepositoryTests.Post() in C:\Users\Admin\ProjectManager\ProjectManager.WebApi.Tests\Repository\TaskRepositoryTest.cs:line 90
+   at ProjectManager.WebApi.Tests.Repository.TaskRepositoryTests.TaskCrud() in C:\Users\Admin\ProjectManager\ProjectManager.WebApi.Tests\Repository\TaskRepositoryTest.cs:line 54
+--SqlException
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.<Reader>b__c(DbCommand t, DbCommandInterceptionContext`1 c)
+   at System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext,TResult](TTarget target, Func`3 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)
+   at System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.Reader(DbCommand command, DbCommandInterceptionContext interceptionContext)
+   at System.Data.Entity.Internal.InterceptableDbCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Entity.Core.EntityClient.Internal.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)]]></stack-trace>
+                </failure>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="0-1010" name="UserRepositoryTests" fullname="ProjectManager.WebApi.Tests.Repository.UserRepositoryTests" classname="ProjectManager.WebApi.Tests.Repository.UserRepositoryTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2018-09-12 02:04:45Z" end-time="2018-09-12 02:04:46Z" duration="1.346021" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="7">
+              <test-case id="0-1011" name="UserCrud" fullname="ProjectManager.WebApi.Tests.Repository.UserRepositoryTests.UserCrud" methodname="UserCrud" classname="ProjectManager.WebApi.Tests.Repository.UserRepositoryTests" runstate="Runnable" seed="639765566" result="Passed" start-time="2018-09-12 02:04:45Z" end-time="2018-09-12 02:04:46Z" duration="1.345313" asserts="7" />
+            </test-suite>
+          </test-suite>
+          <test-suite type="TestSuite" id="0-1044" name="ServiceHttpResponse" fullname="ProjectManager.WebApi.Tests.ServiceHttpResponse" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-09-12 02:04:29Z" end-time="2018-09-12 02:04:48Z" duration="18.778236" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="3">
+            <test-suite type="TestFixture" id="0-1000" name="HttpResponseTests" fullname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests" classname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2018-09-12 02:04:46Z" end-time="2018-09-12 02:04:48Z" duration="1.422949" total="3" passed="3" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="3">
+              <test-case id="0-1003" name="GetAuthenticationStatus" fullname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests.GetAuthenticationStatus" methodname="GetAuthenticationStatus" classname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests" runstate="Runnable" seed="2003750036" result="Passed" start-time="2018-09-12 02:04:46Z" end-time="2018-09-12 02:04:48Z" duration="1.198247" asserts="1" />
+              <test-case id="0-1002" name="GetResponseIsJson" fullname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests.GetResponseIsJson" methodname="GetResponseIsJson" classname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests" runstate="Runnable" seed="1805008485" result="Passed" start-time="2018-09-12 02:04:48Z" end-time="2018-09-12 02:04:48Z" duration="0.092335" asserts="1" />
+              <test-case id="0-1001" name="GetResponseIsSuccess" fullname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests.GetResponseIsSuccess" methodname="GetResponseIsSuccess" classname="ProjectManager.WebApi.Tests.ServiceHttpResponse.HttpResponseTests" runstate="Runnable" seed="1298690857" result="Passed" start-time="2018-09-12 02:04:48Z" end-time="2018-09-12 02:04:48Z" duration="0.113455" asserts="1" />
             </test-suite>
           </test-suite>
         </test-suite>

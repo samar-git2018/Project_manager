@@ -64,7 +64,6 @@ namespace ProjectManager.WebApi.Controllers
         [SwaggerResponse(HttpStatusCode.Created)]
         public HttpResponseMessage Post([FromBody]Parent_Task value)
         {
-            //ProjectManagerDB.Parent_Task.Add(value);
             return ToJson(_parentTaskRepository.Post(value));
         }
 
@@ -72,9 +71,8 @@ namespace ProjectManager.WebApi.Controllers
         [SwaggerOperation("Update")]
         [SwaggerResponse(HttpStatusCode.OK)]
         [SwaggerResponse(HttpStatusCode.NotFound)]
-        public HttpResponseMessage Put(int id, Task value)
+        public HttpResponseMessage Put(int id, Parent_Task value)
         {
-            //ProjectManagerDB.Entry(value).State = EntityState.Modified;
             return ToJson(_parentTaskRepository.Put(id, value));
         }
 
@@ -84,7 +82,6 @@ namespace ProjectManager.WebApi.Controllers
         [SwaggerResponse(HttpStatusCode.NotFound)]
         public HttpResponseMessage Delete(int id)
         {
-            //ProjectManagerDB.Parent_Task.Remove(ProjectManagerDB.Parent_Task.FirstOrDefault(x => x.Parent_ID == id));
             return ToJson(_parentTaskRepository.Delete(id));
         }
     }

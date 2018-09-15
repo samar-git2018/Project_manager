@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.1",
-    "signature": "3fbc73527f023612c8e8fef17e98320674a9d8bc"
+    "signature": "ff99e4648c6f9a7ceda01a938cf00379369bd26b"
   },
   "compilationOptions": {
     "defines": [
@@ -31,6 +31,7 @@
           "OpenCover": "4.6.519",
           "ReportGenerator": "3.1.2",
           "NBench": "1.2.2",
+          "NBench.Runner": "1.2.2",
           "Newtonsoft.Json": "11.0.2"
         },
         "runtime": {
@@ -710,6 +711,7 @@
           "lib/netstandard1.6/NBench.dll": {}
         }
       },
+      "nbench.runner/1.2.2": {},
       "newtonsoft.json/11.0.2": {
         "dependencies": {
           "Microsoft.CSharp": "4.3.0",
@@ -2925,6 +2927,13 @@
       "sha512": "sha512-a54QEuCM/9wmipNTMXDjFExDsPlF+BUtqNZZ/4b+Or/HYzx7NrkPkeRtgZ88mV4MWEY4MDU3Q9uF72JAe8f3tw==",
       "path": "nbench/1.2.2",
       "hashPath": "nbench.1.2.2.nupkg.sha512"
+    },
+    "nbench.runner/1.2.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-nhqIrJAX9Bk0SUa1t6wL9e+XHfdR6rSIy1TrgHzuko6fNGBibxvMOTEE0Fg5PdzzN/U5RLpdGryXw0RcSeclqA==",
+      "path": "nbench.runner/1.2.2",
+      "hashPath": "nbench.runner.1.2.2.nupkg.sha512"
     },
     "newtonsoft.json/11.0.2": {
       "type": "package",

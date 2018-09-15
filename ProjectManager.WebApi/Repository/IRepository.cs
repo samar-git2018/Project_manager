@@ -15,7 +15,7 @@ namespace ProjectManager.WebApi.Repository
     }
     public interface IProjectRepository
     {
-        IEnumerable<Project> Get();
+        List<Project> Get();
         Project GetByID(int id);
         int Post(Project Entity);
         int Put(int id, Project Entity);
@@ -34,7 +34,7 @@ namespace ProjectManager.WebApi.Repository
         IEnumerable<Parent_Task> Get();
         Parent_Task GetByID(int id);
         int Post(Parent_Task Entity);
-        int Put(int id, Task Entity);
+        int Put(int id, Parent_Task Entity);
         int Delete(int id);
     }
 

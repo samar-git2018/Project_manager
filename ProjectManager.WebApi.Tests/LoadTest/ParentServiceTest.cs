@@ -1,7 +1,6 @@
 ﻿using Moq;
 using NBench;
 using Newtonsoft.Json;
-using NUnit.Framework;
 using ProjectManager.Persistence;
 using ProjectManager.WebApi.Controllers;
 using ProjectManager.WebApi.Repository;
@@ -13,41 +12,39 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Hosting;
 
-namespace ProjectManager.WebApi.Tests.Controller
+namespace ProjectManager.WebApi.Tests.LoadTest
 {
     /// <summary>
     /// Contains NUnit test cases for ParentTaskController
     /// </summary>
-    [TestFixture]
     public class ParentTaskServiceTest
     {
-       // private Counter _counter;
+        // private Counter _counter;
         ParentTaskController ParentTaskController;
         List<Parent_Task> expectedParentTasks;
         List<Task> expectedTasks;
         Mock<IParentTaskRepository> mockRepository;
-        bool isCreateOrUpdateInvokedInRepository = false;
+        private Counter _counter;
+        public const int numberOfThreads = 500;
 
-        [SetUp]
-        //[PerfSetup]
-        public void Setup()
+        [PerfSetup]
+        public void Setup(BenchmarkContext context)
         {
             expectedParentTasks = DataInitializer.GetAllParentTasks();
             expectedTasks = DataInitializer.GetAllTasks();
             mockRepository = new Mock<IParentTaskRepository>();
+            _counter = context.GetCounter("TestCounter");
         }
 
-         [Test, Order(1)]
-       // [PerfBenchmark(
-       //NumberOfIterations = 3, RunMode = RunMode.Throughput,
-       //RunTimeMilliseconds = 1000, TestMode = TestMode.Measurement)]
-       // //[CounterThroughputAssertion("TestCounter", MustBe.GreaterThan, 10000000.0d)]
-       // //[MemoryAssertion(MemoryMetric.TotalBytesAllocated, MustBe.LessThanOrEqualTo, ByteConstants.ThirtyTwoKb)]
-       // [GcTotalAssertion(GcMetric.TotalCollections, GcGeneration.Gen2, MustBe.ExactlyEqualTo, 0.0d)]
+        [PerfBenchmark(Description = "Test 500 threads for 10 mintues",
+        NumberOfIterations = 500, RunMode = RunMode.Iterations,
+        RunTimeMilliseconds = 600000, TestMode = TestMode.Test)]
+        [CounterThroughputAssertion("TestCounter", MustBe.GreaterThan, 1000.0d)]
         public void GetAllParentTask()
         {
-            
-            mockRepository.Setup(x => x.Get()).Returns(() => expectedParentTasks);
+            for (int i = 0; i < numberOfThreads; i++)
+            {
+                mockRepository.Setup(x => x.Get()).Returns(() => expectedParentTasks);
             ParentTaskController = new ParentTaskController(mockRepository.Object);
             ParentTaskController.Request = new HttpRequestMessage()
             {
@@ -55,26 +52,27 @@ namespace ProjectManager.WebApi.Tests.Controller
             };
             //ACT
             var response = ParentTaskController.Get();
-
-            //ASSERT
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-            var jsonString = response.Content.ReadAsStringAsync();
-            var actual = JsonConvert.DeserializeObject<List<Parent_Task>>(jsonString.Result);
-            Assert.AreEqual(expectedParentTasks.Count, actual.Count);
+                _counter.Increment();
+            }
         }
         [PerfCleanup]
         public void Cleanup()
         {
             // does nothing
         }
-        [Test, Order(2)]
+
+        [PerfBenchmark(Description = "Test 500 threads for 10 mintues",
+        NumberOfIterations = 500, RunMode = RunMode.Iterations,
+        RunTimeMilliseconds = 600000, TestMode = TestMode.Test)]
+        [CounterThroughputAssertion("TestCounter", MustBe.GreaterThan, 1000.0d)]
         public void PostParentTask()
         {
-            //ARRANGE
-            var user = expectedParentTasks.First();
+            for (int i = 0; i < numberOfThreads; i++)
+            {
+                //ARRANGE
+                var user = expectedParentTasks.First();
 
-            mockRepository.Setup(x => x.Post(It.IsAny<Parent_Task>())).
-                Callback(() => isCreateOrUpdateInvokedInRepository = true);
+            mockRepository.Setup(x => x.Post(It.IsAny<Parent_Task>()));
             ParentTaskController = new ParentTaskController(
                 mockRepository.Object);
             ParentTaskController.Request = new HttpRequestMessage()
@@ -84,17 +82,19 @@ namespace ProjectManager.WebApi.Tests.Controller
 
             //ACT
             var response = ParentTaskController.Post(user);
-
-            //ASSERT
-            Assert.IsTrue(isCreateOrUpdateInvokedInRepository,
-                "Post method in Repository not invoked");
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+                _counter.Increment();
+            }
         }
 
-        [Test, Order(3)]
+        [PerfBenchmark(Description = "Test 500 threads for 10 mintues",
+        NumberOfIterations = 500, RunMode = RunMode.Iterations,
+        RunTimeMilliseconds = 600000, TestMode = TestMode.Test)]
+        [CounterThroughputAssertion("TestCounter", MustBe.GreaterThan, 1000.0d)]
         public void GetParentTaskByParentTaskId()
         {
-            var expectedParentTask = expectedParentTasks.First();
+            for (int i = 0; i < numberOfThreads; i++)
+            {
+                var expectedParentTask = expectedParentTasks.First();
             mockRepository.Setup(x => x.GetByID(1)).Returns(() => expectedParentTask);
             ParentTaskController = new ParentTaskController(mockRepository.Object);
             ParentTaskController.Request = new HttpRequestMessage()
@@ -103,17 +103,19 @@ namespace ProjectManager.WebApi.Tests.Controller
             };
             //ACT
             var response = ParentTaskController.Get(1);
-
-            //ASSERT
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-            var jsonString = response.Content.ReadAsStringAsync();
-            var actual = JsonConvert.DeserializeObject<Parent_Task>(jsonString.Result);
-            Assert.AreEqual(1, actual.Parent_ID, "Wrong parent id");
+                _counter.Increment();
+            }
         }
-        [Test, Order(3)]
+
+        [PerfBenchmark(Description = "Test 500 threads for 10 mintues",
+        NumberOfIterations = 500, RunMode = RunMode.Iterations,
+        RunTimeMilliseconds = 600000, TestMode = TestMode.Test)]
+        [CounterThroughputAssertion("TestCounter", MustBe.GreaterThan, 1000.0d)]
         public void GetParentTaskByParentTaskIdNotFound()
         {
-            mockRepository.Setup(x => x.GetByID(6)).Returns(() => null);
+            for (int i = 0; i < numberOfThreads; i++)
+            {
+                mockRepository.Setup(x => x.GetByID(6)).Returns(() => null);
             ParentTaskController = new ParentTaskController(mockRepository.Object);
             ParentTaskController.Request = new HttpRequestMessage()
             {
@@ -121,17 +123,20 @@ namespace ProjectManager.WebApi.Tests.Controller
             };
             //ACT
             var response = ParentTaskController.Get(6);
-
-            //ASSERT
-            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+                _counter.Increment();
+            }
         }
 
-        [Test, Order(4)]
+        [PerfBenchmark(Description = "Test 500 threads for 10 mintues",
+        NumberOfIterations = 500, RunMode = RunMode.Iterations,
+        RunTimeMilliseconds = 600000, TestMode = TestMode.Test)]
+        [CounterThroughputAssertion("TestCounter", MustBe.GreaterThan, 1000.0d)]
         public void PutParentTask()
         {
-            // Arrange   
-            mockRepository.Setup(x => x.Post(It.IsAny<Parent_Task>())).
-                Callback(() => isCreateOrUpdateInvokedInRepository = true);
+            for (int i = 0; i < numberOfThreads; i++)
+            {
+                // Arrange   
+                mockRepository.Setup(x => x.Post(It.IsAny<Parent_Task>()));
             ParentTaskController = new ParentTaskController(
               mockRepository.Object);
             ParentTaskController.Request = new HttpRequestMessage()
@@ -139,18 +144,22 @@ namespace ProjectManager.WebApi.Tests.Controller
                 Properties = { { HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration() } }
             };
             // Act
-            Task updatedParentTask = expectedTasks.First();
-            updatedParentTask.TaskName = "Support and maintenance";
+            Parent_Task updatedParentTask = expectedParentTasks.First();
+            updatedParentTask.ParentTaskName = "Support and maintenance";
             var response = ParentTaskController.Put(updatedParentTask.Parent_ID, updatedParentTask);
-            // Assert
-            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+                _counter.Increment();
+            }
         }
 
-        [Test, Order(5)]
+        [PerfBenchmark(Description = "Test 500 threads for 10 mintues",
+        NumberOfIterations = 500, RunMode = RunMode.Iterations,
+        RunTimeMilliseconds = 600000, TestMode = TestMode.Test)]
+        [CounterThroughputAssertion("TestCounter", MustBe.GreaterThan, 1000.0d)]
         public void DeleteParentTask()
         {
-            mockRepository.Setup(x => x.Delete(1)).
-               Callback(() => isCreateOrUpdateInvokedInRepository = true);
+            for (int i = 0; i < numberOfThreads; i++)
+            {
+                mockRepository.Setup(x => x.Delete(1));
             ParentTaskController = new ParentTaskController(
                mockRepository.Object);
             ParentTaskController.Request = new HttpRequestMessage()
@@ -158,8 +167,9 @@ namespace ProjectManager.WebApi.Tests.Controller
                 Properties = { { HttpPropertyKeys.HttpConfigurationKey, new HttpConfiguration() } }
             };
             // Remove last Product
-              var actualResult = ParentTaskController.Delete(1);
-            Assert.AreEqual(actualResult.StatusCode, HttpStatusCode.OK);
+            var actualResult = ParentTaskController.Delete(1);
+                _counter.Increment();
+            }
         }
     }
 }

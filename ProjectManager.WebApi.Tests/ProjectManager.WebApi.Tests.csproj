@@ -18,6 +18,7 @@
     <TestProjectType>UnitTest</TestProjectType>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -53,8 +54,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Moq.4.9.0\lib\net45\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="NBench, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\NBench.1.2.2\lib\net452\NBench.dll</HintPath>
+    <Reference Include="NBench">
+      <HintPath>..\packages\NBench.0.1.5\lib\net45\NBench.dll</HintPath>
+    </Reference>
+    <Reference Include="NBench.Runner, Version=0.1.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\NBench.Runner.exe</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -101,9 +106,18 @@
   <ItemGroup>
     <Compile Include="Controller\ProjectServiceTest.cs" />
     <Compile Include="Controller\TaskServiceTest.cs" />
-    <Compile Include="Controller\ParentServiceTest.cs" />
+    <Compile Include="Controller\ParentTaskServiceTest.cs" />
     <Compile Include="Controller\UserServiceTest.cs" />
+    <Compile Include="LoadTest\ParentServiceTest.cs" />
+    <Compile Include="LoadTest\ProjectServiceTest.cs" />
+    <Compile Include="LoadTest\TaskServiceTest.cs" />
+    <Compile Include="LoadTest\UserServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\MockObjectSet.cs" />
+    <Compile Include="Repository\TaskRepositoryTest.cs" />
+    <Compile Include="Repository\ParentTaskRepositoryTest.cs" />
+    <Compile Include="Repository\ProjectRepositoryTest.cs" />
+    <Compile Include="Repository\UserRepositoryTest.cs" />
     <Compile Include="ServiceHttpResponse\HttpResponseTests.cs" />
     <Compile Include="TestHelper\DataInitializer.cs" />
   </ItemGroup>

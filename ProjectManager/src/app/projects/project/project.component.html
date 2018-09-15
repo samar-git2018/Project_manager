@@ -37,7 +37,7 @@
   <div class="form-group">
     <label for="Range" class="col-md-1">Priority:</label>
     <div class="form-group col-md-8">
-      <input class="form-control slider" name="Priority" type="range" data-slider-ticks="[0,30]" data-slider-ticks-labels="[0,30]" value="0" #Priority="ngModel" [(ngModel)]="projectService.selectedProject.Priority">
+      <input class="form-control slider" name="Priority" type="range" data-slider-ticks="[0,30]" data-slider-ticks-labels="[0,30]" value="0" #Priority="ngModel" [(ngModel)]="projectService.selectedProject.Priority" min="0" max="30">
     </div>
     <div class="col-md-2">
     </div>
