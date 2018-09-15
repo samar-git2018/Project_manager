@@ -1,26 +1,25 @@
-﻿using NUnit.Framework;
+﻿using Moq;
+using NUnit.Framework;
 using ProjectManager.Persistence;
 using ProjectManager.WebApi.Repository;
 using ProjectManager.WebApi.Tests.TestsHelper;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 
 namespace ProjectManager.WebApi.Tests.Repository
-
 {
 
     [TestFixture]
-
     public class ParentTaskRepositoryTests
 
     {
 
         IParentTaskRepository _repository;
-
         List<Parent_Task> expectedParentTasks;
-        List<Task> expectedTasks;
-
+        Mock<ProjectManagerEntities> contextMock = new Mock<ProjectManagerEntities>();
+        Mock<DbSet<Parent_Task>> dbSetMock = new Mock<DbSet<Parent_Task>>();
 
         /// <summary>
 
@@ -33,9 +32,9 @@ namespace ProjectManager.WebApi.Tests.Repository
         public void SetUp()
 
         {
-            _repository = new ParentTaskRepository(new ProjectManagerEntities());
+            contextMock.Setup(x => x.Set<Parent_Task>()).Returns(dbSetMock.Object);
+            _repository = new ParentTaskRepository(contextMock.Object);
             expectedParentTasks = DataInitializer.GetAllParentTasks();
-            expectedTasks = DataInitializer.GetAllTasks();
 
         }
 
@@ -51,20 +50,13 @@ namespace ProjectManager.WebApi.Tests.Repository
         public void ParentTaskCrud()
 
         {
-
-            int parent_ID = Post();
-
-            GetByID(parent_ID);
-
+            Post();
+            GetByID();
             GetAll();
-
-            Put(parent_ID);
-
-            Delete(parent_ID);
-
+            Put();
+            Delete();
         }
 
-        
         /// <summary>
 
         /// Creates this instance.
@@ -73,30 +65,22 @@ namespace ProjectManager.WebApi.Tests.Repository
 
         /// <returns>The id of the new record.</returns>
 
-        private int Post()
+        private void Post()
 
         {
 
             // Arrange
-
-
-
-            var parentTask = expectedParentTasks.First();
+            var ParentTask = expectedParentTasks.First();
 
             // Act
+            dbSetMock.Setup(x => x.Add(It.IsAny<Parent_Task>())).Returns(ParentTask);
 
-            _repository.Post(parentTask);
+            // Act
+            _repository.Post(ParentTask);
 
-
-
-            // Assert
-
-            //Assert.AreEqual(1, ParentTask.ID, "Creating new record does not return id");
-
-            parentTask = _repository.GetByID(parentTask.Parent_ID);
-
-            return parentTask.Parent_ID;
-
+            //Assert
+            contextMock.Verify(x => x.Set<Parent_Task>());
+            dbSetMock.Verify(x => x.Add(It.Is<Parent_Task>(y => y == ParentTask)));
         }
 
 
@@ -109,29 +93,21 @@ namespace ProjectManager.WebApi.Tests.Repository
 
         /// <param name="id">The id.</param>
 
-        private void Put(int id)
+        private void Put()
 
         {
-
             // Arrange
-
-            Parent_Task task = expectedParentTasks.First();
-            task.ParentTaskName = "Support and maintenance";
-
+            var ParentTask = expectedParentTasks.First();
 
             // Act
+            dbSetMock.Setup(x => x.Add(It.IsAny<Parent_Task>())).Returns(ParentTask);
+            ParentTask.ParentTaskName = "Review";
+            // Act
+            _repository.Put(ParentTask.Parent_ID, ParentTask);
 
-            _repository.Put(id, task);
-
-
-
-            Parent_Task parentTask = _repository.GetByID(task.Parent_ID);
-
-
-            // Assert
-
-            Assert.AreEqual("Support and maintenance", parentTask.ParentTaskName);
-
+            //Assert
+            contextMock.Verify(x => x.Set<Parent_Task>());
+            dbSetMock.Verify(x => x.Add(It.Is<Parent_Task>(y => y == ParentTask)));
         }
 
 
@@ -146,76 +122,63 @@ namespace ProjectManager.WebApi.Tests.Repository
 
         {
 
+            // Arrange
+            var ParentTask = expectedParentTasks.First();
+            var ParentTaskList = new List<Parent_Task>() { ParentTask };
+
+            dbSetMock.As<IQueryable<Parent_Task>>().Setup(x => x.Provider).Returns
+                                                 (ParentTaskList.AsQueryable().Provider);
+            dbSetMock.As<IQueryable<Parent_Task>>().Setup(x => x.Expression).
+                                                 Returns(ParentTaskList.AsQueryable().Expression);
+            dbSetMock.As<IQueryable<Parent_Task>>().Setup(x => x.ElementType).Returns
+                                                 (ParentTaskList.AsQueryable().ElementType);
+            dbSetMock.As<IQueryable<Parent_Task>>().Setup(x => x.GetEnumerator()).Returns
+                                                 (ParentTaskList.AsQueryable().GetEnumerator());
             // Act
-
-            IEnumerable<Parent_Task> items = _repository.Get();
-
+            var result = _repository.Get();
             // Assert
-
-            Assert.IsTrue(items.Count() > 0, "GetAll returned no items.");
-
+            Assert.IsNotNull(result);
         }
 
-
-
         /// <summary>
-
         /// Gets the by ID.
-
         /// </summary>
-
         /// <param name="id">The id of the ParentTask.</param>
 
-        private void GetByID(int id)
+        private void GetByID()
 
         {
+            // Arrange
+            Parent_Task ParentTask = expectedParentTasks.First();
 
+            dbSetMock.Setup(x => x.Find(It.IsAny<int>())).Returns(ParentTask);
             // Act
-            Parent_Task updatedParentTask = expectedParentTasks[0];
-
-            Parent_Task parentTask = _repository.GetByID(id);
-
-
-
+            _repository.GetByID(1);
             // Assert
-
-            Assert.IsNotNull(parentTask, "GetByID returned null.");
-
-            Assert.AreEqual(id, parentTask.Parent_ID);
-
-            Assert.AreEqual(updatedParentTask.ParentTaskName, updatedParentTask.ParentTaskName);
+            contextMock.Verify(x => x.Set<Parent_Task>());
+            dbSetMock.Verify(x => x.Find(It.IsAny<int>()));
 
         }
 
-
-
         /// <summary>
-
         /// Deletes the specified id.
 
         /// </summary>
 
         /// <param name="id">The id.</param>
 
-        private void Delete(int id)
-
+        private void Delete()
         {
-
             // Arrange
-
-            Parent_Task parentTask = _repository.GetByID(id);
+            var ParentTask = expectedParentTasks.First();
+            dbSetMock.Setup(x => x.Remove(It.IsAny<Parent_Task>())).Returns(ParentTask);
 
             // Act
-            _repository.Delete(id);
+            _repository.Delete(ParentTask.Parent_ID);
 
-            parentTask = _repository.GetByID(id);
-
-            // Assert
-
-            Assert.IsNull(parentTask, "Record is not deleted.");
-
+            //Assert
+            contextMock.Verify(x => x.Set<Parent_Task>());
+            dbSetMock.Verify(x => x.Remove(It.Is<Parent_Task>(y => y == ParentTask)));
         }
-
     }
-
 }

@@ -1,8 +1,12 @@
-﻿using NUnit.Framework;
+﻿using Moq;
+using NUnit.Framework;
 using ProjectManager.Persistence;
 using ProjectManager.WebApi.Repository;
 using ProjectManager.WebApi.Tests.TestsHelper;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 
 
@@ -15,188 +19,155 @@ namespace ProjectManager.WebApi.Tests.Repository
     public class ProjectRepositoryTests
 
     {
-
         IProjectRepository _repository;
-        ITaskRepository _taskRepository;
-
         List<Project> expectedProjects;
         List<Task> expectedTasks;
-
+        Mock<ProjectManagerEntities> contextMock = new Mock<ProjectManagerEntities>();
+        Mock<DbSet<Project>> dbSetMockPoject = new Mock<DbSet<Project>>();
+        Mock<DbSet<Task>> dbSetMockTask = new Mock<DbSet<Task>>();
 
         /// <summary>
-
         /// Sets up.
-
         /// </summary>
-
         [SetUp]
 
         public void SetUp()
 
         {
-            _repository = new ProjectRepository(new ProjectManagerEntities());
-            _taskRepository = new TaskRepository(new ProjectManagerEntities());
+            contextMock.Setup(x => x.Set<Project>()).Returns(dbSetMockPoject.Object);
+            _repository = new ProjectRepository(contextMock.Object);
             expectedProjects = DataInitializer.GetAllProjects();
             expectedTasks = DataInitializer.GetAllTasks();
-
         }
 
 
         /// <summary>
-
         /// Projects the crud.
-
         /// </summary>
-
         [Test]
-
         public void ProjectCrud()
-
         {
-
-            int project_ID = Post();
-
-            GetByID(project_ID);
-
+            Post();
+            GetByID();
             GetAll();
-
-            Put(project_ID);
-
-            Delete(project_ID);
-
+            Put();
+            Delete();
         }
 
         /// <summary>
-
         /// Creates this instance.
-
         /// </summary>
-
         /// <returns>The id of the new record.</returns>
-
-        private int Post()
-
+        private void Post()
         {
-
             // Arrange
-
-            var project = expectedProjects.First();
-            var task = expectedTasks.First();
+            var Project = expectedProjects.First();
 
             // Act
+            dbSetMockPoject.Setup(x => x.Add(It.IsAny<Project>())).Returns(Project);
 
-            _repository.Post(project);
-            task.Project_ID = project.Project_ID;
-            _taskRepository.Post(task);
+            // Act
+            _repository.Post(Project);
 
-            // Assert
-
-            Assert.IsNotNull(project.Project_ID);
-
-            project = _repository.GetByID(project.Project_ID);
-
-            return project.Project_ID;
-
+            //Assert
+            contextMock.Verify(x => x.Set<Project>());
+            dbSetMockPoject.Verify(x => x.Add(It.Is<Project>(y => y == Project)));
         }
 
 
 
         /// <summary>
-
         /// Updates the specified id.
-
         /// </summary>
-
         /// <param name="id">The id.</param>
-
-        private void Put(int id)
-
+        private void Put()
         {
-
             // Arrange
-
-            Project updatedProject = expectedProjects[0];
-
-            updatedProject.ProjectName = "CA Auto";
-
-
+            var Project = expectedProjects.First();
 
             // Act
+            dbSetMockPoject.Setup(x => x.Add(It.IsAny<Project>())).Returns(Project);
+            Project.ProjectName = "UVIS";
+            // Act
+            _repository.Put(Project.Project_ID, Project);
 
-            _repository.Put(id, updatedProject);
-
-            updatedProject = _repository.GetByID(updatedProject.Project_ID);
-
-            // Assert
-
-            Assert.AreEqual("CA Auto", updatedProject.ProjectName, "Record is not updated.");
-
+            //Assert
+            contextMock.Verify(x => x.Set<Project>());
+            dbSetMockPoject.Verify(x => x.Add(It.Is<Project>(y => y == Project)));
         }
 
         /// <summary>
-
         /// Gets all.
-
         /// </summary>
-
         private void GetAll()
-
         {
-
+            var project = new sp_GetProjectData_Result
+            {
+                Project_ID = 1,
+                ProjectName = "UVIS",
+                Start_Date = DateTime.Now,
+                End_Date = DateTime.Now.AddDays(1),
+                Priority = 10
+            };
+            // Arrange
+            var ProjectList = new List<sp_GetProjectData_Result>() { project };
+            var mockResultSet = new Mock<ObjectResult<sp_GetProjectData_Result>>();
+            mockResultSet.As<IQueryable<sp_GetProjectData_Result>>().Setup(x => x.Provider).Returns
+                                                 (ProjectList.AsQueryable().Provider);
+            mockResultSet.As<IQueryable<sp_GetProjectData_Result>>().Setup(x => x.Expression).
+                                                 Returns(ProjectList.AsQueryable().Expression);
+            mockResultSet.As<IQueryable<sp_GetProjectData_Result>>().Setup(x => x.ElementType).Returns
+                                                 (ProjectList.AsQueryable().ElementType);
+            mockResultSet.As<IQueryable<sp_GetProjectData_Result>>().Setup(x => x.GetEnumerator()).Returns
+                                                 (ProjectList.AsQueryable().GetEnumerator());
+            contextMock.Setup(x => x.sp_GetProjectData()).Returns(mockResultSet.Object);
             // Act
-            IEnumerable<Project> items = _repository.Get();
+            var result = _repository.Get();
             // Assert
-            Assert.IsTrue(items.Count() > 0, "GetAll returned no items.");
+            Assert.IsNotNull(result);
         }
-
-
 
         /// <summary>
         /// Gets the by ID.
         /// </summary>
         /// <param name="id">The id of the Project.</param>
-
-        private void GetByID(int id)
-
+        private void GetByID()
         {
+            // Arrange
+            Project Project = expectedProjects.First();
+            dbSetMockPoject.Setup(x => x.Find(It.IsAny<int>())).Returns(Project);
             // Act
-            Project updatedProject = expectedProjects[0];
-
-            Project project = _repository.GetByID(id);
-
+            _repository.GetByID(1);
             // Assert
-
-            Assert.IsNotNull(project, "GetByID returned null.");
-
-            Assert.AreEqual(id, project.Project_ID);
-
-            Assert.AreEqual(updatedProject.ProjectName, project.ProjectName);
-
+            contextMock.Verify(x => x.Set<Project>());
+            dbSetMockPoject.Verify(x => x.Find(It.IsAny<int>()));
         }
-
-
 
         /// <summary>
         /// Deletes the specified id.
         /// </summary>
         /// <param name="id">The id.</param>
-
-        private void Delete(int id)
-
+        private void Delete()
         {
             // Arrange
-
-            Project project = _repository.GetByID(id);
-
+            var Project = expectedProjects.First();
+            dbSetMockPoject.Setup(x => x.Remove(It.IsAny<Project>())).Returns(Project);
+            dbSetMockTask.As<IQueryable<Task>>().Setup(x => x.Provider).Returns
+                                                 (expectedTasks.AsQueryable().Provider);
+            dbSetMockTask.As<IQueryable<Task>>().Setup(x => x.Expression).
+                                                 Returns(expectedTasks.AsQueryable().Expression);
+            dbSetMockTask.As<IQueryable<Task>>().Setup(x => x.ElementType).Returns
+                                                 (expectedTasks.AsQueryable().ElementType);
+            dbSetMockTask.As<IQueryable<Task>>().Setup(x => x.GetEnumerator()).Returns
+                                                 (expectedTasks.AsQueryable().GetEnumerator());
+            contextMock.Setup(x => x.Tasks).Returns(dbSetMockTask.Object);
             // Act
-            _repository.Delete(id);
-            project = _repository.GetByID(id);
+            _repository.Delete(Project.Project_ID);
 
-            // Assert
-            Assert.IsNull(project, "Record is not deleted.");
+            //Assert
+            contextMock.Verify(x => x.Set<Project>());
+            dbSetMockPoject.Verify(x => x.Remove(It.Is<Project>(y => y == Project)));
 
         }
-
     }
-
 }

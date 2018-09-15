@@ -1,8 +1,10 @@
-﻿using NUnit.Framework;
+﻿using Moq;
+using NUnit.Framework;
 using ProjectManager.Persistence;
 using ProjectManager.WebApi.Repository;
 using ProjectManager.WebApi.Tests.TestsHelper;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 
@@ -17,8 +19,9 @@ namespace ProjectManager.WebApi.Tests.Repository
     {
 
         IUserRepository _repository;
-
         List<User> expectedUsers;
+        Mock<ProjectManagerEntities> contextMock = new Mock<ProjectManagerEntities>();
+        Mock<DbSet<User>> dbSetMock = new Mock<DbSet<User>>();
 
         /// <summary>
 
@@ -31,7 +34,8 @@ namespace ProjectManager.WebApi.Tests.Repository
         public void SetUp()
 
         {
-            _repository = new UserRepository(new ProjectManagerEntities());
+            contextMock.Setup(x => x.Set<User>()).Returns(dbSetMock.Object);
+            _repository = new UserRepository(contextMock.Object);
             expectedUsers = DataInitializer.GetAllUsers();
 
         }
@@ -49,15 +53,11 @@ namespace ProjectManager.WebApi.Tests.Repository
 
         {
 
-            int user_ID = Post();
-
-            GetByID(user_ID);
-
+            Post();
+            GetByID();
             GetAll();
-
-            Put(user_ID);
-
-            Delete(user_ID);
+            Put();
+            Delete();
 
         }
 
@@ -69,7 +69,7 @@ namespace ProjectManager.WebApi.Tests.Repository
 
         /// <returns>The id of the new record.</returns>
 
-        private int Post()
+        private void Post()
 
         {
 
@@ -77,19 +77,14 @@ namespace ProjectManager.WebApi.Tests.Repository
             var user = expectedUsers.First();
 
             // Act
+            dbSetMock.Setup(x => x.Add(It.IsAny<User>())).Returns(user);
 
+            // Act
             _repository.Post(user);
 
-
-
-            // Assert
-
-            Assert.IsNotNull(user.User_ID);
-
-            user = _repository.GetByID(user.User_ID);
-
-            return user.User_ID;
-
+            //Assert
+            contextMock.Verify(x => x.Set<User>());
+            dbSetMock.Verify(x => x.Add(It.Is<User>(y => y == user)));
         }
 
 
@@ -102,30 +97,21 @@ namespace ProjectManager.WebApi.Tests.Repository
 
         /// <param name="id">The id.</param>
 
-        private void Put(int id)
+        private void Put()
 
         {
-
             // Arrange
+            var user = expectedUsers.First();
 
-            User updatedUser = expectedUsers[0];
-
-            updatedUser.First_Name = "Abhik";
-
-            updatedUser.Employee_ID = "EMP896";
             // Act
+            dbSetMock.Setup(x => x.Add(It.IsAny<User>())).Returns(user);
+            user.First_Name = "Souvik";
+            // Act
+            _repository.Put(user.User_ID, user);
 
-            _repository.Put(id, updatedUser);
-
-
-
-            updatedUser = _repository.GetByID(updatedUser.User_ID);
-
-
-            // Assert
-
-            Assert.AreEqual("Abhik", updatedUser.First_Name, "Record is not updated.");
-
+            //Assert
+            contextMock.Verify(x => x.Set<User>());
+            dbSetMock.Verify(x => x.Add(It.Is<User>(y => y == user)));
         }
 
 
@@ -140,17 +126,23 @@ namespace ProjectManager.WebApi.Tests.Repository
 
         {
 
+            // Arrange
+            var user = expectedUsers.First();
+            var userList = new List<User>() { user };
+
+            dbSetMock.As<IQueryable<User>>().Setup(x => x.Provider).Returns
+                                                 (userList.AsQueryable().Provider);
+            dbSetMock.As<IQueryable<User>>().Setup(x => x.Expression).
+                                                 Returns(userList.AsQueryable().Expression);
+            dbSetMock.As<IQueryable<User>>().Setup(x => x.ElementType).Returns
+                                                 (userList.AsQueryable().ElementType);
+            dbSetMock.As<IQueryable<User>>().Setup(x => x.GetEnumerator()).Returns
+                                                 (userList.AsQueryable().GetEnumerator());
             // Act
-
-            IEnumerable<User> items = _repository.Get();
-
+            var result = _repository.Get();
             // Assert
-
-            Assert.IsTrue(items.Count() > 0, "GetAll returned no items.");
-
+            Assert.IsNotNull(result);
         }
-
-
 
         /// <summary>
 
@@ -160,57 +152,42 @@ namespace ProjectManager.WebApi.Tests.Repository
 
         /// <param name="id">The id of the User.</param>
 
-        private void GetByID(int id)
+        private void GetByID()
 
         {
+            // Arrange
+            User user = expectedUsers.First();
 
+            dbSetMock.Setup(x => x.Find(It.IsAny<int>())).Returns(user);
             // Act
-            User updatedUser = expectedUsers[0];
-
-            User user = _repository.GetByID(id);
-
-
-
+            _repository.GetByID(1);
             // Assert
-
-            Assert.IsNotNull(user, "GetByID returned null.");
-
-            Assert.AreEqual(id, user.User_ID);
-
-            Assert.AreEqual(updatedUser.Employee_ID, user.Employee_ID);
+            contextMock.Verify(x => x.Set<User>());
+            dbSetMock.Verify(x => x.Find(It.IsAny<int>()));
 
         }
 
-
-
         /// <summary>
-
         /// Deletes the specified id.
 
         /// </summary>
 
         /// <param name="id">The id.</param>
 
-        private void Delete(int id)
+        private void Delete()
 
         {
-
             // Arrange
-
-            User user = _repository.GetByID(id);
+            var user = expectedUsers.First();
+            dbSetMock.Setup(x => x.Remove(It.IsAny<User>())).Returns(user);
 
             // Act
+            _repository.Delete(user.User_ID);
 
-            _repository.Delete(id);
-
-            user = _repository.GetByID(id);
-
-            // Assert
-
-            Assert.IsNull(user, "Record is not deleted.");
+            //Assert
+            contextMock.Verify(x => x.Set<User>());
+            dbSetMock.Verify(x => x.Remove(It.Is<User>(y => y == user)));
 
         }
-
     }
-
 }

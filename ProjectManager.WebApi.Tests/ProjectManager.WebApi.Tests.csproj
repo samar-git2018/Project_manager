@@ -113,7 +113,6 @@
     <Compile Include="LoadTest\TaskServiceTest.cs" />
     <Compile Include="LoadTest\UserServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\MockObjectSet.cs" />
     <Compile Include="Repository\TaskRepositoryTest.cs" />
     <Compile Include="Repository\ParentTaskRepositoryTest.cs" />
     <Compile Include="Repository\ProjectRepositoryTest.cs" />

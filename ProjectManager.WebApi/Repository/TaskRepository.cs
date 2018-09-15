@@ -64,7 +64,6 @@ namespace ProjectManager.WebApi.Repository
                     Status = item.Status
                 });
             }
-            //var data = Context.Database.SqlQuery<Task>("sp_GetTaskData").ToList();
             return tasks;
         }
 
