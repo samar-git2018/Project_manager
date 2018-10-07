@@ -20,7 +20,7 @@
   </div>
   <div class="form-group">
     <label for="Employee_ID" class="col-md-2">Epolyee ID:</label>
-    <div class="form-group col-xs-4">
+    <div class="form-group col-md-5">
       <input class="form-control" name="Employee_ID" #Employee_ID="ngModel" [(ngModel)]="userService.selectedUser.Employee_ID" [ngClass]="{ 'is-invalid': userForm.submitted && Employee_ID.invalid }" required>
     </div>
     <div *ngIf="userForm.submitted && Employee_ID.invalid" class="col-md-2 invalid-feedback d-block">

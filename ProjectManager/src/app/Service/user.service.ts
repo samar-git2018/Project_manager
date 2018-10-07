@@ -12,20 +12,18 @@ const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf
 @Injectable()
 export class UserService {
 
+    constructor(private http: HttpClient) { }
     selectedUser: User;
     UserList: User[];
-    constructor(private http: HttpClient) { }
 
     postUser(User: User) {
         //debugger;
-        var body = JSON.stringify(User);
-        return this.http.post(AppConstants.baseURL + 'User/', body, { headers: headers });
+        return this.http.post(AppConstants.baseURL + 'User/', User, { headers: headers });
     }
 
     putUser(id: string, User: string) {
-        var body = JSON.stringify(User);
         return this.http.put(AppConstants.baseURL + 'User/' + id,
-            body, { headers: headers });
+            User, { headers: headers });
     }
 
     getUserList() {

@@ -1,25 +1,28 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+﻿import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { ProjectsComponent } from './projects.component';
+import { AppTestingModule } from 'app/app-testing-module';
+import { NgForm } from '@angular/forms';
 
 describe('ProjectsComponent', () => {
-  let component: ProjectsComponent;
-  let fixture: ComponentFixture<ProjectsComponent>;
+    let comp: ProjectsComponent;
+    let fixture: ComponentFixture<ProjectsComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ProjectsComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [AppTestingModule]
+        })
+            .compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ProjectsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        //initialization  
+        fixture = TestBed.createComponent(ProjectsComponent);
+        comp = fixture.componentInstance;
+        //ask fixture to detect changes
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should be created', () => {
+        expect(ProjectsComponent).toBeTruthy();
+    });
 });

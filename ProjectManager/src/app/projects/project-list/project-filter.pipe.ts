@@ -9,7 +9,7 @@ export class ProjectFilterPipe implements PipeTransform {
         searchText = searchText.toLowerCase();
         return items.filter(it => {
             return ((it.Start_Date!= null && it.Start_Date == searchText)
-                || (it.Start_Date != null && it.End_Date == searchText)
+                || (it.End_Date != null && it.End_Date == searchText)
                 || it.ProjectName.toLowerCase().includes(searchText.toLowerCase())
                 || (it.Priority.toString() == searchText)
                 || (it.CompletedTaskCount == searchText));

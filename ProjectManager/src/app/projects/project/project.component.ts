@@ -12,7 +12,9 @@ import { DatePipe } from '@angular/common';
     styleUrls: ['./project.component.css']
 })
 export class ProjectComponent implements OnInit {
-    constructor(private projectService: ProjectService, private datePipe: DatePipe, private userService: UserService) { }
+    constructor(public projectService: ProjectService, public datePipe: DatePipe, public userService: UserService) { }
+    submitted = false;
+    searchText: any;
 
     ngOnInit() {
         this.resetForm();
@@ -21,7 +23,8 @@ export class ProjectComponent implements OnInit {
     resetForm(form?: NgForm) {
         if (form != null) {
             form.resetForm();
-            form.controls["Priority"].setValue(0);
+            if (form.controls != undefined)
+                form.controls["Priority"].setValue(0);
         }
         this.projectService.selectedProject = {
             Project_ID: null,
@@ -54,21 +57,14 @@ export class ProjectComponent implements OnInit {
                 && typeof form.value.End_Date != undefined && form.value.End_Date) {
                 if (form.value.Start_Date > form.value.End_Date)
                     alert('Project end date should be greater than Project start date');
-                else
-                    this.projectService.postProject(form.value)
-                        .subscribe(data => {
-                            this.resetForm(form);
-                            this.projectService.getProjectList().subscribe(x => this.projectService.ProjectList = x as Project[]);
-                            alert('New Project added Succcessfully');
-                        })
+                else {
+                    this.saveProject(form);
+                    this.resetForm(form);
+                }
             }
             else {
-                this.projectService.postProject(form.value)
-                    .subscribe(data => {
-                        this.resetForm(form);
-                        this.projectService.getProjectList().subscribe(x => this.projectService.ProjectList = x as Project[]);
-                        alert('New Project added Succcessfully');
-                    })
+                this.saveProject(form);
+                this.resetForm(form);
             }
         }
         else {
@@ -76,21 +72,14 @@ export class ProjectComponent implements OnInit {
                 && typeof form.value.End_Date != undefined && form.value.End_Date) {
                 if (form.value.Start_Date > form.value.End_Date)
                     alert('Project end date should be greater than Project start date');
-                else
-                    this.projectService.putProject(form.value.Project_ID, form.value)
-                        .subscribe(data => {
-                            this.resetForm(form);
-                            this.projectService.getProjectList().subscribe(x => this.projectService.ProjectList = x as Project[]);;
-                            alert('Project updated Succcessfully');
-                        });
+                else {
+                    this.updateProject(form);
+                    this.resetForm(form);
+                }
             }
             else {
-                this.projectService.putProject(form.value.Project_ID, form.value)
-                    .subscribe(data => {
-                        this.resetForm(form);
-                        this.projectService.getProjectList();
-                        alert('Project updated Succcessfully');
-                    });
+                this.updateProject(form);
+                this.resetForm(form);
             }
         }
     }
@@ -103,5 +92,22 @@ export class ProjectComponent implements OnInit {
         this.projectService.selectedProject.ManagerName = this.userService.selectedUser.First_Name + " " + this.userService.selectedUser.Last_Name;
         this.projectService.selectedProject.Manager_Id = user.User_ID;
         return this.projectService.selectedProject.ManagerName;
+    }
+
+    saveProject(form: NgForm) {
+        this.projectService.postProject(form.value)
+            .subscribe(data => {
+                this.projectService.getProjectList().subscribe(x => this.projectService.ProjectList = x as Project[]);
+                alert('New Project added Succcessfully');
+                this.submitted = true;
+            })
+    }
+    updateProject(form: NgForm) {
+        this.projectService.putProject(form.value.Project_ID, form.value)
+            .subscribe(data => {
+                this.projectService.getProjectList().subscribe(x => this.projectService.ProjectList = x as Project[]);;
+                alert('Project updated Succcessfully');
+                this.submitted = true;
+            });
     }
 }

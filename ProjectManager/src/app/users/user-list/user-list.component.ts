@@ -9,10 +9,11 @@ import { User } from 'app/model/user';
 })
 export class UserListComponent implements OnInit {
 
-    constructor(private userService: UserService) { }
+    constructor(public userService: UserService) { }
 
     column: string = 'First_Name';
     isDesc: boolean = false;
+    searchText: any;
 
     ngOnInit() {
         this.userService.getUserList().subscribe(x => { this.userService.UserList = x as User[] });

@@ -134,7 +134,7 @@
               <input name="ParentTask" disabled="disabled" #ParentTask="ngModel" [(ngModel)]="taskService.selectedTask.ParentTaskName" />
             </div>
             <div class="col-md-2">
-              <button type="button" class="glyphicon glyphicon-trash btn padding-r-1" (click)="removeParentTask(task)" [hidden]="taskService.selectedTask.Parent_ID == 0"></button>
+              <button type="button" class="glyphicon glyphicon-trash btn padding-r-1" (click)="removeParentTask()" [hidden]="taskService.selectedTask.Parent_ID == 0"></button>
               <button type="button" class="btn" value="Search" data-toggle="modal" data-target="#searchParentTask" (click)="showParentTaskData()">
                 Search
               </button>

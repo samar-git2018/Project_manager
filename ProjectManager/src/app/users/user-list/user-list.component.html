@@ -16,7 +16,7 @@
   </div>
 </div>
 <div class="row top-buffer" *ngFor="let user of userService.UserList | filter : searchText | orderBy: {property: column, direction: direction}">
-  <div class="col-md-7">
+  <div class="col-md-6">
     <ul class="list-group">
       <li class="list-group-item colColour">
         {{user.First_Name}}
@@ -29,13 +29,13 @@
       </li>
     </ul>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-3">
     <ul class="list-group">
       <li class="list-group-item">
-        <button type="button" class="btn btn-lg btn-block btn-secondary" (click)="showForEdit(user)">Edit</button>
+        <button type="button" class="btn btn-md btn-block btn-secondary" (click)="showForEdit(user)">Edit</button>
       </li>
       <li class="list-group-item">
-        <button type="button" class="btn btn-lg btn-block btn-secondary" (click)="onDelete(user.User_ID)">Delete</button>
+        <button type="button" class="btn btn-md btn-block btn-secondary" (click)="onDelete(user.User_ID)">Delete</button>
       </li>
     </ul>
   </div>

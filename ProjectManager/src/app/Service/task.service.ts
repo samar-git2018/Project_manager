@@ -19,16 +19,13 @@ export class TaskService {
     constructor(private http: HttpClient) { }
 
     postTask(Task: Task) {
-        var body = JSON.stringify(Task);
-        console.log(body);
-        return this.http.post(AppConstants.baseURL + 'Task', body, { headers: headers });
+        return this.http.post(AppConstants.baseURL + 'Task', Task, { headers: headers });
     }
 
     putTask(id: string, Task: Task) {
         //debugger;
-        var body = JSON.stringify(Task);
         return this.http.put(AppConstants.baseURL + 'Task/' + id,
-            body, { headers: headers });
+            Task, { headers: headers });
     }
 
     
@@ -41,15 +38,12 @@ export class TaskService {
     }
     //Parent task
     postParentTask(ParentTask: ParentTask) {
-        var body = JSON.stringify(ParentTask);
-        console.log(body);
-        return this.http.post(AppConstants.baseURL + 'ParentTask', body, { headers: headers });
+        return this.http.post(AppConstants.baseURL + 'ParentTask', ParentTask, { headers: headers });
     }
 
     putParentTask(id: string, ParentTask: string) {
-        var body = JSON.stringify(ParentTask);
         return this.http.put(AppConstants.baseURL + 'ParentTask/' + id,
-            body, { headers: headers });
+            ParentTask, { headers: headers });
     }
 
 

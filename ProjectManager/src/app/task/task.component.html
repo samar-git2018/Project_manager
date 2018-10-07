@@ -13,7 +13,7 @@
              [requiredIf]="!taskService.selectedTask.SetParentTask" />
     </div>
     <div class="form-group col-md-1 d-block d-block">
-      <button type="button" class="btn" [disabled]="taskService.selectedTask.SetParentTask" 
+      <button type="button" class="btn showProjectData" [disabled]="taskService.selectedTask.SetParentTask" 
               value="Search" data-toggle="modal" data-target="#searchProject" (click)="showProjectData()">
         Search
       </button>
@@ -37,7 +37,7 @@
     <div class="form-group col-md-8 padding-l-0">
       <div class="checkbox">
         <label>
-          <input type="checkbox" name="SetParentTask" #SetParentTask="ngModel" [(ngModel)]="taskService.selectedTask.SetParentTask" (click)="setParentTask($event)" />
+          <input type="checkbox" id="SetParentTask" name="SetParentTask" #SetParentTask="ngModel" [(ngModel)]="taskService.selectedTask.SetParentTask" (click)="setParentTask($event)" />
           Parent Task
         </label>
       </div>
@@ -65,7 +65,7 @@
       <input name="ParentTask" disabled="disabled" #ParentTask="ngModel" [(ngModel)]="taskService.selectedTask.ParentTaskName" />
     </div>
     <div class="form-group col-md-2">
-      <button type="button" class="btn" [disabled]="taskService.selectedTask.SetParentTask" value="Search" data-toggle="modal" data-target="#searchParentTask" (click)="showParentTaskData()">
+      <button type="button" class="btn showParentTaskData" [disabled]="taskService.selectedTask.SetParentTask" value="Search" data-toggle="modal" data-target="#searchParentTask" (click)="showParentTaskData()">
         Search
       </button>
     </div>
@@ -90,7 +90,7 @@
       <input name="User" readonly="readonly" #UserName="ngModel" [(ngModel)]="taskService.selectedTask.UserName" />
     </div>
     <div class="form-group col-md-2">
-      <button type="button" class="btn" [disabled]="taskService.selectedTask.SetParentTask" value="Search" data-toggle="modal" data-target="#searchUser" (click)="showUserData()">
+      <button type="button" class="btn showUserData" [disabled]="taskService.selectedTask.SetParentTask" value="Search" data-toggle="modal" data-target="#searchUser" (click)="showUserData()">
         Search
       </button>
     </div>

@@ -6,9 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="src\app\projects\project\filter.pipe.ts" />
-    <None Remove="src\app\Service\filter.pipe.ts" />
-    <None Remove="src\app\task-list\project-filter-pipe.ts" />
+    <None Remove="src\app\Mocks\app-testing-module.ts" />
+    <None Remove="src\app\Mocks\in-memory-data.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,7 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="src\app\Errorlogging\appconstants.ts" />
+    <None Include="src\app\Mocks\project.mock.service.ts" />
+    <None Include="src\app\Mocks\user.mock.service.ts" />
     <None Include="src\app\task-list\task-filter-pipe.ts" />
     <None Include="src\app\task-list\user-filter-pipe.ts" />
   </ItemGroup>

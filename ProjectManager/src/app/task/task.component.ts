@@ -17,8 +17,9 @@ declare var closeProjectModal, closePTaskModal, closeUserModal: Function;
     styleUrls: ['./task.component.css']
 })
 export class TaskComponent implements OnInit {
-    constructor(private taskService: TaskService, private datePipe: DatePipe, private userService: UserService, private projectService: ProjectService) { }
+    constructor(public taskService: TaskService, public datePipe: DatePipe, public userService: UserService, public projectService: ProjectService) { }
     public searchText: string;
+    submitted = false;
     ngOnInit() {
         this.resetForm();
         this.taskService.getTaskList().subscribe(x => this.taskService.TaskList = x as Task[]);
@@ -32,9 +33,11 @@ export class TaskComponent implements OnInit {
         //debugger;
         if (form != null) {
             form.resetForm();
-            form.controls["Priority"].setValue(0);
-            form.controls["Start_Date"].setValue(currentDate);
-            form.controls["End_Date"].setValue(this.datePipe.transform(date.setDate(date.getDate() + 1), "yyyy-MM-dd"));
+            if (form.controls != undefined) {
+                form.controls["Priority"].setValue(0);
+                form.controls["Start_Date"].setValue(currentDate);
+                form.controls["End_Date"].setValue(this.datePipe.transform(date.setDate(date.getDate() + 1), "yyyy-MM-dd"));
+            }
         }
         this.taskService.selectedTask = {
             Task_ID: null,
@@ -60,52 +63,53 @@ export class TaskComponent implements OnInit {
             //debugger;
             if (!this.taskService.ParentTaskList.find(dr => dr.ParentTaskName == form.value.ParentTaskName && dr.Parent_ID != form.value.Parent_ID)) {
                 if (form.value.Parent_ID == null) {
-                    console.log(form.value);
                     form.value.ParentTaskName = form.value.TaskName;
-                    this.taskService.postParentTask(form.value)
-                        .subscribe(data => {
-                            this.resetForm(form);
-                            this.taskService.getParentTaskList().subscribe(x => this.taskService.ParentTaskList = x as ParentTask[]);
-                            alert('New Parent Task added Succcessfully');
-                        });
+                    this.addParentTask(form);
+                    this.resetForm(form);
                 }
             }
             else { alert('Parent task already exists'); }
         }
-
         else {
             if (!this.taskService.TaskList.find(dr => dr.TaskName == form.value.TaskName && dr.Task_ID != form.value.Task_ID)) {
                 if (form.value.Task_ID == null) {
-                    console.log(form.value);
                     form.value.Status = "I";
                     if (typeof form.value.Start_Date != undefined && form.value.Start_Date
                         && typeof form.value.End_Date != undefined && form.value.End_Date) {
                         if (form.value.Start_Date > form.value.End_Date)
                             alert('Task end date should be greater than Task start date');
                         else {
-
-                            this.taskService.postTask(form.value)
-                                .subscribe(data => {
-                                    this.resetForm(form);
-                                    //this.taskService.getTaskList();
-                                    alert('New Task added Succcessfully');
-                                });
+                            this.addTask(form);
+                            this.resetForm(form);
                         }
                     }
                     else {
-                        this.taskService.postTask(form.value)
-                            .subscribe(data => {
-                                this.resetForm(form);
-                                //this.taskService.getTaskList();
-                                alert('New Task added Succcessfully');
-                            });
+                        this.addTask(form);
+                        this.resetForm(form);
                     }
                 }
             }
             else { alert('Task already exists'); }
-
         }
     }
+
+    addParentTask(form: NgForm) {
+        this.taskService.postParentTask(form.value)
+            .subscribe(data => {
+                this.taskService.getParentTaskList().subscribe(x => this.taskService.ParentTaskList = x as ParentTask[]);
+                alert('New Parent Task added Succcessfully');
+                this.submitted = true;
+            });
+    }
+
+    addTask(form: NgForm) {
+        this.taskService.postTask(form.value)
+            .subscribe(data => {
+                alert('New Task added Succcessfully');
+                this.submitted = true;
+            });
+    }
+
     showUserData() {
         this.searchText = "";
         this.userService.getUserList().subscribe(x => { this.userService.UserList = x as User[] });
@@ -142,14 +146,18 @@ export class TaskComponent implements OnInit {
     }
     setParentTask(e) {
         if (e.target.checked) {
-            this.taskService.selectedTask.ProjectName = "";
-            this.taskService.selectedTask.Project_ID = null;
-            this.taskService.selectedTask.ParentTaskName = "";
-            this.taskService.selectedTask.Parent_ID = null
-            this.taskService.selectedTask.Priority = 0;
-            this.taskService.selectedTask.UserName = "";
-            this.taskService.selectedTask.User_ID = null
-            return this.taskService.selectedTask;
+            this.clearTaskData();
         }
+    }
+
+    clearTaskData() {
+        this.taskService.selectedTask.ProjectName = "";
+        this.taskService.selectedTask.Project_ID = null;
+        this.taskService.selectedTask.ParentTaskName = "";
+        this.taskService.selectedTask.Parent_ID = null
+        this.taskService.selectedTask.Priority = 0;
+        this.taskService.selectedTask.UserName = "";
+        this.taskService.selectedTask.User_ID = null
+        return this.taskService.selectedTask;
     }
 }

@@ -49,6 +49,7 @@ import { ErrorLoggService } from 'app/Service/error-log.service';
         FormsModule,
         HttpClientModule,
         RouterModule.forRoot([
+            { path: '', redirectTo: '/users', pathMatch: 'full'},
             { path: 'users', component: UsersComponent },
             { path: 'projects', component: ProjectsComponent },
             { path: 'task', component: TaskComponent },

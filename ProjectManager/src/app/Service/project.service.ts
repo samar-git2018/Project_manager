@@ -16,16 +16,14 @@ export class ProjectService {
     ProjectList: Project[];
     constructor(private http: HttpClient) { }
 
-    postProject(project: Project) {
-        var body = JSON.stringify(project);
-        return this.http.post(AppConstants.baseURL + 'Project', body, { headers: headers });
+    public postProject(project: Project) {
+        return this.http.post(AppConstants.baseURL + 'Project', project, { headers: headers });
     }
 
     putProject(id: string, project: string) {
         //debugger; 
-        var body = JSON.stringify(project); 
         return this.http.put(AppConstants.baseURL + 'Project/' + id,
-            body, { headers: headers });
+            project, { headers: headers });
     }
 
     getProjectList() {

@@ -16,7 +16,8 @@ import { NgForm } from '@angular/forms';
 })
 export class TaskListComponent implements OnInit {
 
-    constructor(private taskService: TaskService, private userSerVice: UserService, private projectService: ProjectService, private datePipe: DatePipe) { }
+    submitted = false;
+    constructor(public taskService: TaskService, public userSerVice: UserService, public projectService: ProjectService, public datePipe: DatePipe) { }
     
     column: string = 'Start_Date';
     isDesc: boolean = false;
@@ -62,11 +63,10 @@ export class TaskListComponent implements OnInit {
         }
         return this.taskService.selectedTask;
     }
-    removeParentTask(task: Task) {
+    removeParentTask() {
         //debugger;
-        console.log(task);
         //debugger;
-        this.taskService.selectedTask.Parent_ID = null;
+        this.taskService.selectedTask.Parent_ID = 0;
         this.taskService.selectedTask.ParentTaskName = null;
         return this.taskService.selectedTask;
     }
@@ -94,6 +94,7 @@ export class TaskListComponent implements OnInit {
                     .subscribe(data => {
                         this.taskService.getTaskList().subscribe(x => { this.taskService.TaskList = x as Task[] });
                         alert('Task updated Succcessfully');
+                        this.submitted = true;
                     });
             }
         }
@@ -107,8 +108,8 @@ export class TaskListComponent implements OnInit {
         this.direction = this.isDesc ? 1 : -1;
     }
     showProjectData() {
-        this.searchText = null;
-        this.projectService.getProjectList();
+        this.searchText = "";
+        this.projectService.getProjectList().subscribe(x => { this.projectService.ProjectList = x as Project[] });
     }
     setProject(project: Project) {
         this.projectService.selectedProject = Object.assign({}, project);
@@ -117,7 +118,7 @@ export class TaskListComponent implements OnInit {
     }
     showParentTaskData() {
         this.searchText = "";
-        this.taskService.getParentTaskList();
+        this.taskService.getParentTaskList().subscribe(x => { this.taskService.ParentTaskList = x as ParentTask[] });
     }
     setParentTask(parentTask: ParentTask) {
         this.taskService.selectedTask.ParentTaskName = parentTask.ParentTaskName;

@@ -11,10 +11,11 @@ import { DatePipe } from '@angular/common';
 })
 export class ProjectListComponent implements OnInit {
 
-    constructor(private projectService: ProjectService, private userSerVice: UserService, private datePipe: DatePipe) { }
+    constructor(public projectService: ProjectService, public userSerVice: UserService, public datePipe: DatePipe) { }
 
     column: string = 'Start_Date'; 
     isDesc: boolean = false;
+    searchText: any;
 
     ngOnInit() {
         this.projectService.getProjectList().subscribe(x => { this.projectService.ProjectList = x as Project[] });;
@@ -32,7 +33,6 @@ export class ProjectListComponent implements OnInit {
         }
         if (this.userSerVice.UserList.find(user => user.User_ID == project.Manager_Id))
             this.projectService.selectedProject.ManagerName = this.userSerVice.UserList.find(user => user.User_ID == project.Manager_Id).First_Name + " " + this.userSerVice.UserList.find(user => user.User_ID == project.Manager_Id).Last_Name;
-
         return this.projectService.selectedProject;
     }
 

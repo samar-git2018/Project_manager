@@ -56,3 +56,7 @@ button:hover, a.btn:hover {
   padding-right:0;
   padding-left:0;
 }
+
+.padding-l-0 {
+  padding-left: 0;
+}

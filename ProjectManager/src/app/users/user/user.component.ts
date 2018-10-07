@@ -9,8 +9,8 @@ import { NgForm } from '@angular/forms';
     styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-    constructor(private userService: UserService) { }
-
+    constructor(public userService: UserService) { }
+    public submitted: Boolean;
     ngOnInit() {
         this.resetForm();
     }
@@ -31,31 +31,36 @@ export class UserComponent implements OnInit {
     onSubmit(form: NgForm) {
         //debugger;
         if (form.value.User_ID == null) {
-            console.log(form.value);
-            var isErrorOccurred: Boolean = false;
             if (!this.userService.UserList.find(dr => dr.Employee_ID == form.value.Employee_ID && dr.User_ID != form.value.User_ID)) {
-                this.userService.postUser(form.value)
-                    .subscribe(data => {
-                        this.resetForm(form);
-                        this.userService.getUserList().subscribe(x => { this.userService.UserList = x as User[] });
-                        alert('New User added Succcessfully');
-
-                    });
+                this.saveUser(form);
+                this.resetForm(form);
             }
             else
             { alert('This Employee ID already exists for another user'); }
         }
         else {
             if (!this.userService.UserList.find(dr => dr.Employee_ID == form.value.Employee_ID && dr.User_ID != form.value.User_ID)) {
-                this.userService.putUser(form.value.User_ID, form.value)
-                    .subscribe(data => {
-                        this.resetForm(form);
-                        this.userService.getUserList().subscribe(x => { this.userService.UserList = x as User[] });
-                        alert('User updated Succcessfully');
-                    });
+                this.updateUser(form);
+                this.resetForm(form);
             }
             else
             { alert('This Employee ID already exists for another user'); }
         }
+    }
+    saveUser(form: NgForm) {
+        this.userService.postUser(form.value)
+            .subscribe(data => {
+                this.submitted = true;
+                this.userService.getUserList().subscribe(x => { this.userService.UserList = x as User[] });
+                alert('New User added Succcessfully');
+            });
+    }
+    updateUser(form: NgForm) {
+        this.userService.putUser(form.value.User_ID, form.value)
+            .subscribe(data => {
+                this.submitted = true;
+                this.userService.getUserList().subscribe(x => { this.userService.UserList = x as User[] });
+                alert('User updated Succcessfully');
+            });
     }
 }
